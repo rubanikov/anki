@@ -28,10 +28,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, Query
+from fastapi import Body, FastAPI, Query
 from fastapi.responses import JSONResponse
 
-from . import topics
+from . import coach, coach_voice, topics
 from .attribution import latest, payload
 from .corpus_gateway import Bm25Corpus, Corpus
 from .gate import GateRule
@@ -50,6 +50,9 @@ def create_app(
     log: AttemptLog | None = None,
     tracer: Tracer | None = None,
     gate_rule: GateRule | None = None,
+    speak_log: coach.SpeakLog | None = None,
+    sessions: coach.Sessions | None = None,
+    transcriber: Any | None = None,
     out_dir: Path | str | None = None,
 ) -> FastAPI:
     """Build the service. Every collaborator is an argument with a real default.
@@ -63,6 +66,9 @@ def create_app(
     generator = generator or default_generator()
     log = log or AttemptLog(out / "attempts.jsonl")
     tracer = tracer or default_tracer(out / "trace.jsonl")
+    speak_log = speak_log or coach.SpeakLog(out / "utterances.jsonl")
+    sessions = sessions or coach.Sessions()
+    transcriber = transcriber or coach_voice.default_transcriber()
     graph = build_graph(
         corpus=corpus,
         generator=generator,
@@ -97,7 +103,56 @@ def create_app(
             "provider_key_present": available_provider(),
             "tracing": getattr(tracer, "name", "unknown"),
             "langsmith_key_present": langsmith_key() is not None,
+            "transcriber": getattr(transcriber, "name", "unknown"),
+            "coach": "ready",
         }
+
+    def _attempt(
+        topic_id: str, seed: int, limit: int, trace_name: str = "item.generate"
+    ) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+        """One run of the graph, as (shipped-or-None, the body either way).
+
+        Extracted so the coach loop cannot acquire a second way to obtain an
+        item. `/coach/start` calls this same function and therefore passes the
+        same gate; there is no coach-only generation path to drift.
+        """
+        request = Request(topic_id=topic_id, seed=seed, limit=limit)
+        with tracer.run(
+            trace_name,
+            "chain",
+            topic_id=topic_id,
+            seed=seed,
+            attempt_id=request.attempt_id,
+        ) as span:
+            state = graph.invoke({"request": request, "trail": []})
+            shipped = payload(latest(state.get("trail", []), GATE))
+            common = {
+                "attempt_id": request.attempt_id,
+                "topic_id": topic_id,
+                "seed": seed,
+            }
+            if shipped is None:
+                ruling = state.get("rejection")
+                reason = str(ruling.reason) if ruling else "unattributed_output"
+                detail = ruling.detail if ruling else "no ruling was recorded"
+                span.outputs(shipped=False, reason=reason)
+                return None, {
+                    "item": None,
+                    **common,
+                    "rejected": {"reason": reason, "detail": detail},
+                }
+            span.outputs(shipped=True, citation=shipped["citation"])
+            return {**shipped, **common}, {**shipped, **common}
+
+    def _unknown_topic(topic_id: str) -> JSONResponse:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "item": None,
+                "error": f"{topic_id!r} is not an Outline Topic",
+                "topics": topics.ids(),
+            },
+        )
 
     @app.post("/item/generate")
     def generate_item(
@@ -113,50 +168,115 @@ def create_app(
         able to render an ungrounded item, since `item` is null either way.
         """
         if not topics.known(topic_id):
+            return _unknown_topic(topic_id)
+        shipped, body = _attempt(topic_id, seed, limit)
+        return JSONResponse(status_code=200 if shipped else 409, content=body)
+
+    # --- the coach loop ---------------------------------------------------
+    #
+    # Four steps plus the rule, and the server owns their order. The correct
+    # answer is absent from every response until a confidence for that item is
+    # on the record, and there is no parameter, header or route that changes
+    # that — `coach.Session.reveal` is the only thing that can produce it.
+
+    @app.post("/coach/start")
+    def coach_start(
+        topic_id: str = Query(..., description="An Outline Topic, e.g. 1D"),
+        seed: int = Query(0, ge=0, description="Selects the item and option order"),
+        limit: int = Query(8, ge=1, le=32, description="Chunks retrieved"),
+    ) -> JSONResponse:
+        """Step 1: a held-out item, asked cold. The response carries no answer.
+
+        409 when the Generation gate dropped the item, with the gate's own
+        reason. The coach does not fall back to an ungrounded question, because
+        an ungrounded question is the thing the gate exists to stop.
+        """
+        if not topics.known(topic_id):
+            return _unknown_topic(topic_id)
+        shipped, body = _attempt(topic_id, seed, limit, trace_name="coach.start")
+        if shipped is None:
+            return JSONResponse(status_code=409, content=body)
+        # The page the gate already re-verified this span against. Handed over
+        # so the rule can quote the whole sentence rather than the answer
+        # phrase alone — the characters are the source's either way.
+        try:
+            page_text = corpus.page_text(str(shipped.get("source_id") or ""))
+        except Exception:  # noqa: BLE001 — a terse rule beats a failed session
+            page_text = ""
+        session = sessions.put(
+            coach.start(shipped, topic_id=topic_id, seed=seed, page_text=page_text)
+        )
+        with tracer.run(
+            "coach.start", "chain", session_id=session.session_id, topic_id=topic_id
+        ) as span:
+            state = coach.state(session)
+            span.outputs(step=state["step"], revealed=state["reveal"] is not None)
+            return JSONResponse(status_code=200, content=state)
+
+    @app.post("/coach/turn")
+    def coach_turn(body: dict[str, Any] = Body(default_factory=dict)) -> JSONResponse:
+        """Advance one step, or refuse with 409 and the step's own requirement.
+
+        The refusal is the enforcement. A client cannot reach the reveal without
+        posting a confidence, because the confidence step is the only transition
+        that sets it and every response body is assembled from that one flag.
+        """
+        session = sessions.get(str(body.get("session_id", "")))
+        if session is None:
             return JSONResponse(
                 status_code=404,
-                content={
-                    "item": None,
-                    "error": f"{topic_id!r} is not an Outline Topic",
-                    "topics": topics.ids(),
-                },
+                content={"error": "no such coach session", "session_id": None},
             )
-
-        request = Request(topic_id=topic_id, seed=seed, limit=limit)
-        with tracer.run(
-            "item.generate",
-            "chain",
-            topic_id=topic_id,
-            seed=seed,
-            attempt_id=request.attempt_id,
-        ) as span:
-            state = graph.invoke({"request": request, "trail": []})
-            shipped = payload(latest(state.get("trail", []), GATE))
-            if shipped is None:
-                ruling = state.get("rejection")
-                reason = str(ruling.reason) if ruling else "unattributed_output"
-                detail = ruling.detail if ruling else "no ruling was recorded"
-                span.outputs(shipped=False, reason=reason)
-                return JSONResponse(
-                    status_code=409,
-                    content={
-                        "item": None,
-                        "attempt_id": request.attempt_id,
-                        "topic_id": topic_id,
-                        "seed": seed,
-                        "rejected": {"reason": reason, "detail": detail},
-                    },
-                )
-            span.outputs(shipped=True, citation=shipped["citation"])
+        try:
+            state = coach.turn(
+                session,
+                spoke=bool(body.get("spoke", False)),
+                choice=body.get("choice"),
+                confidence=body.get("confidence"),
+                transcript=body.get("transcript"),
+                audio_ms=int(body.get("audio_ms") or 0),
+                log=speak_log,
+            )
+        except coach.TurnRefused as refused:
             return JSONResponse(
-                status_code=200,
+                status_code=409,
                 content={
-                    **shipped,
-                    "attempt_id": request.attempt_id,
-                    "topic_id": topic_id,
-                    "seed": seed,
+                    "error": str(refused),
+                    "session_id": session.session_id,
+                    "step": str(session.step),
+                    "awaiting": refused.awaiting,
                 },
             )
+        with tracer.run(
+            "coach.turn", "chain", session_id=session.session_id, step=state["step"]
+        ) as span:
+            span.outputs(step=state["step"], revealed=state["reveal"] is not None)
+        return JSONResponse(status_code=200, content=state)
+
+    @app.get("/coach/speak-rate")
+    def coach_speak_rate() -> dict[str, Any]:
+        """The share of prompts the student actually spoke into.
+
+        Pre-registered in the ablation, so it is reported the way Yield is —
+        with `null` rather than `0.0` over an empty denominator.
+        """
+        return speak_log.tally()
+
+    @app.post("/coach/transcribe")
+    def coach_transcribe(body: dict[str, Any] = Body(default_factory=dict)) -> dict[str, Any]:
+        """Speech to text, when a provider exists. Never a precondition.
+
+        With no key this returns `transcribed: false` and the loop is unaffected
+        — audio recorded without a transcript is the honest degraded state, and
+        the alternative repair (a text box) is the one thing this feature exists
+        to forbid.
+        """
+        audio, problem = coach_voice.decode(str(body.get("audio_base64", "")))
+        if problem:
+            return coach_voice.Transcription(
+                transcribed=False, transcript=None, audio_bytes=0, reason=problem
+            ).as_dict()
+        return transcriber.transcribe(audio, mime=str(body.get("mime", ""))).as_dict()
 
     @app.get("/gate/yield")
     def gate_yield() -> dict[str, Any]:

@@ -19,6 +19,12 @@ POST /item/generate?topic_id=1D&seed=0   → 200 {item, source_id, span, citatio
 GET  /health                             → what the add-on probes
 GET  /gate/yield                         → Yield, decomposed by rejection reason
 GET  /gate/rejections?limit=50           → the dropped attempts themselves
+
+POST /coach/start?topic_id=1D&seed=0     → 200 a cold question, with no answer in it
+                                         → 409 the gate dropped it; no fallback question
+POST /coach/turn                         → 200 the next step, or 409 naming what it wants
+GET  /coach/speak-rate                   → the share of prompts spoken into
+POST /coach/transcribe                   → speech to text, when a key exists
 ```
 
 ```bash
@@ -27,7 +33,7 @@ uv sync                       # the gate, the graph, the stub — no provider SD
 uv sync --extra openai        # add the real generator (or --extra anthropic)
 uv run speedrun-agent                    # 127.0.0.1:8000
 uv run speedrun-agent --attempt 1D --seed 0   # one attempt, printed, no server
-uv run pytest                 # 35 tests; the two needing a key skip without one
+uv run pytest                 # 71 tests; the two needing a key skip without one
 ```
 
 Provider SDKs are **extras** rather than dependencies: the gate is the graded
@@ -321,8 +327,95 @@ one is deliberately false.
 ships in the package rather than living in a test file because ADR-0006's
 ungated control arm needs the same capability.
 
-Not built here: `POST /coach/turn` and the checkpointer are T-14's; the
-retrieval arms and the yield table are T-17's, and read `/gate/yield`.
+The coach loop's session store is **in memory**, not a LangGraph checkpointer.
+A restart loses any session in flight. That is stated rather than hidden: the
+graded property is the step order *within* a session, and losing one loses a
+teaching loop, not a score.
+
+Not built here: the retrieval arms and the yield table are T-17's, and read
+`/gate/yield`.
+
+---
+
+## The coach loop
+
+Four of PRD §4.2's seven steps plus the rule statement. Revision (5) and the
+personal guide (7) are cut.
+
+| Step | What it is | Graded |
+| --- | --- | --- |
+| 1 | A held-out item, asked cold — no hint, no explanation | **yes, and only this** |
+| 2 | Confidence, stated **before** the answer is revealed | no |
+| 3 | "Explain what this question is actually testing" | no |
+| 4 | The contrast pair — one detail changed | no |
+| 6 | The rule, in the source's own words | no |
+
+**The server owns the order, and that is the whole design.** Confidence given
+after the answer is not a weaker measurement, it is not a measurement — it is a
+memory of having been right. So the correct answer is not in any response body
+until the confidence for that item is on the record. There is no flag, no query
+parameter and no debug route that changes it: `Session.reveal` is the only thing
+that can produce an answer, and it returns `None` until `confidence` is set.
+`/coach/turn` refuses out-of-order turns with 409 and names what it wants.
+
+That claim is asserted against the raw bytes rather than against a field. The
+test walks the loop and requires that the answer *string* appears nowhere in
+what a client received before step 2 — because "the reveal field is null" is
+satisfied by an implementation that also leaks it somewhere else. **It caught
+one:** the first draft returned the graded record as soon as the answer arrived,
+which put `correct: true` on the confidence screen.
+
+**The contrast pair changes exactly one detail, checkably.** A fixed table of
+paired opposites (`prokaryotic`/`eukaryotic`, `reactant`/`product`, …) is
+matched against the stem at word boundaries; the pair records the offset and the
+text that was there, so the original stem can be *reconstructed* from the
+contrast stem — if a second character had moved, that round trip fails. When no
+pair applies, the changed detail is which option is correct, and the weaker form
+is labelled `answer_swap` rather than disguised, so a reader can count how often
+it was used.
+
+**The rule is a quotation, not a composition.** It is the span the gate already
+re-verified, widened to its surrounding sentence by slicing the page — the
+source's own characters throughout. Asking a model to phrase a rule would put an
+unchecked sentence at the end of a loop whose point is that nothing unchecked is
+shown. One wrinkle, found by running it: OpenStax key-terms pages are *term*,
+blank line, *definition*, so the first widening stopped on the term and said
+nothing. The window now extends through the following block when the result is
+under 80 characters.
+
+**Speak-rate** is the pre-registered ablation measure: prompts spoken into over
+prompts issued, logged to `out/utterances.jsonl` and reported at
+`/coach/speak-rate`, with `null` rather than `0.0` over an empty denominator —
+the same abstention `/gate/yield` makes.
+
+### Speech to text
+
+`gpt-4o-transcribe` when `OPENAI_API_KEY` exists, and **nothing** when it does
+not. Transcription is an addition to the loop rather than a step in it: no step
+waits on it, no score reads it, and a provider outage downgrades to
+`transcribed: false` with a readable reason.
+
+That ordering is deliberate. The tempting repair for "transcription is down" is
+a text box "just for now", and a text box beside a live question is the one
+thing this feature exists to forbid. The degraded state is therefore **audio
+recorded, not transcribed** — speak-rate keeps its numerator and the loop still
+runs.
+
+Run end to end on 2026-08-02, with Windows SAPI standing in for a student:
+
+```
+$ POST /coach/transcribe  (289,702 bytes of WAV)
+{"transcribed": true,
+ "transcript": "This question is testing whether substrate-level phosphorylation
+                is different from oxidative phosphorylation.",
+ "model": "gpt-4o-transcribe"}
+```
+
+One bug worth recording, because reading the code would not have found it: the
+provider infers the container from the **filename**, not from the bytes, and the
+first run posted WAV under the recorder's default `.webm` name and came back
+*"Audio file might be corrupted"*. The extension now follows the recorder's own
+MIME type.
 
 ---
 
@@ -346,7 +439,7 @@ corpus:
 approving an item with no source, over a corpus that *does* support the claim,
 and asserts the service ships nothing anyway.
 
-35 tests. Two need a key and skip cleanly without one.
+71 tests. Two need a key and skip cleanly without one.
 
 ---
 
@@ -363,6 +456,8 @@ and asserts the service ships nothing anyway.
 | `rejections.py` | The ledger Yield is computed from |
 | `tracing.py` | LangSmith, or the same shape locally |
 | `topics.py` | The fixed query set, taken from the Outline |
+| `coach.py` | The loop's step order, the contrast pair, the rule, speak-rate |
+| `coach_voice.py` | Speech to text, and the honest absence of it |
 | `app.py` | The HTTP boundary |
 
 ## Not committed

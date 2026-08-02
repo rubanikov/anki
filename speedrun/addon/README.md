@@ -22,6 +22,7 @@ specified in [`../docs/SPEC.md`](../docs/SPEC.md).
 |                                |                                                                                                                                |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | **Tools → Speedrun Dashboard** | A window with the three scores per section, coverage, the evidence counts, the unmapped card count, and a per-Topic breakdown. |
+| **Tools → Speedrun Coach**     | The spoken loop: a cold question, confidence **before** the answer, an explanation aloud, and a contrast pair.                 |
 | **Reviewer**                   | The Topic label is withheld while a question is on screen and restored with the answer.                                        |
 
 Abstention is rendered as a first-class result. It gets the same box, the same
@@ -101,6 +102,53 @@ UI never blocks and the call never races the collection. Both `SpeedrunService`
 methods are pure reads: no undo entry, no mutation. Opening the dashboard
 mid-review disturbs nothing.
 
+## The coach loop, and the one rule it exists to enforce
+
+**No `<input>`, no `<textarea>`, no editable element may exist on any Speedrun
+template while a question is on screen.** Not a styling preference: a text box
+next to a live question is how an answer gets copied in from a browser tab, and
+every Performance number downstream of that is a measurement of a clipboard.
+Voice is the mechanism, not the interface.
+
+The claim is falsifiable and the falsifier is committed.
+`tests/test_no_text_input.py` reads **every** `.py`, `.html`, `.js`, `.css` and
+`.json` file the add-on ships and fails on the element itself. Three things make
+it a check rather than a gesture: it scans the whole add-on rather than
+`coach/`, so the next screen cannot be the exception; it builds its needles at
+runtime from fragments so that **it scans itself** and has no exemption list;
+and it refuses to pass vacuously — a page with no controls has no text inputs
+either, so it also asserts that the coach page really does present choices, the
+three confidence levels and a microphone.
+
+What runs, and what does not:
+
+| Step | Built | Graded |
+| --- | --- | --- |
+| 1 · cold question, no hint | ✅ | **the only step that scores** |
+| 2 · confidence, before the reveal | ✅ | no |
+| 3 · explain the concept aloud | ✅ | no |
+| 4 · contrast pair, one detail changed | ✅ | no |
+| 5 · revise | cut | — |
+| 6 · the rule, stated by the app | ✅ | no |
+| 7 · personal guide | cut | — |
+
+**The step order is not enforced here.** It is enforced by the service, which
+does not put the answer in any response until a confidence for that item is on
+the record. This window therefore cannot show an answer it has not been sent,
+and a bug in `page.py` — or a student with the developer console open — cannot
+produce a reveal that was not earned.
+
+Capture is `MediaRecorder` in the webview, with audio permission granted on this
+dialog's own page and nowhere else in Anki. **Speak-rate** — the share of prompts
+the student actually spoke into — is a pre-registered ablation measure, so the
+loop deliberately lets a prompt pass unspoken; a UI that refused to advance
+without a recording would make the number 1.0 by construction and measure
+nothing.
+
+Speech-to-text runs on the service when a key is there. When it is not, the
+degraded state is **recorded but not transcribed** — the loop still runs and
+speak-rate still has its numerator. It is not, and must not become, a text box.
+
 ## Configuration
 
 Tools → Add-ons → Speedrun → Config. Defaults and explanations live in
@@ -131,6 +179,9 @@ getting it wrong withholds a score and can never invent one.
 | ----------------------------------------- | -------------------------------------------------------------------- |
 | `__init__.py`                             | Entry point. Registers the dialog and the two hooks.                 |
 | `dashboard.py`                            | The `QDialog` + `AnkiWebView`, and the Tools menu item.              |
+| `coach/page.py`                           | The coach's HTML and the browser half. No text input, ever.          |
+| `coach/client.py`                         | The four HTTP calls to the coach service. None of them can raise.    |
+| `coach/dialog.py`                         | The coach window, the microphone permission, and the bridge.         |
 | `render.py`                               | HTML. Computes nothing; formats backend output.                      |
 | `backend.py`                              | The only place `SpeedrunService` is called.                          |
 | `reviewer.py`                             | The `card_will_show` hook.                                           |
@@ -154,7 +205,7 @@ place.
 PYTHONPATH=out/pylib out/pyenv/Scripts/python.exe -m pytest speedrun/addon/tests -q
 ```
 
-(`out/pyenv/bin/python` on macOS and Linux.) Forty-one tests, in two files.
+(`out/pyenv/bin/python` on macOS and Linux.) Eighty-two tests, in four files.
 
 `test_dashboard.py` — twenty-four. Two open a real empty collection, call the
 real backend and assert the sentence a student would actually read — that all
@@ -188,6 +239,14 @@ cards in the same order and made the same decisions in all three, field for
 field. The harness is `scheduling_trace.py`, and what it does and does not
 compare is written down in
 [`../eval/offswitch/OFF_SWITCHES.md`](../eval/offswitch/OFF_SWITCHES.md).
+
+`test_no_text_input.py` — the falsifier described above, one case per scanned
+file plus five that stop it passing vacuously.
+
+`test_coach_client.py` — the coach's reach outward, run rather than described:
+no service configured, and every one of the four calls against a closed port.
+Each must return a readable sentence and none may raise, because that is the
+code path a student hits when they close the service mid-session.
 
 `PYTHONPATH=out/pylib` is what makes the generated Python bindings importable;
 without it the backend-driven tests skip and the renderer tests still run.

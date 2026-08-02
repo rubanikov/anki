@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import socket
 
-import coach.client as client
+from coach import client
 
 
 def _closed_port() -> int:

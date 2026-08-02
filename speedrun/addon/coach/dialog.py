@@ -153,7 +153,7 @@ class SpeedrunCoachDialog(QDialog):
         come from the service.
         """
         try:
-            if message == READY or message == RESTART:
+            if message in (READY, RESTART):
                 self._start()
             elif message.startswith(TURN):
                 self._turn(json.loads(message[len(TURN) :]))
@@ -282,7 +282,10 @@ class SpeedrunCoachDialog(QDialog):
             except Exception as exc:  # noqa: BLE001
                 self._status(f"The coach could not continue: {exc}")
 
-        self.mw.taskman.run_in_background(wrapped, finished)
+        # `uses_collection=False`: these are network calls. Serialising them
+        # behind collection work would make a slow model round trip look like a
+        # frozen reviewer, and the coach reads nothing from the collection.
+        self.mw.taskman.run_in_background(wrapped, finished, uses_collection=False)
 
     # --- teardown ---------------------------------------------------------
 

@@ -30,9 +30,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
-
 import coach.page as coach_page
+import pytest
 
 ADDON_DIR = Path(__file__).resolve().parents[1]
 
