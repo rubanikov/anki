@@ -1,0 +1,11 @@
+{
+    "tag_prefix": "mcat",
+    "sections": [
+        { "code": "CP", "name": "Chem/Phys", "outline_topic_count": 10 },
+        { "code": "BB", "name": "Bio/Biochem", "outline_topic_count": 9 },
+        { "code": "PS", "name": "Psych/Soc", "outline_topic_count": 12 },
+        { "code": "CARS", "name": "CARS", "outline_topic_count": 0 }
+    ],
+    "hide_topic_label_during_question": true,
+    "show_topic_breakdown": true
+}

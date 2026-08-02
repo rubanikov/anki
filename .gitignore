@@ -46,6 +46,11 @@ speedrun/eval/holdout/*.colpkg
 # republish it (ADR-0005), so no deck file enters this fork in any format —
 # quite apart from the 238 MB one being larger than GitHub accepts. Only the
 # derived label inventory and the granularity report commit.
+# Add-on runtime state. meta.json is generated at install and rewritten by Anki
+# whenever the add-on is toggled or reconfigured, so it is a local artifact and
+# never the shipped configuration.
+speedrun/addon/meta.json
+speedrun/addon/user_files/
 speedrun/eval/deck/*.apkg
 speedrun/eval/deck/*.colpkg
 speedrun/eval/deck/*.anki2

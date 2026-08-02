@@ -1,0 +1,8 @@
+{
+    "package": "speedrun",
+    "name": "Speedrun",
+    "homepage": "https://github.com/rubanikov/anki",
+    "human_version": "0.1.0",
+    "min_point_version": 250000,
+    "update_enabled": false
+}
