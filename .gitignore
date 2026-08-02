@@ -10,6 +10,9 @@ target
 /.bazel
 /windows.bazelrc
 /out
+# rslib/i18n's build script writes strings.json next to the crate when invoked
+# outside the build system's out dir. Generated, like everything in an out/.
+rslib/i18n/anki/out/
 node_modules
 .n2_db
 .ninja_log
