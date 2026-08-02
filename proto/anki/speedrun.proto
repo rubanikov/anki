@@ -1,0 +1,93 @@
+// Copyright: Ankitects Pty Ltd and contributors
+// License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package anki.speedrun;
+
+// Read-only measurement over the collection.
+//
+// Both methods are pure reads: they add no undo entry and mutate nothing. That
+// is deliberate. It keeps FSRS, the scheduler, and undo untouched, and it means
+// the desktop add-on and the Android client can call the same code and get
+// identical numbers offline.
+service SpeedrunService {
+  rpc TopicMastery(TopicMasteryRequest) returns (TopicMasteryResponse);
+  rpc SectionScores(SectionScoresRequest) returns (SectionScoresResponse);
+}
+
+// Every collection service is paired with a backend one, as stats.proto does.
+// Speedrun has nothing that runs without an open collection, so it is empty and
+// the methods above are delegated.
+service BackendSpeedrunService {}
+
+message TopicMasteryRequest {
+  // "CP" | "BB" | "PS" | "CARS". Empty means every section.
+  string section = 1;
+  // Root of the topic tag namespace, e.g. "mcat". A card belongs to the first
+  // tag it carries under <tag_prefix>::<section>::. Defaults to "mcat".
+  string tag_prefix = 2;
+}
+
+message TopicMastery {
+  // The full tag, e.g. "mcat::BB::amino_acids".
+  string topic_id = 1;
+  string section = 2;
+  float mean_retrievability = 3;
+  float range_low = 4;
+  float range_high = 5;
+  uint32 card_count = 6;
+  // Cards FSRS has memory state for. The rest cannot contribute a probability.
+  uint32 cards_with_memory_state = 7;
+  uint32 review_count = 8;
+  bool covered = 9;
+}
+
+message TopicMasteryResponse {
+  repeated TopicMastery topics = 1;
+  uint32 cards_considered = 2;
+  // Speedrun's own attempt cards, deliberately excluded from measurement.
+  // Exposed so the exclusion is visible and testable rather than implied.
+  uint32 cards_excluded = 3;
+}
+
+message SectionScoresRequest {
+  string section = 1;
+  string tag_prefix = 2;
+  // Number of topics on the official outline for this section. Coverage is
+  // meaningless without it, so 0 forces readiness to abstain.
+  uint32 outline_topic_count = 3;
+}
+
+enum Confidence {
+  CONFIDENCE_NONE = 0;
+  CONFIDENCE_LOW = 1;
+  CONFIDENCE_MEDIUM = 2;
+  CONFIDENCE_HIGH = 3;
+}
+
+message Score {
+  // False means the give-up rule fired. No estimate is emitted at all.
+  bool available = 1;
+  float estimate = 2;
+  float range_low = 3;
+  float range_high = 4;
+  // Populated iff !available. Names the specific thing that would resolve it.
+  string abstain_reason = 5;
+  repeated string reasons = 6;
+  Confidence confidence = 7;
+}
+
+message SectionScoresResponse {
+  string section = 1;
+  // Three scores, never blended into one number.
+  Score memory = 2;
+  Score performance = 3;
+  Score readiness = 4;
+  float coverage_pct = 5;
+  uint32 graded_reviews = 6;
+  uint32 holdout_attempts = 7;
+  int64 computed_at_ms = 8;
+}

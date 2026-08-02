@@ -16,7 +16,9 @@ mastery(topic) = Σ(R_i) / n     over cards mapped to topic, excluding Speedrun:
 section_memory = Σ(w_t · mastery(t))   w_t = AAMC outline weight for topic t
 ```
 
-**Range.** Bootstrap over cards (1000 resamples), report the 5th–95th percentile.
+**Range.** Normal-approximation 95% interval over cards within a topic (`mean ± 1.96·SE`), computed in `rslib/src/speedrun/mastery.rs`. A topic with a single card reports the full `[0, 1]` rather than a fake-precise interval. Section-level memory weights each topic by how many of its cards FSRS actually has memory state for, so a two-card topic cannot swing the section.
+
+This interval describes uncertainty about the topic mean from a finite number of cards. It says nothing about whether the card→topic mapping is correct — that error is measured separately below and reported alongside, not folded in silently.
 
 **Validation (required).** Hold back the most recent 20% of reviews by time. Predict each held-back review's outcome from `R` at that moment. Report **calibration chart + Brier score + log loss**. At 80% predicted, observed should be ~80%.
 

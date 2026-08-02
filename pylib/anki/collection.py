@@ -19,6 +19,7 @@ from anki import (
     notes_pb2,
     scheduler_pb2,
     search_pb2,
+    speedrun_pb2,
     stats_pb2,
     sync_pb2,
 )

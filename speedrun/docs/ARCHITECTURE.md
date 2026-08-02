@@ -114,15 +114,25 @@ message Score {
 
 **Registration — verified 2026-08-02, no risk.** `rslib/proto/rust.rs::gather_proto_paths` does a `read_dir` over `proto/` and takes everything ending in `.proto`. New files are auto-discovered; `get_services()` then generates the Rust trait plus the Python and TypeScript interfaces from the descriptor pool. Nothing to register by hand. (The earlier fallback of appending to `stats.proto` is unnecessary.)
 
-**Integration points — the whole diff against upstream:**
+**Integration points — the whole diff against upstream (built and verified 2026-08-02):**
 
 | File | Change |
 |---|---|
 | `proto/anki/speedrun.proto` | new |
 | `rslib/src/speedrun/{mod,service,mastery,scores,thresholds}.rs` | new |
+| `pylib/tests/test_speedrun.py` | new |
 | `rslib/src/lib.rs` | one line: `pub mod speedrun;` |
+| `rslib/proto/src/lib.rs` | one line: `protobuf!(speedrun, "speedrun");` |
+| `pylib/anki/collection.py` | one line: `speedrun_pb2` added to the import block |
 
-The service is implemented exactly as `stats` does it — `impl crate::services::SpeedrunService for Collection` in `speedrun/service.rs`. Backend dispatch and the Python bindings are generated. **One upstream line touched**, which is the answer to "the upstream files you touched" and to §11's "how well it fits Anki."
+**Three upstream lines touched**, all of them the same registration each existing proto already performs. That is the answer to "the upstream files you touched" and to §11's "how well it fits Anki."
+
+The service is implemented exactly as `stats` does it — `impl crate::services::SpeedrunService for Collection` in `speedrun/service.rs`. Backend dispatch and the Python/TypeScript bindings are generated.
+
+**Two integration requirements that aren't obvious from reading the code:**
+
+1. Every collection service must be paired with an empty `Backend*Service` in the same proto file — `proto_gen` asserts the two counts are equal. `stats.proto` does the same thing.
+2. Prost renders proto message fields as `Option<T>`, so `SectionScoresResponse.memory` is `Option<Score>`.
 
 **Undo and corruption:** both methods are pure reads. No `Op`, no undo entry, no collection mutation. That is deliberate — it makes "prove undo works and the collection does not corrupt" nearly free.
 
