@@ -1,0 +1,532 @@
+{
+  "collection": "C:\\Users\\rubas\\AppData\\Local\\Temp\\claude\\f--Users-rubas-Documents-Gauntlet-AI-Superbuilders-anki-v2\\83179915-c1ed-4490-bbdd-93d8f7b6c019\\scratchpad\\t21\\control-no-crosswalk.anki2",
+  "collection_bytes": 2740224,
+  "network_blocked": true,
+  "crosswalk_installed": false,
+  "sections": {
+    "CP": {
+      "section": "CP",
+      "memory": {
+        "available": true,
+        "estimate": 0.715773,
+        "range_low": 0.621962,
+        "range_high": 0.809584,
+        "abstain_reason": "",
+        "reasons": [
+          "861 graded reviews across 192 cards",
+          "10 topics with history"
+        ],
+        "confidence": 2
+      },
+      "performance": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "120 held-out attempts across 10 topics in CP, but the performance model is not fitted yet.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "readiness": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "No readiness for CP until performance is available: 120 held-out attempts across 10 topics in CP, but the performance model is not fitted yet.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "coverage_pct": 100.0,
+      "graded_reviews": 861,
+      "holdout_attempts": 120,
+      "topics_attempted": 10,
+      "cards_unmapped": 2400
+    },
+    "BB": {
+      "section": "BB",
+      "memory": {
+        "available": true,
+        "estimate": 0.732505,
+        "range_low": 0.642801,
+        "range_high": 0.82221,
+        "abstain_reason": "",
+        "reasons": [
+          "774 graded reviews across 180 cards",
+          "9 topics with history"
+        ],
+        "confidence": 2
+      },
+      "performance": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "108 held-out attempts across 9 topics in BB, but the performance model is not fitted yet.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "readiness": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "No readiness for BB until performance is available: 108 held-out attempts across 9 topics in BB, but the performance model is not fitted yet.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "coverage_pct": 100.0,
+      "graded_reviews": 774,
+      "holdout_attempts": 108,
+      "topics_attempted": 9,
+      "cards_unmapped": 2400
+    },
+    "PS": {
+      "section": "PS",
+      "memory": {
+        "available": true,
+        "estimate": 0.717914,
+        "range_low": 0.623776,
+        "range_high": 0.812052,
+        "abstain_reason": "",
+        "reasons": [
+          "936 graded reviews across 228 cards",
+          "12 topics with history"
+        ],
+        "confidence": 2
+      },
+      "performance": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "144 held-out attempts across 12 topics in PS, but the performance model is not fitted yet.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "readiness": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "No readiness for PS until performance is available: 144 held-out attempts across 12 topics in PS, but the performance model is not fitted yet.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "coverage_pct": 100.0,
+      "graded_reviews": 936,
+      "holdout_attempts": 144,
+      "topics_attempted": 12,
+      "cards_unmapped": 2400
+    },
+    "CARS": {
+      "section": "CARS",
+      "memory": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "performance": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "readiness": {
+        "available": false,
+        "estimate": 0.0,
+        "range_low": 0.0,
+        "range_high": 0.0,
+        "abstain_reason": "We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.",
+        "reasons": [],
+        "confidence": 0
+      },
+      "coverage_pct": 0.0,
+      "graded_reviews": 0,
+      "holdout_attempts": 0,
+      "topics_attempted": 0,
+      "cards_unmapped": 0
+    }
+  },
+  "mastery": {
+    "CP": {
+      "cards_considered": 192,
+      "cards_excluded": 372,
+      "cards_unmapped": 2400,
+      "topics": [
+        {
+          "topic_id": "mcat::CP::4A",
+          "section": "CP",
+          "mean_retrievability": 0.759407,
+          "range_low": 0.675354,
+          "range_high": 0.843461,
+          "card_count": 20,
+          "cards_with_memory_state": 17,
+          "review_count": 99,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::4B",
+          "section": "CP",
+          "mean_retrievability": 0.702989,
+          "range_low": 0.612814,
+          "range_high": 0.793164,
+          "card_count": 20,
+          "cards_with_memory_state": 18,
+          "review_count": 100,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::4C",
+          "section": "CP",
+          "mean_retrievability": 0.687256,
+          "range_low": 0.588982,
+          "range_high": 0.78553,
+          "card_count": 19,
+          "cards_with_memory_state": 14,
+          "review_count": 59,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::4D",
+          "section": "CP",
+          "mean_retrievability": 0.730044,
+          "range_low": 0.618326,
+          "range_high": 0.841761,
+          "card_count": 19,
+          "cards_with_memory_state": 15,
+          "review_count": 68,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::4E",
+          "section": "CP",
+          "mean_retrievability": 0.663595,
+          "range_low": 0.556872,
+          "range_high": 0.770317,
+          "card_count": 19,
+          "cards_with_memory_state": 14,
+          "review_count": 79,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::5A",
+          "section": "CP",
+          "mean_retrievability": 0.737084,
+          "range_low": 0.644739,
+          "range_high": 0.829429,
+          "card_count": 19,
+          "cards_with_memory_state": 17,
+          "review_count": 98,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::5B",
+          "section": "CP",
+          "mean_retrievability": 0.71771,
+          "range_low": 0.630388,
+          "range_high": 0.805031,
+          "card_count": 19,
+          "cards_with_memory_state": 14,
+          "review_count": 66,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::5C",
+          "section": "CP",
+          "mean_retrievability": 0.643133,
+          "range_low": 0.555428,
+          "range_high": 0.730839,
+          "card_count": 19,
+          "cards_with_memory_state": 17,
+          "review_count": 85,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::5D",
+          "section": "CP",
+          "mean_retrievability": 0.740811,
+          "range_low": 0.647103,
+          "range_high": 0.83452,
+          "card_count": 19,
+          "cards_with_memory_state": 18,
+          "review_count": 122,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::CP::5E",
+          "section": "CP",
+          "mean_retrievability": 0.765699,
+          "range_low": 0.675585,
+          "range_high": 0.855812,
+          "card_count": 19,
+          "cards_with_memory_state": 16,
+          "review_count": 85,
+          "covered": true
+        }
+      ]
+    },
+    "BB": {
+      "cards_considered": 180,
+      "cards_excluded": 372,
+      "cards_unmapped": 2400,
+      "topics": [
+        {
+          "topic_id": "mcat::BB::1A",
+          "section": "BB",
+          "mean_retrievability": 0.77013,
+          "range_low": 0.675984,
+          "range_high": 0.864276,
+          "card_count": 20,
+          "cards_with_memory_state": 16,
+          "review_count": 80,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::1B",
+          "section": "BB",
+          "mean_retrievability": 0.728863,
+          "range_low": 0.629682,
+          "range_high": 0.828043,
+          "card_count": 20,
+          "cards_with_memory_state": 18,
+          "review_count": 83,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::1C",
+          "section": "BB",
+          "mean_retrievability": 0.714825,
+          "range_low": 0.62405,
+          "range_high": 0.805599,
+          "card_count": 20,
+          "cards_with_memory_state": 16,
+          "review_count": 97,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::1D",
+          "section": "BB",
+          "mean_retrievability": 0.736377,
+          "range_low": 0.639046,
+          "range_high": 0.833708,
+          "card_count": 20,
+          "cards_with_memory_state": 17,
+          "review_count": 64,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::2A",
+          "section": "BB",
+          "mean_retrievability": 0.737534,
+          "range_low": 0.644958,
+          "range_high": 0.83011,
+          "card_count": 20,
+          "cards_with_memory_state": 17,
+          "review_count": 93,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::2B",
+          "section": "BB",
+          "mean_retrievability": 0.688507,
+          "range_low": 0.608683,
+          "range_high": 0.76833,
+          "card_count": 20,
+          "cards_with_memory_state": 16,
+          "review_count": 76,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::2C",
+          "section": "BB",
+          "mean_retrievability": 0.748505,
+          "range_low": 0.661413,
+          "range_high": 0.835598,
+          "card_count": 20,
+          "cards_with_memory_state": 17,
+          "review_count": 88,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::3A",
+          "section": "BB",
+          "mean_retrievability": 0.696969,
+          "range_low": 0.613538,
+          "range_high": 0.780401,
+          "card_count": 20,
+          "cards_with_memory_state": 18,
+          "review_count": 92,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::BB::3B",
+          "section": "BB",
+          "mean_retrievability": 0.769549,
+          "range_low": 0.686613,
+          "range_high": 0.852485,
+          "card_count": 20,
+          "cards_with_memory_state": 18,
+          "review_count": 101,
+          "covered": true
+        }
+      ]
+    },
+    "PS": {
+      "cards_considered": 228,
+      "cards_excluded": 372,
+      "cards_unmapped": 2400,
+      "topics": [
+        {
+          "topic_id": "mcat::PS::10A",
+          "section": "PS",
+          "mean_retrievability": 0.73154,
+          "range_low": 0.629777,
+          "range_high": 0.833303,
+          "card_count": 19,
+          "cards_with_memory_state": 15,
+          "review_count": 76,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::6A",
+          "section": "PS",
+          "mean_retrievability": 0.757871,
+          "range_low": 0.664255,
+          "range_high": 0.851487,
+          "card_count": 19,
+          "cards_with_memory_state": 17,
+          "review_count": 88,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::6B",
+          "section": "PS",
+          "mean_retrievability": 0.705725,
+          "range_low": 0.609413,
+          "range_high": 0.802038,
+          "card_count": 19,
+          "cards_with_memory_state": 16,
+          "review_count": 79,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::6C",
+          "section": "PS",
+          "mean_retrievability": 0.740106,
+          "range_low": 0.642265,
+          "range_high": 0.837948,
+          "card_count": 19,
+          "cards_with_memory_state": 15,
+          "review_count": 84,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::7A",
+          "section": "PS",
+          "mean_retrievability": 0.728023,
+          "range_low": 0.627606,
+          "range_high": 0.82844,
+          "card_count": 19,
+          "cards_with_memory_state": 14,
+          "review_count": 64,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::7B",
+          "section": "PS",
+          "mean_retrievability": 0.684284,
+          "range_low": 0.591965,
+          "range_high": 0.776602,
+          "card_count": 19,
+          "cards_with_memory_state": 14,
+          "review_count": 62,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::7C",
+          "section": "PS",
+          "mean_retrievability": 0.718958,
+          "range_low": 0.607233,
+          "range_high": 0.830684,
+          "card_count": 19,
+          "cards_with_memory_state": 14,
+          "review_count": 89,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::8A",
+          "section": "PS",
+          "mean_retrievability": 0.737044,
+          "range_low": 0.643699,
+          "range_high": 0.830389,
+          "card_count": 19,
+          "cards_with_memory_state": 13,
+          "review_count": 66,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::8B",
+          "section": "PS",
+          "mean_retrievability": 0.722009,
+          "range_low": 0.631841,
+          "range_high": 0.812177,
+          "card_count": 19,
+          "cards_with_memory_state": 16,
+          "review_count": 79,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::8C",
+          "section": "PS",
+          "mean_retrievability": 0.743742,
+          "range_low": 0.642904,
+          "range_high": 0.84458,
+          "card_count": 19,
+          "cards_with_memory_state": 16,
+          "review_count": 86,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::9A",
+          "section": "PS",
+          "mean_retrievability": 0.679645,
+          "range_low": 0.586753,
+          "range_high": 0.772537,
+          "card_count": 19,
+          "cards_with_memory_state": 16,
+          "review_count": 84,
+          "covered": true
+        },
+        {
+          "topic_id": "mcat::PS::9B",
+          "section": "PS",
+          "mean_retrievability": 0.669559,
+          "range_low": 0.605891,
+          "range_high": 0.733228,
+          "card_count": 19,
+          "cards_with_memory_state": 17,
+          "review_count": 79,
+          "covered": true
+        }
+      ]
+    },
+    "CARS": {
+      "cards_considered": 0,
+      "cards_excluded": 372,
+      "cards_unmapped": 2400,
+      "topics": []
+    }
+  },
+  "totals": {
+    "notes": 3372,
+    "cards": 3372,
+    "revlog": 12958
+  }
+}

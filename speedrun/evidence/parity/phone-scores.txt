@@ -1,0 +1,32 @@
+﻿Speedrun - SectionScores
+Served by the fork's Rust engine through rsdroid (x86_64).
+
+CP - Chem/Phys
+  861 graded reviews - 120 held-out attempts across 10 topics - coverage 100%
+  Memory       0.72  (range 0.62 - 0.81)
+  Performance  ABSTAINS - 120 held-out attempts across 10 topics in CP, but the performance model is not fitted yet.
+  Readiness    ABSTAINS - No readiness for CP until performance is available: 120 held-out attempts across 10 topics in CP, but the performance model is not fitted yet.
+  947 cards unmapped to a topic
+
+BB - Bio/Biochem
+  6944 graded reviews - 108 held-out attempts across 9 topics - coverage 100%
+  Memory       0.71  (range 0.68 - 0.74)
+  Performance  ABSTAINS - 108 held-out attempts across 9 topics in BB, but the performance model is not fitted yet.
+  Readiness    ABSTAINS - No readiness for BB until performance is available: 108 held-out attempts across 9 topics in BB, but the performance model is not fitted yet.
+  947 cards unmapped to a topic
+
+PS - Psych/Soc
+  936 graded reviews - 144 held-out attempts across 12 topics - coverage 100%
+  Memory       0.72  (range 0.62 - 0.81)
+  Performance  ABSTAINS - 144 held-out attempts across 12 topics in PS, but the performance model is not fitted yet.
+  Readiness    ABSTAINS - No readiness for PS until performance is available: 144 held-out attempts across 12 topics in PS, but the performance model is not fitted yet.
+  947 cards unmapped to a topic
+
+CARS - CARS
+  0 graded reviews - 0 held-out attempts across 0 topics - coverage 0%
+  Memory       ABSTAINS - We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.
+  Performance  ABSTAINS - We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.
+  Readiness    ABSTAINS - We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.
+  0 cards unmapped to a topic
+
+

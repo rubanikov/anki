@@ -79,3 +79,7 @@ speedrun/eval/bench/*.anki2-*
 speedrun/eval/bench/*.colpkg
 speedrun/eval/bench/media*
 speedrun/eval/bench/bench/
+# Defensive: the crash and parity harnesses take .anki2 paths, and a future run
+# pointed at the evidence directory must not commit a collection.
+speedrun/evidence/**/*.anki2
+speedrun/evidence/**/*.anki2-*

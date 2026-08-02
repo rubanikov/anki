@@ -1,0 +1,783 @@
+{
+  "package": "com.ichi2.anki.debug",
+  "collection_source": "C:\\Users\\rubas\\AppData\\Local\\Temp\\claude\\f--Users-rubas-Documents-Gauntlet-AI-Superbuilders-anki-v2\\83179915-c1ed-4490-bbdd-93d8f7b6c019\\scratchpad\\t21\\crash-source.anki2",
+  "seed_counts": {
+    "cards": 8372,
+    "due_today": 4619,
+    "new": 1411
+  },
+  "trials": [
+    {
+      "trial": 1,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35605,
+      "pid": 30633,
+      "soak_secs": 1.82,
+      "stop_output": "STOPPED 1785697705.350099500",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 80.1,
+      "kill_wait_secs": 5.79,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35615
+        },
+        "ok": true,
+        "wal_bytes_on_device": 6431352,
+        "revlog_without_wal": 35615
+      },
+      "revlog_after": 35615,
+      "answers_announced": 10,
+      "reviews_committed": 10,
+      "died_inside_write": false
+    },
+    {
+      "trial": 2,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35615,
+      "pid": 31067,
+      "soak_secs": 4.45,
+      "stop_output": "STOPPED 1785697746.689061100",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 74.1,
+      "kill_wait_secs": 5.35,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35632
+        },
+        "ok": true,
+        "wal_bytes_on_device": 9706752,
+        "revlog_without_wal": 35632
+      },
+      "revlog_after": 35632,
+      "answers_announced": 17,
+      "reviews_committed": 17,
+      "died_inside_write": false
+    },
+    {
+      "trial": 3,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35632,
+      "pid": 31503,
+      "soak_secs": 4.17,
+      "stop_output": "STOPPED 1785697788.500298800",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 61.3,
+      "kill_wait_secs": 6.16,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35649
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10118752,
+        "revlog_without_wal": 35649
+      },
+      "revlog_after": 35649,
+      "answers_announced": 17,
+      "reviews_committed": 17,
+      "died_inside_write": false
+    },
+    {
+      "trial": 4,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35649,
+      "pid": 31937,
+      "soak_secs": 3.4,
+      "stop_output": "STOPPED 1785697832.799829400",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 90.8,
+      "kill_wait_secs": 7.24,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35668
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10188792,
+        "revlog_without_wal": 35668
+      },
+      "revlog_after": 35668,
+      "answers_announced": 19,
+      "reviews_committed": 19,
+      "died_inside_write": false
+    },
+    {
+      "trial": 5,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35668,
+      "pid": 32368,
+      "soak_secs": 2.08,
+      "stop_output": "STOPPED 1785697872.068771800",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 71.8,
+      "kill_wait_secs": 5.93,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35678
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10320632,
+        "revlog_without_wal": 35678
+      },
+      "revlog_after": 35678,
+      "answers_announced": 10,
+      "reviews_committed": 10,
+      "died_inside_write": false
+    },
+    {
+      "trial": 6,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35678,
+      "pid": 385,
+      "soak_secs": 4.96,
+      "stop_output": "STOPPED 1785697913.665970600",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 86.0,
+      "kill_wait_secs": 5.16,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35694
+        },
+        "ok": true,
+        "wal_bytes_on_device": 1062992,
+        "revlog_without_wal": 35694
+      },
+      "revlog_after": 35694,
+      "answers_announced": 16,
+      "reviews_committed": 16,
+      "died_inside_write": false
+    },
+    {
+      "trial": 7,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35694,
+      "pid": 1514,
+      "soak_secs": 5.04,
+      "stop_output": "STOPPED 1785697956.552577700",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 99.6,
+      "kill_wait_secs": 5.47,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35718
+        },
+        "ok": true,
+        "wal_bytes_on_device": 7514912,
+        "revlog_without_wal": 35718
+      },
+      "revlog_after": 35718,
+      "answers_announced": 24,
+      "reviews_committed": 24,
+      "died_inside_write": false
+    },
+    {
+      "trial": 8,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35718,
+      "pid": 2145,
+      "soak_secs": 3.56,
+      "stop_output": "STOPPED 1785697999.763036400",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 111.0,
+      "kill_wait_secs": 7.27,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35737
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35737
+      },
+      "revlog_after": 35737,
+      "answers_announced": 19,
+      "reviews_committed": 19,
+      "died_inside_write": false
+    },
+    {
+      "trial": 9,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35737,
+      "pid": 2684,
+      "soak_secs": 3.53,
+      "stop_output": "STOPPED 1785698043.288540900",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 69.5,
+      "kill_wait_secs": 6.01,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35756
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35756
+      },
+      "revlog_after": 35756,
+      "answers_announced": 19,
+      "reviews_committed": 19,
+      "died_inside_write": false
+    },
+    {
+      "trial": 10,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35756,
+      "pid": 3185,
+      "soak_secs": 2.18,
+      "stop_output": "STOPPED 1785698083.166481700",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 80.5,
+      "kill_wait_secs": 6.02,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35767
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35767
+      },
+      "revlog_after": 35767,
+      "answers_announced": 11,
+      "reviews_committed": 11,
+      "died_inside_write": false
+    },
+    {
+      "trial": 11,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35767,
+      "pid": 3650,
+      "soak_secs": 1.02,
+      "stop_output": "STOPPED 1785698125.527245500",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 111.2,
+      "kill_wait_secs": 8.21,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35778
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35778
+      },
+      "revlog_after": 35778,
+      "answers_announced": 11,
+      "reviews_committed": 11,
+      "died_inside_write": false
+    },
+    {
+      "trial": 12,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35778,
+      "pid": 4130,
+      "soak_secs": 2.86,
+      "stop_output": "STOPPED 1785698167.236851200",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 64.9,
+      "kill_wait_secs": 7.2,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35795
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35795
+      },
+      "revlog_after": 35795,
+      "answers_announced": 17,
+      "reviews_committed": 17,
+      "died_inside_write": false
+    },
+    {
+      "trial": 13,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35795,
+      "pid": 4596,
+      "soak_secs": 3.93,
+      "stop_output": "STOPPED 1785698210.479885800",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 92.9,
+      "kill_wait_secs": 6.12,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35813
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35813
+      },
+      "revlog_after": 35813,
+      "answers_announced": 18,
+      "reviews_committed": 18,
+      "died_inside_write": false
+    },
+    {
+      "trial": 14,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35813,
+      "pid": 5044,
+      "soak_secs": 1.35,
+      "stop_output": "STOPPED 1785698281.400975500",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": null,
+      "kill_wait_secs": 37.54,
+      "process_gone": true,
+      "top_after_kill": "topResumedActivity=ActivityRecord{ed214cc u0 com.google.android.calendar/.launch.oobe.WhatsNewFullScreen t25}\nFailed to write while dumping service activity: Broken pipe",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35813
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35813
+      },
+      "revlog_after": 35813,
+      "answers_announced": 0,
+      "reviews_committed": 0,
+      "died_inside_write": false
+    },
+    {
+      "trial": 15,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35813,
+      "pid": 5495,
+      "soak_secs": 4.97,
+      "stop_output": "STOPPED 1785698327.806082100",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 82.1,
+      "kill_wait_secs": 6.98,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35832
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35832
+      },
+      "revlog_after": 35832,
+      "answers_announced": 19,
+      "reviews_committed": 19,
+      "died_inside_write": false
+    },
+    {
+      "trial": 16,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35832,
+      "pid": 6029,
+      "soak_secs": 2.16,
+      "stop_output": "STOPPED 1785698371.879347300",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 84.3,
+      "kill_wait_secs": 8.2,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35843
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35843
+      },
+      "revlog_after": 35843,
+      "answers_announced": 11,
+      "reviews_committed": 11,
+      "died_inside_write": false
+    },
+    {
+      "trial": 17,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35843,
+      "pid": 6482,
+      "soak_secs": 2.16,
+      "stop_output": "STOPPED 1785698416.336827400",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 75.8,
+      "kill_wait_secs": 6.78,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35854
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35854
+      },
+      "revlog_after": 35854,
+      "answers_announced": 11,
+      "reviews_committed": 11,
+      "died_inside_write": false
+    },
+    {
+      "trial": 18,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35854,
+      "pid": 6974,
+      "soak_secs": 1.21,
+      "stop_output": "STOPPED 1785698460.395728400",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 102.7,
+      "kill_wait_secs": 9.36,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35866
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35866
+      },
+      "revlog_after": 35866,
+      "answers_announced": 12,
+      "reviews_committed": 12,
+      "died_inside_write": false
+    },
+    {
+      "trial": 19,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35866,
+      "pid": 7431,
+      "soak_secs": 5.99,
+      "stop_output": "STOPPED 1785698507.518814400",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 104.8,
+      "kill_wait_secs": 7.48,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35884
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35884
+      },
+      "revlog_after": 35884,
+      "answers_announced": 18,
+      "reviews_committed": 18,
+      "died_inside_write": false
+    },
+    {
+      "trial": 20,
+      "in_app_check_database": {
+        "ok": true,
+        "report": "Database rebuilt and optimized."
+      },
+      "revlog_before": 35884,
+      "pid": 7883,
+      "soak_secs": 4.69,
+      "stop_output": "STOPPED 1785698555.593528300",
+      "freeze_delay_s": 0.03,
+      "freeze_attempts": 4,
+      "frozen_inside_write": false,
+      "freeze_lag_ms": 88.5,
+      "kill_wait_secs": 8.69,
+      "process_gone": true,
+      "top_after_kill": "com.ichi2.anki.DeckPicker",
+      "host_side_check": {
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35902
+        },
+        "ok": true,
+        "wal_bytes_on_device": 10604912,
+        "revlog_without_wal": 35902
+      },
+      "revlog_after": 35902,
+      "answers_announced": 18,
+      "reviews_committed": 18,
+      "died_inside_write": false
+    }
+  ],
+  "final_in_app_check_database": {
+    "ok": true,
+    "report": "Database rebuilt and optimized."
+  },
+  "summary": {
+    "trials": 20,
+    "killed": 20,
+    "in_app_clean": 20,
+    "host_side_clean": 20,
+    "died_inside_write": 0,
+    "frozen_inside_write": 0
+  }
+}

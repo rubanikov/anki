@@ -1,0 +1,1151 @@
+{
+  "collection_source": "C:\\Users\\rubas\\AppData\\Local\\Temp\\claude\\f--Users-rubas-Documents-Gauntlet-AI-Superbuilders-anki-v2\\83179915-c1ed-4490-bbdd-93d8f7b6c019\\scratchpad\\t21\\crash-source.anki2",
+  "seed_counts": {
+    "cards": 8372,
+    "due_today": 4619,
+    "new": 1411,
+    "revlog": 35605
+  },
+  "base": "C:\\Users\\rubas\\AppData\\Local\\Temp\\claude\\f--Users-rubas-Documents-Gauntlet-AI-Superbuilders-anki-v2\\83179915-c1ed-4490-bbdd-93d8f7b6c019\\scratchpad\\t21\\crash-desktop-base",
+  "deck": "SYNTHETIC \u2014 Speedrun bench (never scored)",
+  "trials": [
+    {
+      "trial": 1,
+      "launcher_pid": 18032,
+      "anki_pid": 36660,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 0.91,
+      "session_secs": 5.21,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 50,
+        "answers_started": 51,
+        "last_record": "B 51 1785695871.489684",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6431352,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35655
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35655
+        },
+        "secs": 1.709
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.764
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 35605,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 2,
+      "launcher_pid": 40028,
+      "anki_pid": 39088,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 2.85,
+      "session_secs": 7.01,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 119,
+        "answers_started": 120,
+        "last_record": "B 120 1785695881.807551",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6447832,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35774
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35774
+        },
+        "secs": 1.866
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.594
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 35655,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 3,
+      "launcher_pid": 7868,
+      "anki_pid": 36452,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 2.65,
+      "session_secs": 6.77,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 118,
+        "answers_started": 119,
+        "last_record": "B 119 1785695892.069099",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6456072,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35892
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35892
+        },
+        "secs": 1.759
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.587
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 35774,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 4,
+      "launcher_pid": 44224,
+      "anki_pid": 36964,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 2.07,
+      "session_secs": 6.5,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 95,
+        "answers_started": 96,
+        "last_record": "B 96 1785695901.955394",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6464312,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35987
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 35987
+        },
+        "secs": 1.689
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.624
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 35892,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 5,
+      "launcher_pid": 32048,
+      "anki_pid": 43840,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 1.1,
+      "session_secs": 5.33,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 56,
+        "answers_started": 57,
+        "last_record": "B 57 1785695910.590458",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6472552,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36043
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36043
+        },
+        "secs": 1.725
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.656
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 35987,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 6,
+      "launcher_pid": 41712,
+      "anki_pid": 43100,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 3.23,
+      "session_secs": 7.41,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 127,
+        "answers_started": 128,
+        "last_record": "B 128 1785695921.351892",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6480792,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36170
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36170
+        },
+        "secs": 1.732
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.598
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36043,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 7,
+      "launcher_pid": 41124,
+      "anki_pid": 40384,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 3.29,
+      "session_secs": 7.5,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 133,
+        "answers_started": 134,
+        "last_record": "B 134 1785695932.268018",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6484912,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36303
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36303
+        },
+        "secs": 1.734
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.638
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36170,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 8,
+      "launcher_pid": 9712,
+      "anki_pid": 41340,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 2.2,
+      "session_secs": 6.48,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 97,
+        "answers_started": 98,
+        "last_record": "B 98 1785695942.088068",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6501392,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36400
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36400
+        },
+        "secs": 1.707
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.608
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36303,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 9,
+      "launcher_pid": 30812,
+      "anki_pid": 21968,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 2.17,
+      "session_secs": 6.24,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 88,
+        "answers_started": 89,
+        "last_record": "B 89 1785695951.692953",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6505512,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36488
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36488
+        },
+        "secs": 1.984
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.576
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36400,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 10,
+      "launcher_pid": 35332,
+      "anki_pid": 43976,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 1.17,
+      "session_secs": 5.74,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 57,
+        "answers_started": 58,
+        "last_record": "B 58 1785695961.069822",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6517872,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36545
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36545
+        },
+        "secs": 1.733
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.683
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36488,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 11,
+      "launcher_pid": 42084,
+      "anki_pid": 10196,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 0.31,
+      "session_secs": 4.59,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 25,
+        "answers_started": 26,
+        "last_record": "B 26 1785695969.083561",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6521992,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36570
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36570
+        },
+        "secs": 1.944
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.618
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36545,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 12,
+      "launcher_pid": 34788,
+      "anki_pid": 43492,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 1.67,
+      "session_secs": 5.98,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 72,
+        "answers_started": 73,
+        "last_record": "B 73 1785695978.670523",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6526112,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36642
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36642
+        },
+        "secs": 1.727
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.611
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36570,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 13,
+      "launcher_pid": 35572,
+      "anki_pid": 44644,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 2.47,
+      "session_secs": 7.14,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 96,
+        "answers_started": 97,
+        "last_record": "B 97 1785695989.170264",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6526112,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36738
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36738
+        },
+        "secs": 1.711
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.913
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36642,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 14,
+      "launcher_pid": 20360,
+      "anki_pid": 41424,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 0.56,
+      "session_secs": 4.71,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 35,
+        "answers_started": 36,
+        "last_record": "B 36 1785695997.194515",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6538472,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36773
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36773
+        },
+        "secs": 1.906
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.64
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36738,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 15,
+      "launcher_pid": 41556,
+      "anki_pid": 34428,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 3.24,
+      "session_secs": 7.97,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 131,
+        "answers_started": 132,
+        "last_record": "B 132 1785696008.692535",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6538472,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36904
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36904
+        },
+        "secs": 1.871
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 2.003
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36773,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 16,
+      "launcher_pid": 13072,
+      "anki_pid": 34940,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 1.16,
+      "session_secs": 5.33,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 58,
+        "answers_started": 59,
+        "last_record": "B 59 1785696017.539311",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6546712,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36963
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 36963
+        },
+        "secs": 1.875
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.617
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36904,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 17,
+      "launcher_pid": 23488,
+      "anki_pid": 44880,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 1.16,
+      "session_secs": 5.35,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 57,
+        "answers_started": 58,
+        "last_record": "B 58 1785696026.437809",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6554952,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37020
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37020
+        },
+        "secs": 2.027
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.614
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 36963,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 18,
+      "launcher_pid": 44704,
+      "anki_pid": 41464,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 0.46,
+      "session_secs": 4.63,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 30,
+        "answers_started": 31,
+        "last_record": "B 31 1785696034.697267",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6554952,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37050
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37050
+        },
+        "secs": 1.747
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.619
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 37020,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 19,
+      "launcher_pid": 35500,
+      "anki_pid": 21356,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 3.99,
+      "session_secs": 8.15,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 141,
+        "answers_started": 142,
+        "last_record": "B 142 1785696046.170950",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6554952,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37191
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37191
+        },
+        "secs": 1.717
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.61
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 37050,
+        "graves": 0
+      }
+    },
+    {
+      "trial": 20,
+      "launcher_pid": 43208,
+      "anki_pid": 36296,
+      "reached_review": true,
+      "stalled_launches_before_this_one": 0,
+      "soak_secs": 3.03,
+      "session_secs": 7.21,
+      "killed_inside_write": true,
+      "killer_froze_process_inside_write": true,
+      "freeze_attempts": 1,
+      "victim_log": {
+        "answers_completed": 123,
+        "answers_started": 124,
+        "last_record": "B 124 1785696056.707280",
+        "died_inside_write": true
+      },
+      "exit_code": 1,
+      "sqlite_integrity_check": {
+        "wal_bytes": 6571432,
+        "quick_check": [
+          "ok"
+        ],
+        "integrity_check": [
+          "ok"
+        ],
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37314
+        },
+        "ok": true
+      },
+      "anki_check_database": {
+        "opened": true,
+        "ok": true,
+        "counts": {
+          "cards": 8372,
+          "notes": 8372,
+          "revlog": 37314
+        },
+        "secs": 1.747
+      },
+      "anki_check_database_report": "Database rebuilt and optimized.",
+      "in_app_check_database_at_next_start": {
+        "ok": true,
+        "report": "Database rebuilt and optimized.",
+        "secs": 1.604
+      },
+      "in_app_counts_at_start": {
+        "cards": 8372,
+        "notes": 8372,
+        "revlog": 37191,
+        "graves": 0
+      }
+    }
+  ],
+  "final_in_app_check_database": {
+    "ok": true,
+    "report": "Database rebuilt and optimized.",
+    "secs": 1.594
+  },
+  "final_counts": {
+    "cards": 8372,
+    "notes": 8372,
+    "revlog": 37314,
+    "graves": 0
+  },
+  "summary": {
+    "trials": 20,
+    "killed_inside_write": 20,
+    "stalled_launches_total": 0,
+    "sqlite_clean": 20,
+    "anki_check_database_clean": 20
+  }
+}
