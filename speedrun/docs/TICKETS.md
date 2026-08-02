@@ -46,7 +46,7 @@ can be compressed at the end.
 
 # Wave 0 — start now, nothing blocks these
 
-## T-01 · Freeze the held-out sets `[P]`
+## [T-01](https://github.com/rubanikov/anki/issues/1) · Freeze the held-out sets `[P]`
 **Blocked by:** none — can start immediately
 **Delivers:** a manifest that makes every later evidence claim checkable.
 
@@ -59,7 +59,7 @@ protocol and item hashes are appended as they are generated.
 - [ ] The licensed calibration corpus is in `.gitignore`, with the reason recorded
 - [ ] Twenty minutes, done before any generation runs
 
-## T-02 · Pre-register the ablation `[P]`
+## [T-02](https://github.com/rubanikov/anki/issues/2) · Pre-register the ablation `[P]`
 **Blocked by:** none
 **Delivers:** a timestamped file that makes the experiment count.
 
@@ -71,7 +71,7 @@ thesis).
 - [ ] Names what result would falsify the thesis
 - [ ] Fifteen minutes
 
-## T-03 · Acquire the deck and check tag granularity
+## [T-03](https://github.com/rubanikov/anki/issues/3) · Acquire the deck and check tag granularity
 **Blocked by:** none
 **Delivers:** a decision, backed by counting rather than assumption.
 
@@ -82,7 +82,7 @@ Download MileDown. Count how many of the 31 content categories resolve from
 - [ ] Deck choice made and written down with that number as its justification
 - [ ] Deck is in `.gitignore` — it is the student's, never redistributed
 
-## T-04 · AnkiDroid runs on the fork's engine and shows an abstention
+## [T-04](https://github.com/rubanikov/anki/issues/4) · AnkiDroid runs on the fork's engine and shows an abstention
 **Blocked by:** none — the `.aar` is already built and verified
 **Delivers:** the §8 claim, demonstrated end to end on the phone.
 
@@ -95,7 +95,7 @@ design** — `[C5]` for anything beyond raw output.
 - [ ] Recording captured
 - [ ] README states the ABI shipped (`x86_64` = emulator; `arm64-v8a` is `[C1]`)
 
-## T-12 · Add-on skeleton and dashboard rendering backend output
+## [T-12](https://github.com/rubanikov/anki/issues/5) · Add-on skeleton and dashboard rendering backend output
 **Blocked by:** none — the backend already returns scores and abstentions
 **Delivers:** the desktop surface, showing real abstentions immediately.
 
@@ -112,8 +112,8 @@ the topic label while a question is showing.
 
 # Wave 1
 
-## T-05 · Memory calibration on the public corpus `[P]`
-**Blocked by:** T-01
+## [T-05](https://github.com/rubanikov/anki/issues/6) · Memory calibration on the public corpus `[P]`
+**Blocked by:** [T-01](https://github.com/rubanikov/anki/issues/1)
 **Delivers:** the honesty claim, as a measured number.
 
 Reliability chart, Brier score, log loss on held-back reviews. Runs outside the
@@ -124,8 +124,8 @@ MCAT topic mastery, and the write-up must say so.
 - [ ] Raw corpus absent from the repo
 - [ ] Limitation stated in the artifact itself
 
-## T-06 · Crosswalk: data file, Rust resolution, unmapped on screen
-**Blocked by:** T-03, T-12
+## [T-06](https://github.com/rubanikov/anki/issues/7) · Crosswalk: data file, Rust resolution, unmapped on screen
+**Blocked by:** [T-03](https://github.com/rubanikov/anki/issues/3), [T-12](https://github.com/rubanikov/anki/issues/5)
 **Delivers:** a real deck becoming measurable without touching the student's notes.
 
 Crosswalk keyed on `(deck path, tags)` in collection config, first-match-wins,
@@ -136,8 +136,8 @@ consulted at read time. Demo section only — `[C3]`.
 - [ ] `cards_unmapped` non-zero on a partially-mapped deck and visible on screen
 - [ ] Crosswalk error rate measured on a hand-checked sample and published
 
-## T-07 · Corpus index for the demo section
-**Blocked by:** T-01
+## [T-07](https://github.com/rubanikov/anki/issues/8) · Corpus index for the demo section
+**Blocked by:** [T-01](https://github.com/rubanikov/anki/issues/1)
 **Delivers:** something for the gate to check answers against.
 
 OpenStax book for Bio/Biochem plus the full AAMC outline. Chunk, index, map
@@ -148,8 +148,8 @@ instructions must not reach the generator.
 - [ ] Chunks carry their content-category attribution
 - [ ] Sanitization applied and tested with a poisoned chunk
 
-## T-09 · Sync both ways, and the conflict rule
-**Blocked by:** T-04
+## [T-09](https://github.com/rubanikov/anki/issues/9) · Sync both ways, and the conflict rule
+**Blocked by:** [T-04](https://github.com/rubanikov/anki/issues/4)
 **Delivers:** the two-device claim, tested rather than asserted.
 
 Self-host `anki --syncserver`, point both clients at it.
@@ -159,8 +159,8 @@ Self-host `anki --syncserver`, point both clients at it.
 - [ ] Same card graded both sides offline → documented outcome matches the rule
 - [ ] A phone review appearing on desktop, recorded
 
-## T-11 · Study the deck for real `[P]`
-**Blocked by:** T-03
+## [T-11](https://github.com/rubanikov/anki/issues/10) · Study the deck for real `[P]`
+**Blocked by:** [T-03](https://github.com/rubanikov/anki/issues/3)
 **Delivers:** the live demo's data. **Wall clock — start it, don't schedule it.**
 
 About an hour of genuine review, concentrated in the demo section, so Memory
@@ -169,8 +169,8 @@ crosses 200 reviews there while other sections stay honestly below.
 - [ ] ≥200 graded reviews and ≥30 distinct cards in the demo section
 - [ ] Other sections left below threshold — that contrast *is* the demo
 
-## T-15 · Off switches, proven
-**Blocked by:** T-12
+## [T-15](https://github.com/rubanikov/anki/issues/11) · Off switches, proven
+**Blocked by:** [T-12](https://github.com/rubanikov/anki/issues/5)
 **Delivers:** "Anki works as before" as a test rather than a promise.
 
 - [ ] Add-on disabled ⇒ queue order and scheduling identical to upstream, asserted by test
@@ -181,8 +181,8 @@ crosses 200 reviews there while other sections stay honestly below.
 
 # Wave 2
 
-## T-08 · Agent service: graph, gate, tracing
-**Blocked by:** T-07
+## [T-08](https://github.com/rubanikov/anki/issues/12) · Agent service: graph, gate, tracing
+**Blocked by:** [T-07](https://github.com/rubanikov/anki/issues/8)
 **Delivers:** grounded generation with attribution built into the structure.
 
 FastAPI + LangGraph outside Anki's bundled Python. `{output, source_id, span}` on
@@ -194,8 +194,8 @@ checks its own item. LangSmith on.
 - [ ] An output without a source never crosses the boundary
 - [ ] Service killed ⇒ desktop app still starts, still scores Memory, still shows coverage
 
-## T-13 · Dashboard on real numbers
-**Blocked by:** T-06, T-11
+## [T-13](https://github.com/rubanikov/anki/issues/13) · Dashboard on real numbers
+**Blocked by:** [T-06](https://github.com/rubanikov/anki/issues/7), [T-11](https://github.com/rubanikov/anki/issues/10)
 **Delivers:** the money shot — one section reporting, two abstaining.
 
 - [ ] Demo section shows a real Memory score with a range
@@ -206,8 +206,8 @@ checks its own item. LangSmith on.
 
 # Wave 3
 
-## T-10 · Generate the P-set for the demo section
-**Blocked by:** T-08, T-06
+## [T-10](https://github.com/rubanikov/anki/issues/14) · Generate the P-set for the demo section
+**Blocked by:** [T-08](https://github.com/rubanikov/anki/issues/12), [T-06](https://github.com/rubanikov/anki/issues/7)
 **Delivers:** held-out items — the only thing Performance may be computed from.
 
 Enough gated items to support 20 attempts across ≥3 topics. **Item text written
@@ -218,8 +218,8 @@ H2 manifest as produced.
 - [ ] No item text anywhere in the collection — checked, not assumed
 - [ ] Every item traceable to a source span
 
-## T-14 · Coach loop: cold question, confidence, explain aloud, contrast pair
-**Blocked by:** T-08, T-12
+## [T-14](https://github.com/rubanikov/anki/issues/15) · Coach loop: cold question, confidence, explain aloud, contrast pair
+**Blocked by:** [T-08](https://github.com/rubanikov/anki/issues/12), [T-12](https://github.com/rubanikov/anki/issues/5)
 **Delivers:** the product's distinguishing interaction. Contrast pair is `[P]`;
 steps 5–7 are `[C4]`.
 
@@ -228,8 +228,8 @@ steps 5–7 are `[C4]`.
 - [ ] Contrast pair changes exactly one detail
 - [ ] **Grep proves no `<input>` exists on any live-question template**
 
-## T-17 · Retrieval evaluation `[C2 → 2 arms]`
-**Blocked by:** T-08
+## [T-17](https://github.com/rubanikov/anki/issues/16) · Retrieval evaluation `[C2 → 2 arms]`
+**Blocked by:** [T-08](https://github.com/rubanikov/anki/issues/12)
 **Delivers:** a comparison that can lose.
 
 Four arms over 93 queries, Yield at a fixed gate, ungated control. Cut to
@@ -238,8 +238,8 @@ hybrid-gated + ungated control if time runs short — the control carries the cl
 - [ ] Query set and primary metric fixed **before** the first run
 - [ ] Results table committed including the arm that won, whichever it was
 
-## T-18 · AI card check on the gold set
-**Blocked by:** T-08
+## [T-18](https://github.com/rubanikov/anki/issues/17) · AI card check on the gold set
+**Blocked by:** [T-08](https://github.com/rubanikov/anki/issues/12)
 **Delivers:** item quality as a number, against a cutoff set in advance.
 
 - [ ] Run against H3, cutoff already recorded in the manifest
@@ -249,8 +249,8 @@ hybrid-gated + ungated control if time runs short — the control carries the cl
 
 # Wave 4
 
-## T-16 · Ablation intervention blocks `[P]` — **run as early as possible**
-**Blocked by:** T-02, T-10, T-14
+## [T-16](https://github.com/rubanikov/anki/issues/18) · Ablation intervention blocks `[P]` — **run as early as possible**
+**Blocked by:** [T-02](https://github.com/rubanikov/anki/issues/2), [T-10](https://github.com/rubanikov/anki/issues/14), [T-14](https://github.com/rubanikov/anki/issues/15)
 **Delivers:** the experiment. Every hour this slips is an hour off the delay.
 
 Three counterbalanced blocks on matched topics: full coach · coach off, scores
@@ -260,8 +260,8 @@ only · plain Anki.
 - [ ] Block order counterbalanced and recorded
 - [ ] Start time logged — T-23 is scheduled from it
 
-## T-19 · Paraphrase test `[P]`
-**Blocked by:** T-10, T-03
+## [T-19](https://github.com/rubanikov/anki/issues/19) · Paraphrase test `[P]`
+**Blocked by:** [T-10](https://github.com/rubanikov/anki/issues/14), [T-03](https://github.com/rubanikov/anki/issues/3)
 **Delivers:** the three-point DOK comparison that can falsify the thesis.
 
 Card recall vs R-set accuracy vs P-set accuracy, same student.
@@ -269,8 +269,8 @@ Card recall vs R-set accuracy vs P-set accuracy, same student.
 - [ ] Three numbers with ranges, reported side by side
 - [ ] If the three collapse to one number, that is stated as a finding
 
-## T-20 · Leakage check, clean `[P]`
-**Blocked by:** T-10
+## [T-20](https://github.com/rubanikov/anki/issues/20) · Leakage check, clean `[P]`
+**Blocked by:** [T-10](https://github.com/rubanikov/anki/issues/14)
 **Delivers:** proof the Performance number is uncontaminated.
 
 Flags any H2/H3 item or near-copy in generation prompts, corpus chunks, or
@@ -283,18 +283,18 @@ coaching material.
 
 # Wave 5
 
-## T-21 · Crash and offline
-**Blocked by:** T-09, T-12
+## [T-21](https://github.com/rubanikov/anki/issues/21) · Crash and offline
+**Blocked by:** [T-09](https://github.com/rubanikov/anki/issues/9), [T-12](https://github.com/rubanikov/anki/issues/5)
 - [ ] 20 kills per app, `check database` clean each time — zero corrupted collections
 - [ ] Network pulled ⇒ AI degrades, scores survive
 
-## T-22 · Bench on a 50k synthetic deck `[C6]`
-**Blocked by:** T-12
+## [T-22](https://github.com/rubanikov/anki/issues/22) · Bench on a 50k synthetic deck `[C6]`
+**Blocked by:** [T-12](https://github.com/rubanikov/anki/issues/5)
 - [ ] p50/p95/worst against every target in PRD §10
 - [ ] Synthetic deck touches latency only, never a score
 
-## T-23 · Retention test `[P]` — **wall clock, ~12 h after T-16**
-**Blocked by:** T-16 + elapsed time
+## [T-23](https://github.com/rubanikov/anki/issues/23) · Retention test `[P]` — **wall clock, ~12 h after T-16**
+**Blocked by:** [T-16](https://github.com/rubanikov/anki/issues/18) + elapsed time
 - [ ] Items drawn from the held-out set, seen in no block
 - [ ] Result reported as "cannot distinguish" with its interval and the n that would be needed
 - [ ] Actual delay recorded in hours
@@ -303,27 +303,27 @@ coaching material.
 
 # Wave 6 — ship
 
-## T-24 · Package both apps
-**Blocked by:** T-09, T-13, T-14
+## [T-24](https://github.com/rubanikov/anki/issues/24) · Package both apps
+**Blocked by:** [T-09](https://github.com/rubanikov/anki/issues/9), [T-13](https://github.com/rubanikov/anki/issues/13), [T-14](https://github.com/rubanikov/anki/issues/15)
 - [ ] Desktop installer with the add-on **preinstalled**
 - [ ] Packaged Android build
 
-## T-25 · Clean-device run, recorded `[P]`
-**Blocked by:** T-24
+## [T-25](https://github.com/rubanikov/anki/issues/25) · Clean-device run, recorded `[P]`
+**Blocked by:** [T-24](https://github.com/rubanikov/anki/issues/24)
 - [ ] Both apps installed and run on a machine that has never seen the project
 
-## T-26 · Traceability table
-**Blocked by:** T-17, T-19, T-20, T-23
+## [T-26](https://github.com/rubanikov/anki/issues/26) · Traceability table
+**Blocked by:** [T-17](https://github.com/rubanikov/anki/issues/16), [T-19](https://github.com/rubanikov/anki/issues/19), [T-20](https://github.com/rubanikov/anki/issues/20), [T-23](https://github.com/rubanikov/anki/issues/23)
 - [ ] Every SpikyPOV in a row: POV → shipped feature → the number that could falsify it
 - [ ] No row without a feature behind it
 
-## T-27 · README, limitations, demo video
-**Blocked by:** T-25, T-26
+## [T-27](https://github.com/rubanikov/anki/issues/27) · README, limitations, demo video
+**Blocked by:** [T-25](https://github.com/rubanikov/anki/issues/25), [T-26](https://github.com/rubanikov/anki/issues/26)
 - [ ] Exam up front, AGPL-3.0-or-later, credit to Anki, upstream files touched
 - [ ] All six stated limitations from [SPEC.md](./SPEC.md)
 - [ ] Video: POV in one sentence → the feature → a review session → the Rust change → phone-to-desktop sync → three scores with ranges → AI features → results
 
-## T-28 · Update the BrainLift "what changed"
-**Blocked by:** T-26
+## [T-28](https://github.com/rubanikov/anki/issues/28) · Update the BrainLift "what changed"
+**Blocked by:** [T-26](https://github.com/rubanikov/anki/issues/26)
 - [ ] POV 5 reworded; RAG scope corrected
 - [ ] The three unfalsifiable deliverables this planning found, and how each was rewritten to be able to lose
