@@ -18,13 +18,15 @@ number is worse than the cost it saved.
 
 from __future__ import annotations
 
-from speedrun.addon import backend
-
 from test_dashboard import crosswalked_collection  # noqa: F401 - pytest fixture
+
+from speedrun.addon import backend
 
 
 def _sorted_topics(topics):
-    return sorted((t.topic_id, t.card_count, round(t.mean_retrievability, 6)) for t in topics)
+    return sorted(
+        (t.topic_id, t.card_count, round(t.mean_retrievability, 6)) for t in topics
+    )
 
 
 def test_the_derived_view_matches_what_the_backend_would_have_returned(
