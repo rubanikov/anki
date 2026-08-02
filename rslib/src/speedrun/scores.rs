@@ -37,7 +37,13 @@ fn abstain(reason: impl Into<String>) -> Score {
     }
 }
 
-fn available(estimate: f32, low: f32, high: f32, confidence: Confidence, reasons: Vec<String>) -> Score {
+fn available(
+    estimate: f32,
+    low: f32,
+    high: f32,
+    confidence: Confidence,
+    reasons: Vec<String>,
+) -> Score {
     Score {
         available: true,
         estimate,
@@ -217,9 +223,9 @@ impl Collection {
     ///
     /// Only attempts tagged as held out count — anything the coach explained,
     /// hinted at, or reused for teaching is activity, not evidence. The section
-    /// filter matters: without it every section is handed the same global count,
-    /// and answering twenty questions in Psych/Soc would unlock a performance
-    /// score for Bio/Biochem.
+    /// filter matters: without it every section is handed the same global
+    /// count, and answering twenty questions in Psych/Soc would unlock a
+    /// performance score for Bio/Biochem.
     pub(crate) fn speedrun_holdout_attempts(
         &mut self,
         section: &str,

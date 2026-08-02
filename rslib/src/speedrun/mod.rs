@@ -11,6 +11,7 @@
 //! suspended, and every query here filters them out — otherwise our own data
 //! would inflate the numbers we grade ourselves on.
 
+pub mod crosswalk;
 mod mastery;
 mod scores;
 mod service;
@@ -32,9 +33,7 @@ pub(crate) struct Topic<'a> {
 /// we would have nothing to attribute mastery to.
 pub(crate) fn topic_from_tag<'a>(tag: &'a str, prefix: &str) -> Option<Topic<'a>> {
     let rest = tag.strip_prefix(prefix)?.strip_prefix("::")?;
-    let mut parts = rest.splitn(2, "::");
-    let section = parts.next()?;
-    let remainder = parts.next()?;
+    let (section, remainder) = rest.split_once("::")?;
     if section.is_empty() || remainder.is_empty() {
         return None;
     }

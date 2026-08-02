@@ -1,0 +1,249 @@
+{
+  "schema": 1,
+  "id": "miledown-bb-v1",
+  "section": "BB",
+  "source_deck": "MileDown's MCAT Decks",
+  "source_report": "speedrun/eval/deck/DECK_REPORT.md",
+  "outline": "AAMC Bio/Biochem content categories 1A-3B",
+  "error_rate": {
+    "measured": 0.06,
+    "wilson_95": [0.0278, 0.1248],
+    "sample_size": 100,
+    "errors": 6,
+    "sample": "speedrun/crosswalk/error_sample.json",
+    "method": "speedrun/crosswalk/README.md"
+  },
+  "notes": [
+    "Entries are consulted in the order written and the first match wins.",
+    "An entry matches a card if the card's note carries the entry's tag, or any tag beneath it (`tag::child`).",
+    "`decks` is a tiebreak, never a key: when present, the entry only applies to cards whose deck path starts with one of the listed paths. ADR-0005 measured 26 tags straddling several subdecks and the tag was right every time, so the deck path is used only where a tag is demonstrably misfiled.",
+    "`topic: null` is a refusal. The label was looked at and found not to separate two categories, and the cards stay Unmapped. Never fill one of these in to make coverage look better.",
+    "Parent entries appear after their children, so a child's mapping wins over a parent's refusal.",
+    "Bio/Biochem only. The other two sections are cut #3 and their labels fall through to Unmapped."
+  ],
+  "entries": [
+    {
+      "tag": "MileDown::Biochemistry::Amino_Acids",
+      "section": "BB",
+      "topic": "1A",
+      "reason": "Amino acid structure, stereochemistry, side chains."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Proteins",
+      "section": "BB",
+      "topic": "1A",
+      "reason": "Primary through quaternary protein structure and non-enzymatic function."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Enzymes",
+      "section": "BB",
+      "topic": "1A",
+      "reason": "Enzyme structure, kinetics and control of activity; covers ::Kinetics and ::Regulation."
+    },
+    {
+      "tag": "MileDown::Biochemistry::DNA_and_RNA",
+      "section": "BB",
+      "topic": "1B",
+      "reason": "Nucleic acid structure, replication, repair, transcription, translation, chromosome organisation and gene control; covers all eight children."
+    },
+    {
+      "tag": "MileDown::Biology::Reproduction::Meiosis",
+      "section": "BB",
+      "topic": "1C",
+      "reason": "Meiosis and the factors that increase genetic variability."
+    },
+    {
+      "tag": "MileDown::Biology::Reproduction::Genes",
+      "section": "BB",
+      "topic": "1C",
+      "reason": "Sex-linked inheritance and sex determination."
+    },
+    {
+      "tag": "MileDown::Biology::Genetics",
+      "section": "BB",
+      "topic": "1C",
+      "reason": "Mendelian concepts, allelic interaction, chromosomal mutation."
+    },
+    {
+      "tag": "MileDown::Biology::Evolution",
+      "section": "BB",
+      "topic": "1C",
+      "reason": "Evolution, listed under 1C on the outline."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Metabolism",
+      "section": "BB",
+      "topic": "1D",
+      "reason": "Glycolysis, gluconeogenesis, PPP, citric acid cycle, ETC, fatty acid and urea metabolism, and hormonal regulation of metabolism; covers all twelve children."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Lipid_Metabolism",
+      "section": "BB",
+      "topic": "1D",
+      "reason": "Fatty acid oxidation and synthesis, ketogenesis, lipid transport."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Carbohydrates",
+      "section": "BB",
+      "topic": "1D",
+      "reason": "Carbohydrate structure and nomenclature, listed under 1D on the outline."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Cell_Membrane",
+      "section": "BB",
+      "topic": "2A",
+      "reason": "Plasma membrane composition and transport."
+    },
+    {
+      "tag": "MileDown::Biology::Parts_of_Cell",
+      "section": "BB",
+      "topic": "2A",
+      "reason": "Membrane-bound organelles and eukaryotic cell structure. 2 of the 11 cards are prokaryote-specific (nucleoid, plasmid) and are 2B; the label still clears the 80% rule and the miss is carried in the error rate rather than papered over."
+    },
+    {
+      "tag": "MileDown::Biology::Cytoskeleton",
+      "section": "BB",
+      "topic": "2A",
+      "reason": "Microfilaments, microtubules, intermediate filaments."
+    },
+    {
+      "tag": "MileDown::Biology::Tissues",
+      "section": "BB",
+      "topic": "2A",
+      "reason": "Tissues formed from eukaryotic cells; epithelial and connective."
+    },
+    {
+      "tag": "MileDown::Biology::Viruses_and_Bacteria",
+      "section": "BB",
+      "topic": "2B",
+      "reason": "Prokaryote and virus structure, growth, genetics."
+    },
+    {
+      "tag": "MileDown::Biology::Reproduction::Mitosis",
+      "section": "BB",
+      "topic": "2C",
+      "reason": "Mitotic phases and chromosome segregation."
+    },
+    {
+      "tag": "MileDown::Biology::Reproduction::Cell_Cycle",
+      "section": "BB",
+      "topic": "2C",
+      "reason": "Cell cycle phases, checkpoints, G0."
+    },
+    {
+      "tag": "MileDown::Biology::Development",
+      "section": "BB",
+      "topic": "2C",
+      "reason": "Embryogenesis, determination, differentiation, mechanisms of development."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Biosignaling",
+      "section": "BB",
+      "topic": "2C",
+      "reason": "Biosignaling: GPCRs, second messengers, ion channels."
+    },
+    {
+      "tag": "MileDown::Biology::Nervous_System",
+      "section": "BB",
+      "topic": "3A",
+      "reason": "Neuron structure, action potential, synapses, neurotransmitters, reflexes; covers all four children."
+    },
+    {
+      "tag": "MileDown::Biology::Endocrine",
+      "section": "BB",
+      "topic": "3A",
+      "reason": "Endocrine glands, hormone classes and mechanisms."
+    },
+    {
+      "tag": "MileDown::Biology::Cardiovascular_System",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Heart, vasculature, blood."
+    },
+    {
+      "tag": "MileDown::Biology::Respiratory_System",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Ventilation, gas exchange, bicarbonate buffering; covers both children."
+    },
+    {
+      "tag": "MileDown::Biology::Immune_System",
+      "decks": ["MileDown's MCAT Decks::Biology"],
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Innate and adaptive immunity, lymphatic system. Deck-restricted: one card carrying this tag sits in the Biochemistry subdeck and is about omega fatty acids, not immunity. It also carries Biochemistry::Lipid_Metabolism and resolves to 1D through that entry. This is the tiebreak ADR-0005 describes, used where the tag is demonstrably misfiled."
+    },
+    {
+      "tag": "MileDown::Biology::Digestion",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Alimentary canal, accessory organs, enzymes and hormones; covers all four children."
+    },
+    {
+      "tag": "MileDown::Biology::Kidney",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Nephron function and osmoregulation."
+    },
+    {
+      "tag": "MileDown::Biology::Muscular_System",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Muscle types, contraction, bone and joint structure; covers ::Bones and ::Contraction."
+    },
+    {
+      "tag": "MileDown::Biology::Skin",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Skin layers, sensory and barrier function."
+    },
+    {
+      "tag": "MileDown::Biology::Thermoregulation",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Thermoregulation, listed under the skin system in 3B."
+    },
+    {
+      "tag": "MileDown::Biology::Reproduction::Hormones",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Hormonal control of reproduction, listed under the reproductive system in 3B."
+    },
+    {
+      "tag": "MileDown::Biology::Reproduction::Organs",
+      "section": "BB",
+      "topic": "3B",
+      "reason": "Male and female reproductive anatomy."
+    },
+    {
+      "tag": "MileDown::Biology::Reproduction",
+      "topic": null,
+      "reason": "Refused as ambiguous. The 7 cards under the bare tag split across binary fission (2B), ploidy and sex chromosomes (1B/1C), oogenesis and fertilisation (2C) and the egg pathway (3B), with no majority and nothing in the deck or the tags to separate them. Its children are mapped above and win by entry order."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Lab_Techniques",
+      "topic": null,
+      "reason": "Refused as ambiguous. Of 16 cards, roughly half are nucleic acid biotechnology (PCR, Sanger, Southern/Northern blotting) which is 1B, and roughly half are protein separation (SDS-PAGE, isoelectric focusing, western blotting) which the outline lists under 5C in Chem/Phys. No split of the label separates them."
+    },
+    {
+      "tag": "MileDown::OChem::Amino_Acids",
+      "topic": null,
+      "reason": "Refused as ambiguous. Peptide bond formation reads as 1A; Strecker and Gabriel synthesis and the functional-group cards are 5D. The label straddles two sections."
+    },
+    {
+      "tag": "MileDown::Biochemistry::Lipids",
+      "topic": null,
+      "reason": "Out of section. Lipid structure and function is 5D in Chem/Phys; only lipid metabolism is Bio/Biochem, and that carries its own label."
+    },
+    {
+      "tag": "MileDown::Behavioral::Biology_and_Behavior",
+      "topic": null,
+      "reason": "Out of section. Neuroanatomy in the service of behaviour is 7A in Psych/Soc, not 3A, even though the card text overlaps 3A. Mapping it into Bio/Biochem would inflate 3A with cards the Bio/Biochem section does not ask about."
+    },
+    {
+      "tag": "MileDown::Behavioral::Sensation_and_Perception",
+      "topic": null,
+      "reason": "Out of section. Sensory receptors and pathways are 6A in Psych/Soc."
+    }
+  ]
+}

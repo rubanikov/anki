@@ -46,12 +46,13 @@ pub fn outline_topic_count(section: &str) -> u32 {
     }
 }
 
-/// How many distinct topics must have been attempted before performance reports.
+/// How many distinct topics must have been attempted before performance
+/// reports.
 ///
 /// A fraction of the section rather than a flat count. The previous absolute 8
-/// demanded 89% of Bio/Biochem but only 67% of Psych/Soc, so the same rule meant
-/// something different in every section and performance would have abstained
-/// essentially forever.
+/// demanded 89% of Bio/Biochem but only 67% of Psych/Soc, so the same rule
+/// meant something different in every section and performance would have
+/// abstained essentially forever.
 pub fn min_distinct_topics_attempted(section: &str) -> u32 {
     let total = outline_topic_count(section);
     if total == 0 {
