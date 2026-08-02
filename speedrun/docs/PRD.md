@@ -115,7 +115,10 @@ A test asserts that with the add-on disabled, queue order and scheduling decisio
 - A generated item ships **only** if the supporting span for the correct answer is retrieved from the corpus and matched against it. No span, no ship.
 - **Asking an LLM to verify its own item is banned.** The fake-organ result settles this — generator and checker share a blind spot.
 - Every AI output carries `{source_id, span}` through the graph state. An output with no source is dropped, not shown.
-- Corpus for v1: AAMC content outline + OpenStax (CC BY 4.0) Biology / Chemistry / Physics / Psychology.
+- Corpus for v1: the AAMC content outline (all 31 content categories) plus **one** OpenStax book —
+  *Biology*, 1st edition, whose CC BY 4.0 licence was read from OpenStax's own archive API at
+  download time and recorded. Bio/Biochem only; the other sections have no book indexed, and
+  chunks that cannot be honestly attributed to a content category are left unattributed.
 
 ## 9. Acceptance criteria (mapped to graded hard limits)
 

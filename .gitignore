@@ -57,3 +57,12 @@ speedrun/eval/deck/*.anki2
 speedrun/eval/deck/media*
 # pytest scratch; must not be in the tree when the leakage check runs
 .pytest_cache/
+# --- Speedrun corpus (T-07) — see speedrun/corpus/README.md ---
+# OpenStax downloads. CC BY 4.0 and redistributable, but it is OpenStax's text,
+# it is tens of megabytes of it, and build.py --fetch reproduces it exactly from
+# the archive version pinned in raw/manifest.json.
+speedrun/corpus/raw/
+# The built index and its build report. Rebuilt by build.py --build; a binary
+# index in the history would be a second source of truth for what the gate
+# checks answers against.
+speedrun/corpus/out/

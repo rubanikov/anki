@@ -1,0 +1,965 @@
+{
+  "schema_version": 1,
+  "name": "AAMC MCAT content outline",
+  "provenance": {
+    "authority": "Association of American Medical Colleges",
+    "retrieved": "2026-08-02",
+    "method": "Fetched from AAMC's own published pages on students-residents.aamc.org. Section names, foundational concept statements and all 31 content category titles were read off those pages, not recalled. The per-category topic lists were fetched only for the nine Bio/Biochem categories -- the demo section -- because that is the only section this corpus indexes.",
+    "transcription_risk": "Titles and statements are quoted from the AAMC pages. Rendering the pages to text can drop typographic detail (en-dashes, superscripts) and can flatten a three-level bullet list to two levels, which is what happened to the topic lists here: sub-sub-topics were folded into their parent's subtopic list. Identifiers, titles and counts are reliable; deep topic nesting is not, and nothing in this repo depends on it.",
+    "urls": {
+      "BB": "https://students-residents.aamc.org/biological-and-biochemical-foundations-living-systems/biological-and-biochemical-foundations-living-systems-foundational-concept-1",
+      "CP": "https://students-residents.aamc.org/chemical-and-physical-foundations-biological-systems/chemical-and-physical-foundations-biological-systems-section-foundational-concept-4",
+      "PS": "https://students-residents.aamc.org/psychological-social-and-biological-foundations-behavior/psychological-social-and-biological-foundations-behavior-section-foundational-concept-6"
+    },
+    "copyright": "The outline is AAMC's. It is reproduced here as the external authority coverage is measured against, at the level of identifiers and category titles, for a non-commercial research tool. It is not Speedrun's content and is not relicensed by this repository."
+  },
+  "sections": [
+    {
+      "id": "BB",
+      "name": "Biological and Biochemical Foundations of Living Systems",
+      "short_name": "Bio/Biochem",
+      "category_count": 9,
+      "demo_section": true
+    },
+    {
+      "id": "CP",
+      "name": "Chemical and Physical Foundations of Biological Systems",
+      "short_name": "Chem/Phys",
+      "category_count": 10,
+      "demo_section": false
+    },
+    {
+      "id": "PS",
+      "name": "Psychological, Social, and Biological Foundations of Behavior",
+      "short_name": "Psych/Soc",
+      "category_count": 12,
+      "demo_section": false
+    },
+    {
+      "id": "CARS",
+      "name": "Critical Analysis and Reasoning Skills",
+      "short_name": "CARS",
+      "category_count": 0,
+      "demo_section": false,
+      "note": "CARS tests reasoning over passages rather than content knowledge, so the outline gives it no content categories. It is listed for completeness; nothing is attributed to it."
+    }
+  ],
+  "foundational_concepts": [
+    {
+      "number": 1,
+      "section": "BB",
+      "statement": "Biomolecules have unique properties that determine how they contribute to the structure and function of cells, and how they participate in the processes necessary to maintain life."
+    },
+    {
+      "number": 2,
+      "section": "BB",
+      "statement": "Highly organized assemblies of molecules, cells, and organs interact to carry out the functions of living organisms."
+    },
+    {
+      "number": 3,
+      "section": "BB",
+      "statement": "Complex systems of tissues and organs sense the internal and external environments of multicellular organisms, and through integrated functioning, maintain a stable internal environment within an ever-changing external environment."
+    },
+    {
+      "number": 4,
+      "section": "CP",
+      "statement": "Complex living organisms transport materials, sense their environment, process signals, and respond to changes using processes that can be understood in terms of physical principles."
+    },
+    {
+      "number": 5,
+      "section": "CP",
+      "statement": "The principles that govern chemical interactions and reactions form the basis for a broader understanding of the molecular dynamics of living systems."
+    },
+    {
+      "number": 6,
+      "section": "PS",
+      "statement": "Biological, psychological, and sociocultural factors influence the ways that individuals perceive, think about, and react to the world."
+    },
+    {
+      "number": 7,
+      "section": "PS",
+      "statement": "Biological, psychological, and sociocultural factors influence behavior and behavior change."
+    },
+    {
+      "number": 8,
+      "section": "PS",
+      "statement": "Psychological, sociocultural, and biological factors influence the way we think about ourselves and others, as well as how we interact with others."
+    },
+    {
+      "number": 9,
+      "section": "PS",
+      "statement": "Cultural and social differences influence well-being."
+    },
+    {
+      "number": 10,
+      "section": "PS",
+      "statement": "Social stratification and access to resources influence well-being."
+    }
+  ],
+  "content_categories": [
+    {
+      "id": "1A",
+      "section": "BB",
+      "foundational_concept": 1,
+      "title": "Structure and function of proteins and their constituent amino acids",
+      "topics": [
+        {
+          "title": "Amino Acids (BC, OC)",
+          "subtopics": [
+            "Description",
+            "Absolute configuration at the α position",
+            "Amino acids as dipolar ions",
+            "Classifications: acidic or basic; hydrophobic or hydrophilic",
+            "Reactions",
+            "Sulfur linkage for cysteine and cystine",
+            "Peptide linkage: polypeptides and proteins",
+            "Hydrolysis"
+          ]
+        },
+        {
+          "title": "Protein Structure (BIO, BC, OC)",
+          "subtopics": [
+            "1° structure of proteins",
+            "2° structure of proteins",
+            "3° structure of proteins; role of proline, cystine, hydrophobic bonding",
+            "4° structure of proteins (BIO, BC)",
+            "Conformational stability",
+            "Denaturing and folding",
+            "Hydrophobic interactions",
+            "Solvation layer (entropy) (BC)",
+            "Separation techniques: isoelectric point; electrophoresis"
+          ]
+        },
+        {
+          "title": "Non-Enzymatic Protein Function (BIO, BC)",
+          "subtopics": ["Binding (BC)", "Immune system", "Motors"]
+        },
+        {
+          "title": "Enzyme Structure and Function (BIO, BC)",
+          "subtopics": [
+            "Function of enzymes in catalyzing biological reactions",
+            "Enzyme classification by reaction type",
+            "Reduction of activation energy",
+            "Substrates and enzyme specificity",
+            "Active Site Model",
+            "Induced-fit Model",
+            "Mechanism of catalysis: cofactors; coenzymes; water-soluble vitamins",
+            "Effects of local conditions on enzyme activity"
+          ]
+        },
+        {
+          "title": "Control of Enzyme Activity (BIO, BC)",
+          "subtopics": [
+            "Kinetics: general (catalysis); Michaelis–Menten; cooperativity",
+            "Feedback regulation",
+            "Inhibition — types: competitive; non-competitive; mixed (BC); uncompetitive (BC)",
+            "Regulatory enzymes: allosteric enzymes; covalently-modified enzymes; zymogen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1B",
+      "section": "BB",
+      "foundational_concept": 1,
+      "title": "Transmission of genetic information from the gene to the protein",
+      "topics": [
+        {
+          "title": "Nucleic Acid Structure and Function (BIO, BC)",
+          "subtopics": [
+            "Nucleotides and nucleosides",
+            "Sugar phosphate backbone",
+            "Pyrimidine, purine residues",
+            "Deoxyribonucleic acid (DNA): double helix, Watson-Crick model of DNA structure",
+            "Base pairing specificity: A with T, G with C",
+            "Function in transmission of genetic information (BIO)",
+            "DNA denaturation, reannealing, hybridization"
+          ]
+        },
+        {
+          "title": "DNA Replication (BIO)",
+          "subtopics": [
+            "Mechanism of replication: separation of strands, specific coupling of free nucleic acids",
+            "Semi-conservative nature of replication",
+            "Specific enzymes involved in replication",
+            "Origins of replication, multiple origins in eukaryotes",
+            "Replicating the ends of DNA molecules"
+          ]
+        },
+        {
+          "title": "Repair of DNA (BIO)",
+          "subtopics": ["Repair during replication", "Repair of mutations"]
+        },
+        {
+          "title": "Genetic Code (BIO)",
+          "subtopics": [
+            "Central Dogma: DNA → RNA → protein",
+            "The triplet code",
+            "Codon-anticodon relationship",
+            "Degenerate code, wobble pairing",
+            "Missense, nonsense codons",
+            "Initiation, termination codons",
+            "Messenger RNA (mRNA)"
+          ]
+        },
+        {
+          "title": "Transcription (BIO)",
+          "subtopics": [
+            "Transfer RNA (tRNA); ribosomal RNA (rRNA)",
+            "Mechanism of transcription",
+            "mRNA processing in eukaryotes, introns, exons",
+            "Ribozymes, spliceosomes, small nuclear ribonucleoproteins (snRNPs), small nuclear RNAs (snRNAs)",
+            "Functional and evolutionary importance of introns"
+          ]
+        },
+        {
+          "title": "Translation (BIO)",
+          "subtopics": [
+            "Roles of mRNA, tRNA, rRNA",
+            "Role and structure of ribosomes",
+            "Initiation, termination co-factors",
+            "Post-translational modification of proteins"
+          ]
+        },
+        {
+          "title": "Eukaryotic Chromosome Organization (BIO)",
+          "subtopics": [
+            "Chromosomal proteins",
+            "Single copy vs. repetitive DNA",
+            "Supercoiling",
+            "Heterochromatin vs. euchromatin",
+            "Telomeres, centromeres"
+          ]
+        },
+        {
+          "title": "Control of Gene Expression in Prokaryotes (BIO)",
+          "subtopics": [
+            "Operon Concept, Jacob-Monod Model",
+            "Gene repression in bacteria",
+            "Positive control in bacteria"
+          ]
+        },
+        {
+          "title": "Control of Gene Expression in Eukaryotes (BIO)",
+          "subtopics": [
+            "Transcriptional regulation",
+            "DNA binding proteins, transcription factors",
+            "Gene amplification and duplication",
+            "Post-transcriptional control, basic concept of splicing (introns, exons)",
+            "Cancer as a failure of normal cellular controls, oncogenes, tumor suppressor genes",
+            "Regulation of chromatin structure",
+            "DNA methylation",
+            "Role of non-coding RNAs"
+          ]
+        },
+        {
+          "title": "Recombinant DNA and Biotechnology (BIO)",
+          "subtopics": [
+            "Gene cloning",
+            "Restriction enzymes",
+            "DNA libraries",
+            "Generation of cDNA",
+            "Hybridization",
+            "Expressing cloned genes",
+            "Polymerase chain reaction",
+            "Gel electrophoresis and Southern blotting",
+            "DNA sequencing",
+            "Analyzing gene expression",
+            "Determining gene function",
+            "Stem cells",
+            "Practical applications of DNA technology",
+            "Safety and ethics of DNA technology"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1C",
+      "section": "BB",
+      "foundational_concept": 1,
+      "title": "Transmission of heritable information from generation to generation and the processes that increase genetic diversity",
+      "topics": [
+        { "title": "Evidence that DNA is Genetic Material (BIO)", "subtopics": [] },
+        {
+          "title": "Mendelian Concepts (BIO)",
+          "subtopics": [
+            "Phenotype and genotype",
+            "Gene",
+            "Locus",
+            "Allele: single and multiple",
+            "Homozygosity and heterozygosity",
+            "Wild-type",
+            "Recessiveness",
+            "Complete dominance",
+            "Co-dominance",
+            "Incomplete dominance, leakage, penetrance, expressivity",
+            "Hybridization: viability",
+            "Gene pool"
+          ]
+        },
+        {
+          "title": "Meiosis and Other Factors Affecting Genetic Variability (BIO)",
+          "subtopics": [
+            "Significance of meiosis",
+            "Important differences between meiosis and mitosis",
+            "Segregation of genes",
+            "Independent assortment",
+            "Linkage",
+            "Recombination: single crossovers, double crossovers, synaptonemal complex, tetrad",
+            "Sex-linked characteristics",
+            "Sex determination",
+            "Cytoplasmic/extranuclear inheritance",
+            "Mutation: types, advantageous vs. deleterious, inborn errors of metabolism, mutagens and carcinogens",
+            "Genetic drift",
+            "Synapsis or crossing-over mechanism for increasing genetic diversity"
+          ]
+        },
+        {
+          "title": "Analytic Methods (BIO)",
+          "subtopics": [
+            "Hardy–Weinberg Principle",
+            "Testcross (Backcross; concepts of parental, F1, and F2 generations)",
+            "Gene mapping: crossover frequencies",
+            "Biometry: statistical methods"
+          ]
+        },
+        {
+          "title": "Evolution (BIO)",
+          "subtopics": [
+            "Natural selection: fitness concept",
+            "Selection by differential reproduction",
+            "Concepts of natural and group selection",
+            "Evolutionary success as increase in percent representation in the gene pool of the next generation",
+            "Speciation",
+            "Polymorphism",
+            "Adaptation and specialization",
+            "Inbreeding",
+            "Outbreeding",
+            "Bottlenecks",
+            "Evolutionary time as measured by gradual random changes in genome"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1D",
+      "section": "BB",
+      "foundational_concept": 1,
+      "title": "Principles of bioenergetics and fuel molecule metabolism",
+      "topics": [
+        {
+          "title": "Principles of Bioenergetics (BC, GC)",
+          "subtopics": [
+            "Bioenergetics/thermodynamics: free energy/Keq, equilibrium constant, relationship of Keq and ΔG°",
+            "Concentration; Le Châtelier's Principle",
+            "Endothermic/exothermic reactions",
+            "Free energy: G",
+            "Spontaneous reactions and ΔG°",
+            "Phosphoryl group transfers and ATP: ATP hydrolysis ΔG << 0; ATP group transfers",
+            "Biological oxidation-reduction: half-reactions, soluble electron carriers, flavoproteins"
+          ]
+        },
+        {
+          "title": "Carbohydrates (BC, OC)",
+          "subtopics": [
+            "Nomenclature and classification, common names",
+            "Absolute configuration",
+            "Cyclic structure and conformations of hexoses",
+            "Epimers and anomers",
+            "Hydrolysis of the glycoside linkage",
+            "Monosaccharides",
+            "Disaccharides",
+            "Polysaccharides"
+          ]
+        },
+        {
+          "title": "Glycolysis, Gluconeogenesis, and the Pentose Phosphate Pathway (BIO, BC)",
+          "subtopics": [
+            "Glycolysis (aerobic), substrates and products",
+            "Feeder pathways: glycogen, starch metabolism",
+            "Fermentation (anaerobic glycolysis)",
+            "Gluconeogenesis (BC)",
+            "Pentose phosphate pathway (BC)",
+            "Net (maximum) molecular and energetic results of respiration processes"
+          ]
+        },
+        {
+          "title": "Principles of Metabolic Regulation (BC)",
+          "subtopics": [
+            "Regulation of metabolic pathways (BIO, BC); maintenance of a dynamic steady state",
+            "Regulation of glycolysis and gluconeogenesis",
+            "Metabolism of glycogen",
+            "Regulation of glycogen synthesis and breakdown; allosteric and hormonal control",
+            "Analysis of metabolic control"
+          ]
+        },
+        {
+          "title": "Citric Acid Cycle (BIO, BC)",
+          "subtopics": [
+            "Acetyl-CoA production (BC)",
+            "Reactions of the cycle, substrates and products",
+            "Regulation of the cycle",
+            "Net (maximum) molecular and energetic results of respiration processes"
+          ]
+        },
+        {
+          "title": "Metabolism of Fatty Acids and Proteins (BIO, BC)",
+          "subtopics": [
+            "Description of fatty acids (BC)",
+            "Digestion, mobilization, and transport of fats",
+            "Oxidation of fatty acids: saturated fats, unsaturated fats",
+            "Ketone bodies (BC)",
+            "Anabolism of fats (BIO)",
+            "Non-template synthesis: biosynthesis of lipids and polysaccharides (BIO)",
+            "Metabolism of proteins (BIO)"
+          ]
+        },
+        {
+          "title": "Oxidative Phosphorylation (BIO, BC)",
+          "subtopics": [
+            "Electron transport chain and oxidative phosphorylation, substrates and products, general features of the pathway",
+            "Electron transfer in mitochondria: NADH, NADPH, flavoproteins, cytochromes",
+            "ATP synthase, chemiosmotic coupling; proton motive force",
+            "Net (maximum) molecular and energetic results of respiration processes",
+            "Regulation of oxidative phosphorylation",
+            "Mitochondria, apoptosis, oxidative stress (BC)"
+          ]
+        },
+        {
+          "title": "Hormonal Regulation and Integration of Metabolism (BC)",
+          "subtopics": [
+            "Higher level integration of hormone structure and function",
+            "Tissue specific metabolism",
+            "Hormonal regulation of fuel metabolism",
+            "Obesity and regulation of body mass"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2A",
+      "section": "BB",
+      "foundational_concept": 2,
+      "title": "Assemblies of molecules, cells, and groups of cells within single cellular and multicellular organisms",
+      "topics": [
+        {
+          "title": "Plasma Membrane (BIO, BC)",
+          "subtopics": [
+            "General function in cell containment",
+            "Composition of membranes: lipid components (phospholipids and phosphatids, steroids, waxes), protein components, fluid mosaic model",
+            "Membrane dynamics",
+            "Solute transport across membranes: thermodynamic considerations, osmosis, colligative properties and osmotic pressure (GC), passive transport, active transport, sodium/potassium pump",
+            "Membrane channels",
+            "Membrane potential",
+            "Membrane receptors",
+            "Exocytosis and endocytosis",
+            "Intercellular junctions (BIO): gap junctions, tight junctions, desmosomes"
+          ]
+        },
+        {
+          "title": "Membrane-Bound Organelles and Defining Characteristics of Eukaryotic Cells (BIO)",
+          "subtopics": [
+            "Defining characteristics of eukaryotic cells: membrane bound nucleus, presence of organelles, mitotic division",
+            "Nucleus: compartmentalization, storage of genetic information, nucleolus, nuclear envelope and pores",
+            "Mitochondria: site of ATP production, inner and outer membrane structure, self-replication",
+            "Lysosomes: membrane-bound vesicles containing hydrolytic enzymes",
+            "Endoplasmic reticulum: rough and smooth components, ribosomes, membrane structure, role in membrane biosynthesis and biosynthesis of secreted proteins",
+            "Golgi apparatus: general structure and role in packaging and secretion",
+            "Peroxisomes: organelles that collect peroxides"
+          ]
+        },
+        {
+          "title": "Cytoskeleton (BIO)",
+          "subtopics": [
+            "General function in cell support and movement",
+            "Microfilaments: composition and role in cleavage and contractility",
+            "Microtubules: composition and role in support and transport",
+            "Intermediate filaments, role in support",
+            "Composition and function of cilia and flagella",
+            "Centrioles, microtubule organizing centers"
+          ]
+        },
+        {
+          "title": "Tissues Formed From Eukaryotic Cells (BIO)",
+          "subtopics": ["Epithelial cells", "Connective tissue cells"]
+        }
+      ]
+    },
+    {
+      "id": "2B",
+      "section": "BB",
+      "foundational_concept": 2,
+      "title": "The structure, growth, physiology, and genetics of prokaryotes and viruses",
+      "topics": [
+        {
+          "title": "Cell Theory (BIO)",
+          "subtopics": ["History and development", "Impact on biology"]
+        },
+        {
+          "title": "Classification and Structure of Prokaryotic Cells (BIO)",
+          "subtopics": [
+            "Prokaryotic domains: archaea, bacteria",
+            "Major classifications of bacteria by shape: bacilli (rod-shaped), spirilli (spiral-shaped), cocci (spherical)",
+            "Lack of nuclear membrane and mitotic apparatus",
+            "Lack of typical eukaryotic organelles",
+            "Presence of cell wall in bacteria",
+            "Flagellar propulsion, mechanism"
+          ]
+        },
+        {
+          "title": "Growth and Physiology of Prokaryotic Cells (BIO)",
+          "subtopics": [
+            "Reproduction by fission",
+            "High degree of genetic adaptability, acquisition of antibiotic resistance",
+            "Exponential growth",
+            "Existence of anaerobic and aerobic variants",
+            "Parasitic and symbiotic",
+            "Chemotaxis"
+          ]
+        },
+        {
+          "title": "Genetics of Prokaryotic Cells (BIO)",
+          "subtopics": [
+            "Existence of plasmids, extragenomic DNA",
+            "Transformation: incorporation into bacterial genome of DNA fragments from external medium",
+            "Conjugation",
+            "Transposons (also present in eukaryotic cells)"
+          ]
+        },
+        {
+          "title": "Virus Structure (BIO)",
+          "subtopics": [
+            "General structural characteristics (nucleic acid and protein, enveloped and nonenveloped)",
+            "Lack organelles and nucleus",
+            "Structural aspects of typical bacteriophage",
+            "Genomic content — RNA or DNA",
+            "Size relative to bacteria and eukaryotic cells"
+          ]
+        },
+        {
+          "title": "Viral Life Cycle (BIO)",
+          "subtopics": [
+            "Self-replicating biological units that must reproduce within specific host cell",
+            "Generalized phage and animal virus life cycles: attachment, penetration, entry of viral genetic material; use of host synthetic mechanism; self-assembly and release",
+            "Transduction: transfer of genetic material by viruses",
+            "Retrovirus life cycle: integration into host DNA, reverse transcriptase, HIV",
+            "Prions and viroids: subviral particles"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2C",
+      "section": "BB",
+      "foundational_concept": 2,
+      "title": "Processes of cell division, differentiation, and specialization",
+      "topics": [
+        {
+          "title": "Mitosis (BIO)",
+          "subtopics": [
+            "Mitotic process: prophase, metaphase, anaphase, telophase, interphase",
+            "Mitotic structures: centrioles, asters, spindles; chromatids, centromeres, kinetochores; nuclear membrane breakdown and reorganization; mechanisms of chromosome movement",
+            "Phases of cell cycle: G0, G1, S, G2, M",
+            "Growth arrest",
+            "Control of cell cycle",
+            "Loss of cell cycle controls in cancer cells"
+          ]
+        },
+        { "title": "Biosignalling (BC)", "subtopics": ["Oncogenes, apoptosis"] },
+        {
+          "title": "Reproductive System (BIO)",
+          "subtopics": [
+            "Gametogenesis by meiosis",
+            "Ovum and sperm: differences in formation, morphology, relative contribution to next generation",
+            "Reproductive sequence: fertilization; implantation; development; birth"
+          ]
+        },
+        {
+          "title": "Embryogenesis (BIO)",
+          "subtopics": [
+            "Stages of early development: fertilization, cleavage, blastula formation, gastrulation (first cell movements, formation of primary germ layers), neurulation",
+            "Major structures arising out of primary germ layers",
+            "Neural crest",
+            "Environment–gene interaction in development"
+          ]
+        },
+        {
+          "title": "Mechanisms of Development (BIO)",
+          "subtopics": [
+            "Cell specialization: determination, differentiation, tissue types",
+            "Cell–cell communication in development",
+            "Cell migration",
+            "Pluripotency: stem cells",
+            "Gene regulation in development",
+            "Programmed cell death",
+            "Existence of regenerative capacity in various species",
+            "Senescence and aging"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3A",
+      "section": "BB",
+      "foundational_concept": 3,
+      "title": "Structure and functions of the nervous and endocrine systems and ways in which these systems coordinate the organ systems",
+      "topics": [
+        {
+          "title": "Nervous System: Structure and Function (BIO)",
+          "subtopics": [
+            "Major functions: high level control and integration of body systems; adaptive capability to external influences",
+            "Organization of vertebrate nervous system",
+            "Sensor and effector neurons",
+            "Sympathetic and parasympathetic nervous systems: antagonistic control",
+            "Reflexes: feedback loop, reflex arc; role of spinal cord and supraspinal circuits",
+            "Integration with endocrine system: feedback control"
+          ]
+        },
+        {
+          "title": "Nerve Cell (BIO)",
+          "subtopics": [
+            "Cell body: site of nucleus, organelles",
+            "Dendrites: branched extensions of cell body",
+            "Axon: structure and function",
+            "Myelin sheath, Schwann cells, insulation of axon",
+            "Nodes of Ranvier: propagation of nerve impulse along axon",
+            "Synapse: site of impulse propagation between cells",
+            "Synaptic activity: transmitter molecules",
+            "Resting potential: electrochemical gradient",
+            "Action potential: threshold, all-or-none",
+            "Sodium/potassium pump",
+            "Excitatory and inhibitory nerve fibers: summation, frequency of firing",
+            "Glial cells, neuroglia"
+          ]
+        },
+        {
+          "title": "Electrochemistry (GC)",
+          "subtopics": ["Concentration cell: direction of electron flow, Nernst equation"]
+        },
+        {
+          "title": "Biosignalling (BC)",
+          "subtopics": [
+            "Gated ion channels: voltage gated, ligand gated",
+            "Receptor enzymes",
+            "G protein-coupled receptors"
+          ]
+        },
+        {
+          "title": "Lipids (BC, OC)",
+          "subtopics": ["Description; structure", "Steroids", "Terpenes and terpenoids"]
+        },
+        {
+          "title": "Endocrine System: Hormones and Their Sources (BIO)",
+          "subtopics": [
+            "Function of endocrine system: specific chemical control at cell, tissue, and organ level",
+            "Definitions of endocrine gland, hormone",
+            "Major endocrine glands: names, locations, products",
+            "Major types of hormones",
+            "Neuroendocrinology — relation between neurons and hormonal systems"
+          ]
+        },
+        {
+          "title": "Endocrine System: Mechanisms of Hormone Action (BIO)",
+          "subtopics": [
+            "Cellular mechanisms of hormone action",
+            "Transport of hormones: blood supply",
+            "Specificity of hormones: target tissue",
+            "Integration with nervous system: feedback control",
+            "Regulation by second messengers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3B",
+      "section": "BB",
+      "foundational_concept": 3,
+      "title": "Structure and integrative functions of the main organ systems",
+      "topics": [
+        {
+          "title": "Respiratory System (BIO)",
+          "subtopics": [
+            "General function",
+            "Structure of lungs and alveoli",
+            "Breathing mechanisms",
+            "Thermoregulation: nasal and tracheal capillary beds; evaporation, panting",
+            "Particulate filtration: nasal hairs, mucus/cilia system in lungs",
+            "Alveolar gas exchange",
+            "pH control",
+            "Regulation by nervous control"
+          ]
+        },
+        {
+          "title": "Circulatory System (BIO)",
+          "subtopics": [
+            "Functions: circulation of oxygen, nutrients, hormones, ions and fluids, removal of metabolic waste",
+            "Role in thermoregulation",
+            "Four-chambered heart: structure and function",
+            "Endothelial cells",
+            "Systolic and diastolic pressure",
+            "Pulmonary and systemic circulation",
+            "Arterial and venous systems (arteries, arterioles, venules, veins)",
+            "Capillary beds",
+            "Composition of blood",
+            "Coagulation, clotting mechanisms",
+            "Oxygen transport by blood",
+            "Carbon dioxide transport and level in blood",
+            "Nervous and endocrine control"
+          ]
+        },
+        {
+          "title": "Lymphatic System (BIO)",
+          "subtopics": ["Structure of lymphatic system", "Major functions"]
+        },
+        {
+          "title": "Immune System (BIO)",
+          "subtopics": [
+            "Innate (non-specific) vs. adaptive (specific) immunity",
+            "Adaptive immune system cells",
+            "Innate immune system cells",
+            "Tissues",
+            "Concept of antigen and antibody",
+            "Antigen presentation",
+            "Clonal selection",
+            "Antigen-antibody recognition",
+            "Structure of antibody molecule",
+            "Recognition of self vs. non-self, autoimmune diseases",
+            "Major histocompatibility complex"
+          ]
+        },
+        {
+          "title": "Digestive System (BIO)",
+          "subtopics": [
+            "Ingestion",
+            "Stomach",
+            "Liver",
+            "Bile",
+            "Pancreas",
+            "Small Intestine",
+            "Large Intestine",
+            "Rectum: storage and elimination of waste, feces",
+            "Muscular control",
+            "Endocrine control",
+            "Nervous control: the enteric nervous system"
+          ]
+        },
+        {
+          "title": "Excretory System (BIO)",
+          "subtopics": [
+            "Roles in homeostasis",
+            "Kidney structure",
+            "Nephron structure",
+            "Formation of urine",
+            "Storage and elimination: ureter, bladder, urethra",
+            "Osmoregulation: capillary reabsorption of H2O, amino acids, glucose, ions",
+            "Muscular control: sphincter muscle"
+          ]
+        },
+        {
+          "title": "Reproductive System (BIO)",
+          "subtopics": [
+            "Male and female reproductive structures and their functions",
+            "Hormonal control of reproduction"
+          ]
+        },
+        {
+          "title": "Muscle System (BIO)",
+          "subtopics": [
+            "Important functions",
+            "Structure of three basic muscle types: striated, smooth, cardiac",
+            "Muscle structure and control of contraction",
+            "Regulation of cardiac muscle contraction",
+            "Oxygen debt: fatigue",
+            "Nervous control"
+          ]
+        },
+        {
+          "title": "Specialized Cell — Muscle Cell (BIO)",
+          "subtopics": [
+            "Structural characteristics of striated, smooth, and cardiac muscle",
+            "Abundant mitochondria in red muscle cells: ATP source",
+            "Organization of contractile elements: actin and myosin filaments, crossbridges, sliding filament model",
+            "Sarcomeres: \"I\" and \"A\" bands, \"M\" and \"Z\" lines, \"H\" zone",
+            "Presence of troponin and tropomyosin",
+            "Calcium regulation of contraction"
+          ]
+        },
+        {
+          "title": "Skeletal System (BIO)",
+          "subtopics": [
+            "Functions",
+            "Skeletal structure",
+            "Bone structure",
+            "Cartilage: structure and function",
+            "Ligaments, tendons",
+            "Endocrine control"
+          ]
+        },
+        {
+          "title": "Skin System (BIO)",
+          "subtopics": [
+            "Structure",
+            "Functions in homeostasis and osmoregulation",
+            "Functions in thermoregulation",
+            "Physical protection",
+            "Hormonal control: sweating, vasodilation, and vasoconstriction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4A",
+      "section": "CP",
+      "foundational_concept": 4,
+      "title": "Translational motion, forces, work, energy, and equilibrium in living systems",
+      "topics": []
+    },
+    {
+      "id": "4B",
+      "section": "CP",
+      "foundational_concept": 4,
+      "title": "Importance of fluids for the circulation of blood, gas movement, and gas exchange",
+      "topics": []
+    },
+    {
+      "id": "4C",
+      "section": "CP",
+      "foundational_concept": 4,
+      "title": "Electrochemistry and electrical circuits and their elements",
+      "topics": []
+    },
+    {
+      "id": "4D",
+      "section": "CP",
+      "foundational_concept": 4,
+      "title": "How light and sound interact with matter",
+      "topics": []
+    },
+    {
+      "id": "4E",
+      "section": "CP",
+      "foundational_concept": 4,
+      "title": "Atoms, nuclear decay, electronic structure, and atomic chemical behavior",
+      "topics": []
+    },
+    {
+      "id": "5A",
+      "section": "CP",
+      "foundational_concept": 5,
+      "title": "Unique nature of water and its solutions",
+      "topics": []
+    },
+    {
+      "id": "5B",
+      "section": "CP",
+      "foundational_concept": 5,
+      "title": "Nature of molecules and intermolecular interactions",
+      "topics": []
+    },
+    {
+      "id": "5C",
+      "section": "CP",
+      "foundational_concept": 5,
+      "title": "Separation and purification methods",
+      "topics": []
+    },
+    {
+      "id": "5D",
+      "section": "CP",
+      "foundational_concept": 5,
+      "title": "Structure, function, and reactivity of biologically-relevant molecules",
+      "topics": []
+    },
+    {
+      "id": "5E",
+      "section": "CP",
+      "foundational_concept": 5,
+      "title": "Principles of chemical thermodynamics and kinetics",
+      "topics": []
+    },
+    {
+      "id": "6A",
+      "section": "PS",
+      "foundational_concept": 6,
+      "title": "Sensing the environment",
+      "topics": []
+    },
+    {
+      "id": "6B",
+      "section": "PS",
+      "foundational_concept": 6,
+      "title": "Making sense of the environment",
+      "topics": []
+    },
+    {
+      "id": "6C",
+      "section": "PS",
+      "foundational_concept": 6,
+      "title": "Responding to the world",
+      "topics": []
+    },
+    {
+      "id": "7A",
+      "section": "PS",
+      "foundational_concept": 7,
+      "title": "Individual influences on behavior",
+      "topics": []
+    },
+    {
+      "id": "7B",
+      "section": "PS",
+      "foundational_concept": 7,
+      "title": "Social processes that influence human behavior",
+      "topics": []
+    },
+    {
+      "id": "7C",
+      "section": "PS",
+      "foundational_concept": 7,
+      "title": "Attitude and behavior change",
+      "topics": []
+    },
+    {
+      "id": "8A",
+      "section": "PS",
+      "foundational_concept": 8,
+      "title": "Self-identity",
+      "topics": []
+    },
+    {
+      "id": "8B",
+      "section": "PS",
+      "foundational_concept": 8,
+      "title": "Social thinking",
+      "topics": []
+    },
+    {
+      "id": "8C",
+      "section": "PS",
+      "foundational_concept": 8,
+      "title": "Social interactions",
+      "topics": []
+    },
+    {
+      "id": "9A",
+      "section": "PS",
+      "foundational_concept": 9,
+      "title": "Understanding social structure",
+      "topics": []
+    },
+    {
+      "id": "9B",
+      "section": "PS",
+      "foundational_concept": 9,
+      "title": "Demographic characteristics and processes",
+      "topics": []
+    },
+    {
+      "id": "10A",
+      "section": "PS",
+      "foundational_concept": 10,
+      "title": "Social inequality",
+      "topics": []
+    }
+  ]
+}

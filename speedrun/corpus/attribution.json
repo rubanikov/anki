@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "book_id": "openstax-biology-1e",
+  "unit": "page",
+  "method": "Hand-authored. Each rule was written by reading the OpenStax section title against the AAMC topic list for the candidate content category (both are in outline.json). Rules are matched most-specific-first: an exact section number, then the chapter, then nothing. A page that matches no rule is unattributed, and unattributed is a reported outcome rather than a gap to be filled.",
+  "why_not_automatic": "Keyword scoring over the AAMC topic lists was tried on paper and rejected. It attributes confidently and wrongly: 'Regulation of Body Processes' scores on 'regulation' against 1D's metabolic regulation, and photosynthesis scores on 'electron transport chain' against 1D, which the MCAT does not test. A wrong attribution is worse than none, because it silently poisons both coverage and the category filter retrieval runs.",
+  "confidence_levels": {
+    "high": "The section's subject matter appears by name in the AAMC topic list for this category.",
+    "medium": "The subject matter is clearly within the category's remit, but is not itemised by AAMC or is only part of what the section covers.",
+    "low": "Defensible but contestable. Treat category-filtered retrieval over these as weaker evidence."
+  },
+  "known_gaps": [
+    "Sensory reception (chapter 36) is left unattributed. The Outline puts sensing the environment in PS 6A, outside the demo section, while BB 3A covers nervous system structure. Attributing a biology textbook's sensory chapters to a psychology category was judged unreliable, so nothing is claimed.",
+    "Lipid structure (3.3) is left unattributed. AAMC lists 'Lipids (BC, OC): description; structure; steroids' under 3A, alongside the nervous and endocrine systems. That placement is real but reads as an error to any reviewer checking the map, so the section is left unattributed rather than filed somewhere indefensible.",
+    "General chemistry (chapters 1-2: atoms, water, carbon) is left unattributed. It belongs to CP 4E, 5A and 5B, and this corpus does not index the Chem/Phys section; attributing a Bio book's chunks to CP categories would make Chem/Phys coverage look supported by a source that was never ingested for it.",
+    "Photosynthesis (chapter 8), phylogenetics (20), biological diversity (23-32) and ecology (44-47) are left unattributed because the Outline does not test them.",
+    "Genomics and proteomics (17.2, 17.4, 17.5) are left unattributed. 1B lists DNA sequencing and analysis of gene expression, but the sections are mostly about genome projects and bioinformatics, which it does not.",
+    "The Outline's 3B lists a skin system and a lymphatic system. Biology 1e covers both only in passing, inside chapters 33 and 42, so retrieval for those topics will be thin. Nothing is misattributed to compensate."
+  ],
+  "rules": [
+    { "section": "3.2", "categories": ["1D"], "confidence": "high", "note": "1D lists Carbohydrates by name." },
+    { "section": "3.3", "categories": [], "confidence": "none", "note": "See known_gaps: lipid structure sits under 3A in the Outline." },
+    { "section": "3.4", "categories": ["1A"], "confidence": "high", "note": "1A: amino acids and protein structure." },
+    { "section": "3.5", "categories": ["1B"], "confidence": "high", "note": "1B: nucleic acid structure and function." },
+    { "chapter": "3", "categories": [], "confidence": "none", "note": "Chapter 3 straddles 1A, 1B and 1D; its Introduction, Key Terms and Summary are not attributed to any one of them." },
+
+    { "section": "4.1", "categories": ["2B"], "confidence": "medium", "note": "2B lists Cell Theory; the rest of 4.1 is microscopy, which the Outline does not list." },
+    { "section": "4.2", "categories": ["2B"], "confidence": "high", "note": "2B: classification and structure of prokaryotic cells." },
+    { "chapter": "4", "categories": ["2A"], "confidence": "high", "note": "2A: eukaryotic organelles, cytoskeleton, intercellular junctions." },
+
+    { "chapter": "5", "categories": ["2A"], "confidence": "high", "note": "2A: plasma membrane, solute transport, exocytosis and endocytosis." },
+
+    { "section": "6.5", "categories": ["1A"], "confidence": "high", "note": "1A: enzyme structure, function and control." },
+    { "chapter": "6", "categories": ["1D"], "confidence": "high", "note": "1D: bioenergetics, free energy, ATP." },
+    { "chapter": "7", "categories": ["1D"], "confidence": "high", "note": "1D: glycolysis, citric acid cycle, oxidative phosphorylation, fermentation, fuel metabolism." },
+
+    { "chapter": "8", "categories": [], "confidence": "none", "note": "Photosynthesis is not on the Outline." },
+
+    { "section": "9.4", "categories": [], "confidence": "none", "note": "Quorum sensing in single-celled organisms is not on the Outline." },
+    { "chapter": "9", "categories": ["3A"], "confidence": "medium", "note": "3A lists Biosignalling: gated ion channels, receptor enzymes, G protein-coupled receptors." },
+
+    { "chapter": "10", "categories": ["2C"], "confidence": "high", "note": "2C: mitosis, the cell cycle, its control, and loss of control in cancer." },
+
+    { "section": "11.1", "categories": ["1C", "2C"], "confidence": "high", "note": "1C: meiosis and genetic variability. 2C: gametogenesis by meiosis." },
+    { "chapter": "11", "categories": ["1C"], "confidence": "high", "note": "1C: meiosis and other factors affecting genetic variability." },
+    { "chapter": "12", "categories": ["1C"], "confidence": "high", "note": "1C: Mendelian concepts." },
+    { "chapter": "13", "categories": ["1C"], "confidence": "high", "note": "1C: linkage, recombination, sex-linked characteristics, chromosomal disorders." },
+
+    { "chapter": "14", "categories": ["1B"], "confidence": "high", "note": "1B: nucleic acid structure, DNA replication, repair of DNA." },
+    { "chapter": "15", "categories": ["1B"], "confidence": "high", "note": "1B: the genetic code, transcription, translation." },
+    { "chapter": "16", "categories": ["1B"], "confidence": "high", "note": "1B: control of gene expression in prokaryotes and eukaryotes, cancer as a failure of cellular control." },
+
+    { "section": "17.1", "categories": ["1B"], "confidence": "medium", "note": "1B: recombinant DNA and biotechnology - cloning, restriction enzymes, PCR, gel electrophoresis." },
+    { "section": "17.3", "categories": ["1B"], "confidence": "medium", "note": "1B lists DNA sequencing." },
+    { "chapter": "17", "categories": [], "confidence": "none", "note": "See known_gaps: genome mapping, applied genomics and proteomics are not on the Outline." },
+
+    { "chapter": "18", "categories": ["1C"], "confidence": "medium", "note": "1C: Evolution - natural selection, speciation, adaptation." },
+    { "chapter": "19", "categories": ["1C"], "confidence": "high", "note": "1C: Hardy-Weinberg, genetic drift, bottlenecks, adaptive evolution." },
+    { "chapter": "20", "categories": [], "confidence": "none", "note": "Phylogenetics is not on the Outline." },
+
+    { "chapter": "21", "categories": ["2B"], "confidence": "high", "note": "2B: virus structure and viral life cycle, prions and viroids." },
+    { "chapter": "22", "categories": ["2B"], "confidence": "high", "note": "2B: prokaryotic structure, growth, physiology and genetics." },
+
+    { "section": "33.2", "categories": ["2A"], "confidence": "high", "note": "2A: tissues formed from eukaryotic cells - epithelial and connective." },
+    { "section": "33.3", "categories": ["3B"], "confidence": "high", "note": "3B: homeostasis across the organ systems." },
+    { "section": "33.1", "categories": ["3B"], "confidence": "medium", "note": "3B: integrative function of the organ systems." },
+    { "chapter": "33", "categories": [], "confidence": "none", "note": "The chapter's front and back matter spans 2A and 3B." },
+
+    { "chapter": "34", "categories": ["3B"], "confidence": "high", "note": "3B: digestive system." },
+
+    { "chapter": "35", "categories": ["3A"], "confidence": "high", "note": "3A: nervous system structure and function, the nerve cell, action potentials, synapses." },
+    { "chapter": "36", "categories": [], "confidence": "none", "note": "See known_gaps: sensory reception is PS 6A, outside the demo section." },
+    { "chapter": "37", "categories": ["3A"], "confidence": "high", "note": "3A: endocrine glands, hormone action, feedback control." },
+
+    { "chapter": "38", "categories": ["3B"], "confidence": "high", "note": "3B: skeletal system, muscle system, the muscle cell." },
+    { "chapter": "39", "categories": ["3B"], "confidence": "high", "note": "3B: respiratory system, alveolar gas exchange, pH control." },
+    { "chapter": "40", "categories": ["3B"], "confidence": "high", "note": "3B: circulatory system, blood composition, gas transport." },
+    { "chapter": "41", "categories": ["3B"], "confidence": "high", "note": "3B: excretory system, kidney and nephron structure, osmoregulation." },
+    { "chapter": "42", "categories": ["3B"], "confidence": "high", "note": "3B: innate and adaptive immunity, antibodies, lymphatic system." },
+
+    { "section": "43.1", "categories": [], "confidence": "none", "note": "Reproductive strategies across animals are broader than the Outline's human-centred reproductive topics." },
+    { "section": "43.2", "categories": ["2C"], "confidence": "high", "note": "2C: fertilization, the reproductive sequence." },
+    { "section": "43.3", "categories": ["2C", "3B"], "confidence": "high", "note": "2C: gametogenesis, ovum and sperm. 3B: male and female reproductive structures." },
+    { "section": "43.4", "categories": ["3B"], "confidence": "high", "note": "3B: hormonal control of reproduction." },
+    { "section": "43.5", "categories": ["2C"], "confidence": "medium", "note": "2C: the reproductive sequence through implantation, development and birth." },
+    { "section": "43.6", "categories": ["2C"], "confidence": "high", "note": "2C: cleavage, blastula formation, gastrulation, primary germ layers." },
+    { "section": "43.7", "categories": ["2C"], "confidence": "high", "note": "2C: neurulation, structures arising from the germ layers, neural crest." },
+    { "chapter": "43", "categories": [], "confidence": "none", "note": "Chapter 43 straddles 2C and 3B." }
+  ]
+}
