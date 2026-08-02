@@ -11,7 +11,10 @@ logic into two places obliged to agree forever.
 
 Everything attaches through ``gui_hooks``. Nothing upstream is patched, wrapped
 or replaced, so disabling this add-on leaves stock Anki behind — the first of
-the three off switches in the spec.
+the three off switches in the spec, and the one asserted rather than promised:
+``tests/test_off_switches.py`` drives the same review session with Speedrun
+absent, installed-but-disabled and loaded, and compares what the scheduler did.
+The other two switches are configuration, read only in ``switches.py``.
 
 See README.md for how it loads and what shipping it preinstalled would require.
 """

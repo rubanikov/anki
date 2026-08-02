@@ -73,7 +73,10 @@ closes.
 
 Nothing upstream is patched, wrapped or replaced. Two consequences follow, and
 both are things the spec asks for. Disabling the add-on leaves stock Anki
-behind, exactly, with no residue — the first of the three off switches. And
+behind, exactly, with no residue — the first of the three off switches, and the
+one `test_off_switches.py` asserts by driving the same review session with the
+add-on absent, present-but-disabled and loaded, and comparing what the scheduler
+did. And
 `card_will_show` is the one hook that sees rendered card HTML in the reviewer,
 the previewer _and_ the card-layout screen, so hooking it once covers all three;
 monkeypatching `Reviewer._showQuestion` would have covered one of them and would
@@ -98,6 +101,17 @@ mid-review disturbs nothing.
 Tools → Add-ons → Speedrun → Config. Defaults and explanations live in
 `config.json` and `config.md`.
 
+`coach_enabled` and `ai_enabled` are the two in-app off switches. They are
+stored in `config.py` and interpreted in `switches.py` and nowhere else, because
+the whole claim of these switches is that measurement does not depend on them —
+a claim only as good as the number of places allowed to read them. `ai_enabled`
+is the wider one: off means no generation *and* no coach, and the agent service
+failing to answer produces the identical state, so the degraded path and the
+chosen path are the same path. Neither switch can withhold a score, and a test
+renders the dashboard under all eight combinations to prove it. The third off
+switch is disabling the add-on, which is not in this file and cannot be — see
+[`../eval/offswitch/OFF_SWITCHES.md`](../eval/offswitch/OFF_SWITCHES.md).
+
 The one entry worth reading twice is `outline_topic_count` per section. It is
 how many content categories the AAMC's published Outline lists — 10 for
 Chem/Phys, 9 for Bio/Biochem, 12 for Psych/Soc — and `SectionScoresRequest`
@@ -116,13 +130,14 @@ getting it wrong withholds a score and can never invent one.
 | `backend.py`                              | The only place `SpeedrunService` is called.                          |
 | `reviewer.py`                             | The `card_will_show` hook.                                           |
 | `topics.py`                               | Which tags name a Topic, and how the label is hidden. Pure.          |
+| `switches.py`                             | The only place `coach_enabled` and `ai_enabled` are interpreted.     |
 | `config.py` / `config.json` / `config.md` | Configuration and its documentation.                                 |
 | `install.py`                              | Developer convenience: link this tree into a profile.                |
 | `manifest.json`                           | Add-on metadata. `meta.json` is generated from it and is not source. |
 | `tests/`                                  | See below.                                                           |
 
-`render.py` and `topics.py` import nothing from `aqt` or `anki`, which is why
-they are testable without a Qt event loop. `dashboard.py` and `reviewer.py` are
+`render.py`, `topics.py` and `switches.py` import nothing from `aqt` or `anki`,
+which is why they are testable without a Qt event loop. `dashboard.py` and `reviewer.py` are
 wiring, and are covered by the harness described below rather than by unit
 tests — the spec deliberately leaves the add-on unseamed, because a seam here
 would test a passthrough and would invite score logic to drift into a second
@@ -134,14 +149,25 @@ place.
 PYTHONPATH=out/pylib out/pyenv/Scripts/python.exe -m pytest speedrun/addon/tests -q
 ```
 
-(`out/pyenv/bin/python` on macOS and Linux.) Fourteen tests. Two of them open a
-real empty collection, call the real backend and assert the sentence a student
-would actually read — that all twelve scores abstain, that each names its own
-shortfall, and that the unmapped count is on screen once per section. The rest
-cover the renderer against stand-ins: that an estimate is printed as the backend
-produced it and not rescaled, that an abstention never renders as an empty box
-or as an error, that backend text is escaped, and that a longer Topic tag is not
-left half-redacted on the question side.
+(`out/pyenv/bin/python` on macOS and Linux.) Thirty-one tests, in two files.
+
+`test_dashboard.py` — fourteen. Two of them open a real empty collection, call
+the real backend and assert the sentence a student would actually read — that
+all twelve scores abstain, that each names its own shortfall, and that the
+unmapped count is on screen once per section. The rest cover the renderer
+against stand-ins: that an estimate is printed as the backend produced it and
+not rescaled, that an abstention never renders as an empty box or as an error,
+that backend text is escaped, and that a longer Topic tag is not left
+half-redacted on the question side.
+
+`test_off_switches.py` — seventeen, covering all three off switches. The heavy
+one builds a collection with review history, copies it, and drives the same fixed
+review session in three fresh interpreters — Speedrun absent, installed but
+disabled, and installed and loaded — then asserts the scheduler served the same
+cards in the same order and made the same decisions in all three, field for
+field. The harness is `scheduling_trace.py`, and what it does and does not
+compare is written down in
+[`../eval/offswitch/OFF_SWITCHES.md`](../eval/offswitch/OFF_SWITCHES.md).
 
 `PYTHONPATH=out/pylib` is what makes the generated Python bindings importable;
 without it the two backend-driven tests skip and the other twelve still run.

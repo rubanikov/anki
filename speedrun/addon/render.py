@@ -77,6 +77,7 @@ STYLE = """
 .speedrun td.num { text-align: right; font-variant-numeric: tabular-nums; }
 .speedrun .foot { font-size: .75rem; opacity: .6; line-height: 1.55; margin-top: 1.5rem; }
 .speedrun .empty { font-size: .8rem; opacity: .6; margin-top: .75rem; }
+.speedrun .coach-status { font-size: .8rem; opacity: .7; margin: 0 0 1.25rem; line-height: 1.5; }
 </style>
 """
 
@@ -217,12 +218,32 @@ def _computed_at(computed_at_ms: int) -> str:
     return f"Computed {stamp:%Y-%m-%d %H:%M}."
 
 
-def render_dashboard(sections: list[tuple[str, Any, Any]], mastery: Any) -> str:
+def _coach_status_html(status: str) -> str:
+    """One line saying whether the coach is running, and why not if it isn't.
+
+    Deliberately not styled as a warning. The coach being off is a supported
+    configuration and a whole arm of the ablation; dressing it as a fault would
+    make a working state look broken, and every number on this page is produced
+    without it.
+    """
+    if not status:
+        return ""
+    return f'<p class="coach-status">{_esc(status)}</p>'
+
+
+def render_dashboard(
+    sections: list[tuple[str, Any, Any]], mastery: Any, coach_status: str = ""
+) -> str:
     """The whole page.
 
     ``sections`` is ``[(display name, SectionScoresResponse, [TopicMastery])]``
     in the order they should appear. ``mastery`` is a collection-wide
     ``TopicMasteryResponse``.
+
+    ``coach_status`` is one sentence from ``switches.Switches.status``. It is the
+    *only* thing on this page an off switch can change: every score, range,
+    coverage figure and abstention below is computed by the engine, which is
+    never told what the switches say.
     """
     panels = "".join(
         render_section(name, scores, topics) for name, scores, topics in sections
@@ -239,6 +260,7 @@ def render_dashboard(sections: list[tuple[str, Any, Any]], mastery: Any) -> str:
         + "starts abstaining and stays that way until your review history clears the "
         + "give-up rule — which is enforced in the engine, where no screen can talk past "
         + "it. This page renders what the engine returned and computes nothing itself.</p>"
+        + _coach_status_html(coach_status)
         + _collection_panel(mastery)
         + panels
         + f'<p class="foot">{_esc(computed)} Scores, ranges, coverage and the give-up rule '

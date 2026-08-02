@@ -30,3 +30,32 @@ Turn it off only if you are not being measured.
 
 Include the per-Topic table under each section. Turning it off skips one backend
 read per section.
+
+### `coach_enabled`
+
+Run the spoken coach loop after a review round. Turn it off and reviews, Memory,
+coverage, the dashboard and every abstention carry on exactly as before — the
+only thing that stops is the loop. Nothing that produces a number consults this
+setting.
+
+### `ai_enabled`
+
+The wider switch. Off means no generation **and** no coach, because the coach
+has nothing to ask without generated items. Memory, coverage and the dashboard
+are computed by the Rust engine, which never sees this setting, so they are
+unaffected.
+
+Off is also what Speedrun falls back to on its own when the agent service does
+not answer. There is one disabled state, not two, so the degraded path and the
+chosen path are the same path.
+
+### `agent_url`
+
+Where the agent service is expected to answer. Speedrun probes it with a short
+timeout and treats **anything** other than a healthy response — refused
+connection, timeout, an error status, a page from something else on that port —
+as `ai_enabled = false`. Blank means no service configured, which is the same
+thing.
+
+It is never probed when `ai_enabled` is false: a switched-off feature does not
+open a socket.

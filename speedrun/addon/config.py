@@ -3,8 +3,6 @@
 
 """Add-on configuration, read through Anki's own add-on config machinery.
 
-Two things live here and nothing else does.
-
 ``tag_prefix`` is the root of the tag namespace a student's deck already uses,
 and it is passed straight through to the backend.
 
@@ -15,6 +13,16 @@ measured against, and ``SectionScoresRequest`` requires the caller to supply it.
 Supplying 0 makes readiness abstain, which is the correct behaviour when no
 Outline has been loaded — so the failure mode of getting this wrong is a
 withheld score, never an invented one.
+
+``coach_enabled``, ``ai_enabled`` and ``agent_url`` are the two in-app off
+switches and the address the second one probes. They are *stored* here and
+*interpreted* in ``switches.py`` — nothing else in the add-on may branch on
+them, because the whole claim of these switches is that measurement does not
+depend on them.
+
+Every default is chosen so that a value going missing degrades toward doing
+less: an absent switch reads as on only because the shipped ``config.json``
+says on, and an absent ``agent_url`` reads as no service, which is off.
 """
 
 from __future__ import annotations
@@ -31,6 +39,9 @@ DEFAULTS: dict[str, Any] = {
     ],
     "hide_topic_label_during_question": True,
     "show_topic_breakdown": True,
+    "coach_enabled": True,
+    "ai_enabled": True,
+    "agent_url": "http://127.0.0.1:8000/health",
 }
 
 

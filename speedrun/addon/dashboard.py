@@ -32,7 +32,7 @@ from aqt.qt import (
 from aqt.utils import disable_help_button, restoreGeom, saveGeom
 from aqt.webview import AnkiWebView, AnkiWebViewKind
 
-from . import backend, config, render
+from . import backend, config, render, switches
 
 DIALOG_NAME = "SpeedrunDashboard"
 GEOM_KEY = "speedrunDashboard"
@@ -43,6 +43,12 @@ def _gather(col: Any, conf: dict[str, Any]) -> Any:
 
     Returns whatever ``render.render_dashboard`` takes, so the success callback
     has nothing left to decide.
+
+    The off switches are read here too, and read *last*, after every measurement
+    is already in hand. That ordering is the point: probing the agent service can
+    hang for the length of its timeout, and no score on this page may wait on a
+    service, or fail because one is missing. ``switches.read`` cannot raise, so
+    the page cannot be lost to an absent agent either.
     """
     prefix = conf["tag_prefix"]
     show_topics = conf.get("show_topic_breakdown", True)
@@ -58,7 +64,8 @@ def _gather(col: Any, conf: dict[str, Any]) -> Any:
         )
         sections.append((entry.get("name", code), scores, list(topics)))
 
-    return sections, backend.collection_mastery(col, prefix)
+    mastery = backend.collection_mastery(col, prefix)
+    return sections, mastery, switches.read(conf).status
 
 
 class SpeedrunDashboard(QDialog):
@@ -101,8 +108,8 @@ class SpeedrunDashboard(QDialog):
         conf = config.get()
 
         def on_success(result: Any) -> None:
-            sections, mastery = result
-            self._set_html(render.render_dashboard(sections, mastery))
+            sections, mastery, coach_status = result
+            self._set_html(render.render_dashboard(sections, mastery, coach_status))
 
         def on_failure(exc: Exception) -> None:
             self._set_html(render.render_error(str(exc)))
