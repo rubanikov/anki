@@ -1,0 +1,330 @@
+{
+  "_about": [
+    "The 50 H3 gold pairs, written by hand against the passages `plan.py --passages`",
+    "returns for each target, before any card was generated. No model wrote any of",
+    "these, and no generation run had happened when they were written.",
+    "",
+    "`answer` is a phrase that appears verbatim in the named chunk. That is not a",
+    "stylistic preference: `build_gold.py` refuses to write a pair whose answer it",
+    "cannot locate in that chunk and re-verify against the page, so a typo here is a",
+    "build failure rather than a gold pair that quietly says something the book does",
+    "not. `chunk_id` names which of the target's two retrieved chunks the answer is",
+    "in.",
+    "",
+    "Where BM25 returned passages that do not cover the Outline concept, the pair",
+    "asks about what those passages do say. The alternative - inventing a pair the",
+    "source does not support - would put a wrong answer in the reference the whole",
+    "check is graded against. Those targets are marked `off_concept`: true and",
+    "counted in AICHECK.md, because a gold set that hides them would make a",
+    "retrieval gap look like a generation gap."
+  ],
+  "pairs": [
+    {
+      "id": "h3-1A-01",
+      "chunk_id": "db3ce6d5-01bd-4ac5-a641-de285fdac0f1#3307-5123",
+      "question": "Which part of an amino acid determines whether that amino acid is acidic, basic, polar, or nonpolar?",
+      "answer": "side chain"
+    },
+    {
+      "id": "h3-1A-02",
+      "chunk_id": "596c9b4e-6b5f-5c70-bac9-78e94f155153#3677-4958",
+      "question": "Which level of protein organization is reached when two or more separate polypeptides combine into the complete protein?",
+      "answer": "quaternary structure"
+    },
+    {
+      "id": "h3-1A-03",
+      "chunk_id": "3270ba1a-e262-481e-9902-61ef811251d5#3807-4557",
+      "question": "Current research replaced the lock-and-key account of enzyme–substrate binding with which more dynamic model?",
+      "answer": "induced fit"
+    },
+    {
+      "id": "h3-1A-04",
+      "chunk_id": "3270ba1a-e262-481e-9902-61ef811251d5#8102-9692",
+      "question": "An inhibitor molecule resembles the substrate closely enough to occupy the active site and block it. Which kind of enzyme inhibition is this?",
+      "answer": "competitive inhibition"
+    },
+    {
+      "id": "h3-1A-05",
+      "chunk_id": "23a35e5a-cac4-5b1d-ab0e-9e814f22e302#5188-6222",
+      "question": "What is the most common method by which cells regulate the enzymes of a metabolic pathway?",
+      "answer": "feedback inhibition"
+    },
+    {
+      "id": "h3-1B-01",
+      "chunk_id": "cb178029-ce17-4c82-aa11-94a2acf4accf#1595-2972",
+      "question": "Adenine and guanine, whose primary structure is two carbon-nitrogen rings, belong to which class of nitrogenous base?",
+      "answer": "purines"
+    },
+    {
+      "id": "h3-1B-02",
+      "chunk_id": "cb178029-ce17-4c82-aa11-94a2acf4accf#7246-8187",
+      "question": "Which process copies the information held in DNA into a messenger RNA molecule?",
+      "answer": "transcription"
+    },
+    {
+      "id": "h3-1B-03",
+      "chunk_id": "8c2adf0b-96af-411c-9151-e53d9ce362b4#4292-5569",
+      "question": "In a eukaryotic gene, what are the segments that correspond to protein-coding sequences called?",
+      "answer": "exons"
+    },
+    {
+      "id": "h3-1B-04",
+      "chunk_id": "35f6f025-ec10-5baa-8b0e-723128329dd7#2260-3431",
+      "question": "In prokaryotic cells, what is a collection of genes from one pathway that are transcribed together as a single mRNA called?",
+      "answer": "operon"
+    },
+    {
+      "id": "h3-1B-05",
+      "chunk_id": "ea5ef43f-dbba-447e-b163-d9dc09b49990#9696-11129",
+      "question": "What is the name of the repeating complex in which 146 nucleotides of DNA are wound around eight histone proteins?",
+      "answer": "nucleosomes"
+    },
+    {
+      "id": "h3-1B-06",
+      "chunk_id": "7b18387b-8014-4514-b0fe-2dbef5e9d532#5626-6593",
+      "question": "DNA fragments separated by gel electrophoresis are transferred onto a nylon membrane and probed. What is that technique called?",
+      "answer": "Southern blotting"
+    },
+    {
+      "id": "h3-1C-01",
+      "chunk_id": "e2a834f2-7b7e-4ae4-bed8-f4d3c9fff598#13824-15365",
+      "question": "When many alleles exist for one gene, what is the phenotype or genotype most common among wild animals called?",
+      "answer": "wild type"
+    },
+    {
+      "id": "h3-1C-02",
+      "chunk_id": "9d38a9c1-e81a-4cb7-8aa0-dae690bc4371#1161-2057",
+      "question": "Hybrids in a hybrid zone are less fit than either parent species, so the two species diverge further. What is this process called?",
+      "answer": "reinforcement"
+    },
+    {
+      "id": "h3-1C-03",
+      "chunk_id": "71479ebe-e682-4230-beab-d458bc170fe1#3573-4416",
+      "question": "What is the name for a cross between two true-breeding parents that express different traits for two characteristics?",
+      "answer": "dihybrid cross"
+    },
+    {
+      "id": "h3-1C-04",
+      "chunk_id": "7d56bda7-f562-582f-a0b9-a6a2292addce#650-1592",
+      "off_concept": true,
+      "question": "Which evolutionary force stems from the chance occurrence that some individuals in the germ line have more offspring than others?",
+      "answer": "Genetic drift"
+    },
+    {
+      "id": "h3-1C-05",
+      "chunk_id": "71479ebe-e682-4230-beab-d458bc170fe1#8303-9758",
+      "off_concept": true,
+      "question": "In a tetrahybrid cross between individuals heterozygous at four independently assorting genes, what proportion of the offspring is expected to be homozygous recessive for all four?",
+      "answer": "1/256"
+    },
+    {
+      "id": "h3-1C-06",
+      "chunk_id": "c8d952c6-3d04-4c9f-b5dd-3c5350180468#0-939",
+      "question": "A population contains two or more variations of a particular characteristic. What is such a population called?",
+      "answer": "polymorphic"
+    },
+    {
+      "id": "h3-1D-01",
+      "chunk_id": "16b284a1-de63-4e08-910a-8baf1b94fc1e#6388-7607",
+      "question": "A reaction whose products hold less free energy than its reactants, so that it releases energy, is called what?",
+      "answer": "exergonic reactions"
+    },
+    {
+      "id": "h3-1D-02",
+      "chunk_id": "73b3ac54-811c-4bce-a9dd-e83f8c0dda77#1428-2620",
+      "question": "A simple sugar carrying a ketone group is known as which kind of monosaccharide?",
+      "answer": "ketose"
+    },
+    {
+      "id": "h3-1D-03",
+      "chunk_id": "cd121ae8-7896-4d46-a606-17f78c37b826#3339-5082",
+      "question": "Which enzyme is the main control point of glycolysis, inhibited by high ATP, citrate, or a more acidic pH?",
+      "answer": "Phosphofructokinase"
+    },
+    {
+      "id": "h3-1D-04",
+      "chunk_id": "ee84d502-0ad9-4abb-a530-94252d9f08d9#950-1876",
+      "off_concept": true,
+      "question": "In eukaryotic cells, in which membrane is the electron transport chain found?",
+      "answer": "inner mitochondrial membrane"
+    },
+    {
+      "id": "h3-1D-05",
+      "chunk_id": "cd121ae8-7896-4d46-a606-17f78c37b826#0-971",
+      "off_concept": true,
+      "question": "Cellular respiration is regulated so that the cell is supplied with balanced amounts of energy in the form of which molecule?",
+      "answer": "ATP"
+    },
+    {
+      "id": "h3-2A-01",
+      "chunk_id": "c70ffc40-9859-5302-8aa6-4a316ec6810d#0-1044",
+      "question": "What is the modern understanding of plasma membrane organization called?",
+      "answer": "fluid mosaic model"
+    },
+    {
+      "id": "h3-2A-02",
+      "chunk_id": "40e1947a-5a8b-4314-a9e7-bae3cedb885d#0-1728",
+      "question": "Which complex integral membrane proteins act both as receivers of extracellular inputs and as activators of intracellular processes?",
+      "answer": "receptors"
+    },
+    {
+      "id": "h3-2A-03",
+      "chunk_id": "115c0564-d8f8-51cc-9f76-53936324512f#1040-2199",
+      "question": "Which organelles hydrolyze fatty acids, amino acids, and some toxins?",
+      "answer": "Peroxisomes"
+    },
+    {
+      "id": "h3-2A-04",
+      "chunk_id": "10b53780-2949-45e7-961b-aafefeec467a#4594-5728",
+      "question": "Transport vesicles arriving from the endoplasmic reticulum fuse with which face of the Golgi apparatus?",
+      "answer": "cis face"
+    },
+    {
+      "id": "h3-2A-05",
+      "chunk_id": "14f17ea6-1853-4b32-a834-576eb6dfeb67#10536-11248",
+      "question": "Each centriole is built as a cylinder of nine triplets of what?",
+      "answer": "microtubules"
+    },
+    {
+      "id": "h3-2A-06",
+      "chunk_id": "245c74c6-5eb0-5017-a884-d1dff6ee9ecd#1189-2415",
+      "question": "Which junction links adjacent epithelial cells when cadherins in the plasma membrane attach to intermediate filaments?",
+      "answer": "desmosome"
+    },
+    {
+      "id": "h3-2B-01",
+      "chunk_id": "78aa7335-3dd1-4dc4-bd12-f3dee2587553#11046-12416",
+      "off_concept": true,
+      "question": "Naked icosahedral, enveloped helical and complex are categories used to classify which viral structure?",
+      "answer": "capsids"
+    },
+    {
+      "id": "h3-2B-02",
+      "chunk_id": "72baf0d3-1c36-5a24-92ad-9d5531725d86#4602-5066",
+      "off_concept": true,
+      "question": "By what process does a prokaryote take up DNA that other prokaryotes have shed into its environment?",
+      "answer": "transformation"
+    },
+    {
+      "id": "h3-2B-03",
+      "chunk_id": "c839b5e3-3aa6-4855-a254-0a493ff1ad17#1857-3289",
+      "question": "What collective name is given to the soil bacteria that interact symbiotically with legumes to form nitrogen-fixing nodules?",
+      "answer": "rhizobia"
+    },
+    {
+      "id": "h3-2B-04",
+      "chunk_id": "a4ea5574-8c29-4a6d-a9af-3301ed2fdaa0#584-1845",
+      "question": "In a prokaryote, what is the central region of the cell that holds its DNA called?",
+      "answer": "nucleoid"
+    },
+    {
+      "id": "h3-2B-05",
+      "chunk_id": "9e7c7540-5794-4c31-917d-fce7e50ea6dd#6724-8261",
+      "question": "Bacteriophages sometimes carry short pieces of chromosomal DNA from one bacterium to another. What is this mechanism of gene transfer called?",
+      "answer": "transduction"
+    },
+    {
+      "id": "h3-2C-01",
+      "chunk_id": "d6d279e4-eb7a-4e64-8d53-8710b4c50e81#9255-9794",
+      "question": "Mature cardiac muscle and nerve cells sit permanently in which quiescent stage outside the cell cycle?",
+      "answer": "G0 phase"
+    },
+    {
+      "id": "h3-2C-02",
+      "chunk_id": "27082fea-78ab-5c36-9347-11c9fdedd944#4580-5797",
+      "question": "What is a normal gene called before the mutation that turns it into an oncogene?",
+      "answer": "proto-oncogene"
+    },
+    {
+      "id": "h3-2C-03",
+      "chunk_id": "c8105eac-93c4-43e8-83f1-54995429e8ca#4023-4813",
+      "question": "Which primary germ layer gives rise to the muscle cells and connective tissue of the body?",
+      "answer": "mesoderm"
+    },
+    {
+      "id": "h3-2C-04",
+      "chunk_id": "c8105eac-93c4-43e8-83f1-54995429e8ca#3202-3778",
+      "off_concept": true,
+      "question": "In the mammalian blastocyst, which group of cells goes on to form the embryo itself?",
+      "answer": "inner cell mass"
+    },
+    {
+      "id": "h3-2C-05",
+      "chunk_id": "09866999-e751-4c08-b013-e46b93c08188#3508-4936",
+      "question": "Which regulatory protein, faulty in more than half of human tumour cells, judges a damaged cell unsalvageable and triggers apoptosis?",
+      "answer": "p53"
+    },
+    {
+      "id": "h3-3A-01",
+      "chunk_id": "b71d4743-919f-50c0-8970-b2bf4c023f4e#0-573",
+      "question": "What are the non-neuronal cells of the nervous system that support neuronal development and signalling called?",
+      "answer": "Glia"
+    },
+    {
+      "id": "h3-3A-02",
+      "chunk_id": "73d8f8a7-46a3-4a3a-9afa-970f2f03deb3#3831-5818",
+      "question": "Which structure on the cell body integrates the signals arriving from many synapses and joins the cell body to the axon?",
+      "answer": "axon hillock"
+    },
+    {
+      "id": "h3-3A-03",
+      "chunk_id": "72cfcf6f-e196-4e0b-9bcf-45f4853993e4#4926-7129",
+      "question": "To what membrane voltage must a target neuron be depolarized to reach its threshold potential?",
+      "answer": "-55 mV"
+    },
+    {
+      "id": "h3-3A-04",
+      "chunk_id": "1f8a0ca4-24a2-44fd-9706-f43ac0a5904e#13895-15254",
+      "question": "Which enzyme-linked receptor dimerizes on ligand binding and then adds phosphate groups to tyrosine residues on its own intracellular domain?",
+      "answer": "tyrosine kinase receptor"
+    },
+    {
+      "id": "h3-3A-05",
+      "chunk_id": "92e76122-ee0e-5cb8-9933-9be29cee38de#5351-6469",
+      "question": "Which two catecholamines does the adrenal medulla produce?",
+      "answer": "epinephrine and norepinephrine"
+    },
+    {
+      "id": "h3-3A-06",
+      "chunk_id": "cbe4c6ff-348e-4383-ae66-f6fa19823b6c#0-1340",
+      "question": "A cell's receptors for a hormone increase in number as that hormone's level rises, making the cell more sensitive. What is that change called?",
+      "answer": "up-regulation"
+    },
+    {
+      "id": "h3-3B-01",
+      "chunk_id": "04fdb865-17a1-43d8-bb33-36f821ddd119#11674-11910",
+      "question": "In the advanced animal brain, which region is the centre of homeostasis and temperature control?",
+      "answer": "hypothalamus"
+    },
+    {
+      "id": "h3-3B-02",
+      "chunk_id": "b241186c-4978-4904-ad7b-43e06974d549#4008-6293",
+      "question": "What share of the carbon dioxide carried in blood travels as part of the bicarbonate buffer system?",
+      "answer": "85 percent"
+    },
+    {
+      "id": "h3-3B-03",
+      "chunk_id": "01be6158-869f-44d1-83ea-a2ce64d85ef1#2421-4033",
+      "question": "Which domain of an antibody's heavy chain determines what the antibody will bind?",
+      "answer": "variable domain"
+    },
+    {
+      "id": "h3-3B-04",
+      "chunk_id": "3e2c416b-efb4-4386-a1ca-f18fb7b83ec5#6404-7167",
+      "question": "Which arteriole carries blood away from the glomerulus?",
+      "answer": "efferent arteriole"
+    },
+    {
+      "id": "h3-3B-05",
+      "chunk_id": "04fdb865-17a1-43d8-bb33-36f821ddd119#1494-2109",
+      "question": "In a homeostatic control loop, what is the muscle or gland that carries out the response called?",
+      "answer": "effector"
+    },
+    {
+      "id": "h3-3B-06",
+      "chunk_id": "aa6ac9bb-ae22-47f2-8dbf-608fc90dd3b4#8669-10212",
+      "question": "Which sheath of dense irregular connective tissue surrounds a bone and helps attach it to surrounding tissues, tendons and ligaments?",
+      "answer": "periosteum"
+    }
+  ]
+}
