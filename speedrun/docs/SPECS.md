@@ -183,3 +183,20 @@ every number carries a range.
    the n that would be needed
 5. Crosswalk breadth is one section; other sections report Unmapped cards
 6. `x86_64` only unless the arm64 pass is run
+7. **About a third of the held-out items are easier than the facts they test.**
+   Of 28 generated items, 18 would be put in front of a student; ten fail in a
+   way the Generation gate cannot see — the stem gives the answer away, or the
+   options list two names for the same thing. The gate proves an answer is
+   *grounded*, not that a question is *good*. They were named rather than
+   removed, because discarding items after inspecting them is what the held-out
+   freeze exists to prevent. Any Performance number computed on this set carries
+   the flaw and is reported with it attached.
+8. **The dashboard misses its latency targets** — 6.7 s first load against a 1 s
+   target, 6.3 s refresh against 500 ms, on a debug build. Roughly half that
+   work is a redundant double scan and is build-independent
+   ([#22](https://github.com/rubanikov/anki/issues/22)).
+9. **Any Memory score shown in the demo comes from synthetic review history**,
+   generated because there was no time for a human to study the deck. It is
+   labelled on screen wherever it appears. The Memory model's actual evidence is
+   the calibration run on 2.3M real held-back reviews, which this fixture does
+   not touch and does not feed.
