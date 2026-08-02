@@ -25,6 +25,11 @@ Each ships with: point estimate, range, % of exam covered, confidence indicator,
 
 **Never a single blended number.** Readiness is reported per section. A total is shown only as the sum of the three science sections, always labelled "CARS not modeled."
 
+A **topic** throughout is one AAMC content category (1A, 5C, …) — 31 in total,
+9 in Bio/Biochem, 10 in Chem/Phys, 12 in Psych/Soc. Cards are attributed to one
+through a read-time crosswalk; the student's notes are never written to. See
+[CONTEXT.md](../CONTEXT.md) and [ADR-0002](./adr/0002-topics-are-resolved-through-a-read-time-crosswalk.md).
+
 ## 3. The give-up rule (enforced in Rust, not in the UI)
 
 The app abstains and says what would fix it. Thresholds are constants in `rslib/src/speedrun/thresholds.rs`.
@@ -32,7 +37,7 @@ The app abstains and says what would fix it. Thresholds are constants in `rslib/
 | Score | Abstains unless | Abstention message |
 |---|---|---|
 | Memory (per section) | ≥ 200 graded reviews AND ≥ 30 distinct cards in that section's topics | "Not enough review history in {section}." |
-| Performance (per section) | ≥ 20 held-out attempts AND ≥ 8 distinct topics attempted | "Only {n} unhinted questions answered in {section}. Need 20." |
+| Performance (per section) | ≥ 20 held-out attempts **in that section** AND ≥ ⅓ of the section's topics attempted — BB 3, CP 4, PS 4 | "Only {n} unhinted questions answered in {section}. Need 20, across at least {m} topics." |
 | Readiness (per section) | Memory AND Performance both available AND ≥ 50% of that section's outline topics covered | "You've covered {p}% of {section}. Need 50%." |
 | CARS | Always abstains | "We don't model CARS knowledge, because the AAMC says there isn't any to model." |
 
@@ -60,6 +65,10 @@ Steps 3–7 are teaching and are **never graded**. The agent asks once and then 
 
 ### 4.3 Dashboard (desktop + Android)
 Three scores with ranges, coverage map against the AAMC outline, abstention reasons, and the single best next thing to study.
+
+**Unmapped cards are shown, not hidden.** Every mastery figure states how many
+cards it could not place. A number computed over a third of a deck with the other
+two thirds invisible is the kind of measurement this product exists to replace.
 
 ## 5. Platform split
 

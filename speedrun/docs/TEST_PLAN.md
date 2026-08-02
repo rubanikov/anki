@@ -10,11 +10,21 @@ Leaked test data scores **zero**. This is unrecoverable if skipped, and it takes
 
 | Set | Contents | Frozen as |
 |---|---|---|
-| **H1** — memory calibration | Most recent 20% of reviews by time | `speedrun/eval/holdout/h1_reviews.jsonl` + SHA-256 |
-| **H2** — performance items | 30 cards × 2 rewordings = 60 items. Never shown to the generator, never used in coaching. | `speedrun/eval/holdout/h2_items.jsonl` + SHA-256 |
+| **H1** — memory calibration | Reviews held back from `anki-revlogs-10k`, most recent 20% by time per collection | `speedrun/eval/holdout/h1_reviews.jsonl` + SHA-256 |
+| **H2** — **P-set**, performance items | New exam-style items generated from the corpus, span-gated, each mapped to a Topic. **Never derived from the student's cards.** Never hinted, explained, or coached on | `speedrun/eval/holdout/h2_pset.jsonl` + SHA-256 |
 | **H3** — AI card gold set | 50 question/answer pairs from one real source | `speedrun/eval/holdout/h3_gold.jsonl` + SHA-256 |
+| **H4** — **R-set**, rewordings | 30 of the student's own cards × 2 rewordings = 60. **Feeds the paraphrase test only, never a score** | `speedrun/eval/holdout/h4_rset.jsonl` + SHA-256 |
 
-Write `speedrun/eval/holdout/MANIFEST.md` with the hashes, the timestamp, and the cutoff rule — **stated before anyone looks at results**.
+H2 and H4 were previously one set, which made Performance a score on paraphrases
+of cards the student had already studied — the exact failure the paraphrase test
+exists to detect, so the test could not fail. See
+[ADR-0004](./adr/0004-performance-and-the-paraphrase-test-use-separate-sets.md).
+
+Write `speedrun/eval/holdout/MANIFEST.md` with the hashes, the timestamp, and the cutoff rule — **stated before anyone looks at results**. H2 is empty at freeze time; the manifest fixes the *protocol*, and each item's id and hash is appended as it is generated.
+
+**H1's raw data never enters the repo.** Its licence permits individual research
+use and forbids redistribution — the leakage check must demonstrate its absence,
+not assert it.
 
 ---
 
@@ -95,7 +105,28 @@ Cutoff set before looking, recorded in the manifest.
 
 Also run **ungated generation** as the comparison — if the gate's wrong-item rate doesn't beat ungated, the gate is theatre and we say so.
 
-**Separately** (don't tangle these): retrieval comparison — grounded pipeline vs BM25 vs embedding search on the same query set, one script, `speedrun/eval/retrieval_baseline.py`.
+**Separately** (don't tangle these): the retrieval comparison, one script,
+`speedrun/eval/retrieval_baseline.py`.
+
+Comparing our pipeline against vector search would measure a system against its
+own component, and applying the gate to every arm drives answer-presence to ~100%
+everywhere by construction. So the **gate is held constant and only the retriever
+varies** ([ADR-0006](./adr/0006-retrieval-is-judged-by-yield-at-a-fixed-gate.md)):
+
+| Arm | |
+|---|---|
+| BM25 → gate | |
+| Embeddings → gate | |
+| Hybrid → gate | |
+| Hybrid, **gate off** | the control — carries the actual claim |
+
+- **Query set:** the 31 content categories × 3 generation requests = 93. Fixed
+  and written down before the first run
+- **Primary metric, declared in advance:** Yield — usable items per 100 attempts
+- **Reported alongside:** drop rate, and the control arm's rate of items whose
+  answer is in no real source
+- BM25 may win. Textbook prose is dense with exact technical terms, which is its
+  home ground. If it wins, that is the result we publish
 
 ---
 

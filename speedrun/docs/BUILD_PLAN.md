@@ -18,6 +18,47 @@ Hours are offsets from now (H+0), not clock times. **Cut lines are real** — wh
 
 ---
 
+## Cut order — decided in advance, on purpose
+
+At hour 19 this call gets made badly. It is made here instead.
+
+**Protected, never cut:** the must-ship list above · the ablation
+pre-registration (15 minutes, gates 15%) · memory calibration · the paraphrase
+test · **the contrast pair** — cutting it would leave SpikyPOV 7 with a row in
+the traceability table and no shipped feature behind it.
+
+**Cut in this order, first to go at the top:**
+
+| # | Cut | What it costs |
+|---|---|---|
+| 1 | `arm64-v8a` build | Emulator-only demo. Stated in the README |
+| 2 | Retrieval eval 4 arms → 2 (hybrid gated + ungated control) | The BM25-vs-embedding margin. Keeps the control arm, which carries the actual claim |
+| 3 | Crosswalk breadth → one section mapped | Other sections report Unmapped cards and abstain. Absorbs the cut that would otherwise fall on the contrast pair |
+| 4 | Coach loop steps 5–7 (revise, the rule, personal guide) | Keep 1–3 plus the contrast pair: cold question, confidence, explain aloud, contrast |
+| 5 | Android UI beyond raw score output | An abstention message on a plain screen proves the same claim |
+| 6 | `make bench` full matrix → one run | Fewer perf numbers, same shape |
+
+**The cut that is never available:** lowering a give-up threshold so more
+sections report in the demo video. That is the automatic-fail behaviour — see
+[ADR-0003](./adr/0003-give-up-thresholds-are-fixed-before-the-demo.md).
+
+---
+
+## Landed already
+
+- Toolchain: Rust 1.92.0-msvc, MSVC Build Tools, JDK 17, n2, MSYS2 rsync, gh
+- All three repos forked under `rubanikov`, `origin`/`upstream` wired
+- Rust change in and green — `SpeedrunService`, 14 Rust tests + pylib suite
+- **`rsdroid-release.aar` built from the fork**, carrying 55 `anki/speedrun/*`
+  classes and `jni/x86_64/librsdroid.so`. Three environment variables have to be
+  set explicitly for this to reproduce: `ANDROID_NDK_HOME`, `JAVA_HOME` (JDK 17),
+  and `cargo` on PATH — and `build_rust`'s `cmd /c gradlew.bat` step must be
+  replaced by running `.\gradlew.bat assembleRelease rsdroid-testing:build`
+- Planning: [CONTEXT.md](../CONTEXT.md), seven ADRs, [SPECS.md](./SPECS.md),
+  [TICKETS.md](./TICKETS.md)
+
+---
+
 ## H+0 → H+1 · Unblock everything (do these in parallel)
 
 Nothing else can start until the first item is running.
