@@ -1,0 +1,111 @@
+Speedrun leakage check
+repo: F:\Users\rubas\Documents\Gauntlet_AI\Superbuilders\anki_v2\anki
+rule: normalised exact match, or 5-gram Jaccard >= 0.6 against a window sized to the item
+
+Held-out items loaded
+  H2: 28 row(s) in speedrun/eval/holdout/h2_pset.jsonl, 28 new
+  H2: 28 row(s) in speedrun/eval/pset/h2_pset.jsonl, 0 new
+  H3: 50 row(s) in speedrun/eval/holdout/h3_gold.jsonl, 50 new
+  H3: 50 row(s) in speedrun/eval/aicheck/gold_pairs.json, 0 new
+  H4: 60 row(s) in speedrun/eval/holdout/h4_rset.jsonl, 60 new
+  H4: 60 row(s) in speedrun/eval/paraphrase/h4_rset.jsonl, 0 new
+  total: 138 item(s) — H2 28, H3 50, H4 60
+
+SELF-TEST — can this check fail?
+  pass  negative control: unmodified prompt copy is clean
+  pass  verbatim item injected into a prompt file is caught — 1 finding(s), h2-1B-03 flagged
+  pass  one-word-changed near-copy is caught by the Jaccard arm — Jaccard 0.76 >= 0.6, exact-match arm silent
+  pass  item injected into a corpus chunk is caught
+  pass  bare answer strings alone are not a finding — 138 answer(s) present, 0 finding(s)
+  pass  an item fed back in as prompt input is caught
+  pass  the same item on the output side is reported, not graded — 2 reported match(es), 0 findings
+  pass  a retriever's output is graded as prompt input — retrieved passages are what the prompt is formatted with
+  pass  an item inside its own declared source chunk is not graded — 4 pair(s) measured
+  pass  --strict-provenance grades that same pair
+  pass  the same item in a chunk it did not declare is still caught — the exclusion cannot be widened by moving the text
+  pass  licensed corpus tracked now is caught
+  pass  licensed corpus added then deleted is still caught — history arm fires on a path absent from the working tree
+  pass  clean input produces no licensed finding
+  pass  a removed .gitignore rule is caught
+  pass  an API key in a tracked file is caught
+  pass  hyphenated words are not mistaken for keys
+  pass  a Speedrun deck binary is caught, upstream fixtures are allowed
+  18/18 self-test assertions passed
+
+[1/4] Held-out items in prompts, corpus chunks, coaching material
+  corpus index: 3021 chunk(s) and 350 page(s)
+  2387 binary file(s) under speedrun/ skipped: speedrun/addon/__pycache__/__init__.cpython-313.pyc, speedrun/addon/__pycache__/backend.cpython-313.pyc, speedrun/addon/__pycache__/config.cpython-313.pyc, speedrun/addon/__pycache__/render.cpython-313.pyc …
+
+  surface                                  docs     words  compares  items hit  max cont  max Jac   run
+  coaching material                           8     11896      2208      0/138     0.000    0.000     0
+  grading material                          189    104305     52164     47/138     1.000    1.000    26   (reported, not graded)
+  generation prompts                       4188   3459654   1155888      0/138     0.692    0.529    13
+  corpus chunks                            3721   2097087   1026996      0/138     0.667    0.500    14
+  generation run evidence (output side)    3670    461883   1012920     87/138     1.000    1.000    42   (reported, not graded)
+  other tracked Speedrun text              1188    726497    327888      1/138     1.000    1.000    16   (reported, not graded)
+
+  own-source overlap — 468 (item, declared source) pair(s) measured, not graded:
+     0.68  speedrun/corpus/raw/pages/7d56bda7-f562-582f-a0b9-a6a2292addce.json vs h3-1C-04 (stem)
+     0.68  page 7d56bda7-f562-582f-a0b9-a6a2292addce (Chapter Summary) vs h3-1C-04 (stem)
+     0.68  chunk 7d56bda7-f562-582f-a0b9-a6a2292addce#650-1592 vs h3-1C-04 (stem)
+     0.57  speedrun/corpus/raw/pages/7d56bda7-f562-582f-a0b9-a6a2292addce.json vs h3-1C-04 (whole item)
+     0.57  page 7d56bda7-f562-582f-a0b9-a6a2292addce (Chapter Summary) vs h3-1C-04 (whole item)
+    the top pair(s) are at or above the near-copy line against their OWN source. That is not Leakage — nothing reached anywhere it should not — but an item that restates its source almost word for word makes the AI card check easier than it should be, and belongs in that check's 'correct but bad teaching' bucket. Named here so it is not lost. Re-run with --strict-provenance to grade these too.
+
+  bare answer strings (expected, never a finding):
+    coaching material: 10/138 item answers present as ordinary terminology
+    grading material: 89/138 item answers present as ordinary terminology
+    generation prompts: 95/138 item answers present as ordinary terminology
+    corpus chunks: 118/138 item answers present as ordinary terminology
+    generation run evidence (output side): 125/138 item answers present as ordinary terminology
+    other tracked Speedrun text: 115/138 item answers present as ordinary terminology
+    the Generation gate requires each answer to be a span copied verbatim from a chunk, so corpus overlap here is the gate working
+
+  the two numbers this check exists to separate:
+    given to a model   : 0/138 items appear in the input side of a prompt, prompt template or trace record
+    returned by a model: 87/138 items appear in the output side of the run that produced them
+    the second number is provenance and is expected to be high — an item has to come from somewhere, and this is where. The first is the one that must be zero.
+
+  920 match(es) in ungraded surfaces (run evidence and write-ups — provenance and publication, not Leakage):
+        1  generation prompts
+      594  generation run evidence (output side)
+      138  grading material
+      187  other tracked Speedrun text
+    e.g. H3 h3-1A-01: item id appears in grading material / speedrun/eval/aicheck/out/cards.json
+    e.g. H3 h3-1A-02: item id appears in grading material / speedrun/eval/aicheck/out/cards.json
+    e.g. H3 h3-1A-03: item id appears in grading material / speedrun/eval/aicheck/out/cards.json
+    e.g. H3 h3-1A-04: item id appears in grading material / speedrun/eval/aicheck/out/cards.json
+    e.g. H3 h3-1A-05: item id appears in grading material / speedrun/eval/aicheck/out/cards.json
+
+  138 item(s) x 12964 document(s) = 3578064 item-document comparisons, 0 finding(s)
+
+[2/4] Licensed calibration corpus absent from git history
+  2175 path(s) tracked at HEAD
+  8774 distinct path(s) ever added on any ref (git log --all --no-renames --diff-filter=A)
+  8 forbidden pattern(s) checked against both
+  6 required .gitignore rule(s): 6 present
+  0 finding(s)
+
+[3/4] No API key in any tracked file
+  2090 tracked text file(s) read in full (85 binary/unreadable skipped)
+  55546 line(s) ever added under speedrun/ on any ref, also scanned
+  pattern: \bsk-[A-Za-z0-9_-]{16,}
+  0 finding(s)
+
+[4/4] No deck or collection binary tracked
+  2175 tracked path(s) matched against 7 extension(s)
+  0 under speedrun/
+  9 upstream Anki test fixture(s) allowed and named:
+    pylib/tests/support/anki2-alpha.anki2
+    pylib/tests/support/diffmodels2-1.apkg
+    pylib/tests/support/diffmodels2-2.apkg
+    pylib/tests/support/diffmodeltemplates-1.apkg
+    pylib/tests/support/diffmodeltemplates-2.apkg
+    pylib/tests/support/media.apkg
+    pylib/tests/support/update1.apkg
+    pylib/tests/support/update2.apkg
+    rslib/tests/support/mediacheck.anki2
+  0 finding(s)
+
+------------------------------------------------------------------------
+CLEAN — 138 Held-out item(s) checked against 12964 document(s) (3578064 comparisons) and 2175 tracked path(s); 8774 path(s) ever added on any ref checked for the licensed corpus. Self-test proved the check fails when a leak is injected.
