@@ -52,6 +52,31 @@ SCORE_BLURBS = {
 
 ABSTAINING = "Abstaining"
 
+#: Collection config key a generated demo profile carries. Written by
+#: ``speedrun/eval/demo/make_demo_history.py``; read here and nowhere else.
+DEMO_CONFIG_KEY = "speedrunSyntheticDemo"
+
+#: The sentence that has to be readable in any screenshot of this page.
+#:
+#: A demo profile's review history is generated, and that is defensible exactly
+#: and only while it is disclosed — so the disclosure is not a footnote, not a
+#: tooltip and not a colour: it is the first thing on the page, above the title,
+#: and it sticks to the top of the viewport so that a screenshot of any part of
+#: the page contains it. The last sentence points at the real evidence, because
+#: "this measures nothing" invites the question of what does.
+DEMO_BANNER_HEADLINE = "DEMO DATA — NOT A MEASUREMENT"
+#: Deliberately apostrophe-free. It is printed through ``html.escape``, and a
+#: warning whose text on screen differs from the constant in this file is one
+#: nobody can grep for.
+DEMO_BANNER_BODY = (
+    "The review history in this collection was generated, not studied. "
+    "The scores below illustrate the interface and measure nothing."
+)
+DEMO_BANNER_EVIDENCE = (
+    "Calibration evidence for the Memory model is in speedrun/eval/calibration/, "
+    "measured on 2.3M real reviews."
+)
+
 #: Printed under every unmapped count, so the number is never a bare figure
 #: whose meaning the reader has to guess at.
 UNMAPPED_NOTE = (
@@ -113,6 +138,19 @@ STYLE = """
     font-variant-numeric: tabular-nums; }
 .speedrun .denominator .note { margin: .35rem 0 0; font-size: .75rem; opacity: .7;
     line-height: 1.45; }
+.speedrun .demo-banner {
+    position: sticky; top: 0; z-index: 10;
+    background: #b3261e; color: #fff;
+    border: 2px solid #7f1710; border-radius: var(--border-radius, 6px);
+    padding: .8rem 1rem; margin: 0 0 1.25rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+}
+.speedrun .demo-banner .headline { font-size: 1.05rem; font-weight: 800;
+    letter-spacing: .06em; text-transform: uppercase; margin: 0 0 .3rem; }
+.speedrun .demo-banner p { margin: 0 0 .25rem; font-size: .9rem; line-height: 1.45; }
+.speedrun .demo-banner .evidence-note { opacity: .92; }
+.speedrun .demo-banner .provenance { margin: .35rem 0 0; font-size: .75rem;
+    opacity: .85; font-variant-numeric: tabular-nums; }
 </style>
 """
 
@@ -322,11 +360,51 @@ def _coach_status_html(status: str) -> str:
     return f'<p class="coach-status">{_esc(status)}</p>'
 
 
+def render_demo_banner(marker: Any) -> str:
+    """The synthetic-data warning, or nothing at all.
+
+    ``marker`` is whatever sits in collection config under ``DEMO_CONFIG_KEY``
+    — normally the dict ``make_demo_history.py`` wrote, carrying the seed and
+    the generation time. Anything truthy raises the banner: a profile that says
+    it is generated is taken at its word, because the failure mode of guessing
+    wrong in that direction is a warning on a real collection, and the failure
+    mode of guessing wrong the other way is a fabricated score presented as a
+    measurement.
+
+    The seed and timestamp are printed when they are there, so the reader can
+    reproduce the fixture instead of taking this file's word for it. They are
+    the only thing about the banner that varies; the warning itself is fixed
+    text and cannot be softened by whatever wrote the config key.
+    """
+    if not marker:
+        return ""
+    provenance = ""
+    if isinstance(marker, dict):
+        bits = []
+        if marker.get("seed") is not None:
+            bits.append(f"seed {_esc(marker['seed'])}")
+        if marker.get("generated_at"):
+            bits.append(f"generated {_esc(marker['generated_at'])}")
+        if marker.get("generator"):
+            bits.append(_esc(marker["generator"]))
+        if bits:
+            provenance = f'<p class="provenance">{" · ".join(bits)}</p>'
+    return (
+        '<div class="demo-banner" role="alert">'
+        f'<p class="headline">{_esc(DEMO_BANNER_HEADLINE)}</p>'
+        f"<p>{_esc(DEMO_BANNER_BODY)}</p>"
+        f'<p class="evidence-note">{_esc(DEMO_BANNER_EVIDENCE)}</p>'
+        f"{provenance}"
+        "</div>"
+    )
+
+
 def render_dashboard(
     sections: list[tuple[str, Any, Any]],
     mastery: Any,
     coach_status: str = "",
     show_topics: bool = True,
+    demo_marker: Any = None,
 ) -> str:
     """The whole page.
 
@@ -338,6 +416,11 @@ def render_dashboard(
     *only* thing on this page an off switch can change: every score, range,
     coverage figure and abstention below is computed by the engine, which is
     never told what the switches say.
+
+    ``demo_marker`` is the collection's ``speedrunSyntheticDemo`` config value,
+    or ``None`` on any normal collection. When it is present every number below
+    was computed from generated review history, and the banner saying so goes
+    above the title — see ``render_demo_banner``.
     """
     panels = "".join(
         render_section(name, scores, section_mastery, show_topics)
@@ -350,6 +433,9 @@ def render_dashboard(
     return (
         STYLE
         + '<div class="speedrun">'
+        # Above the title, before any number, and sticky — a disclosure a reader
+        # can scroll past is not a disclosure.
+        + render_demo_banner(demo_marker)
         + "<h1>Speedrun</h1>"
         + '<p class="lede">Three scores per section, never blended. Every one of them '
         + "starts abstaining and stays that way until your review history clears the "

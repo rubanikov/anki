@@ -42,6 +42,8 @@ DEFAULTS: dict[str, Any] = {
     "coach_enabled": True,
     "ai_enabled": True,
     "agent_url": "http://127.0.0.1:8000/health",
+    "coach_topic_id": "1D",
+    "coach_seed": 0,
 }
 
 

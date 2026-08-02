@@ -23,10 +23,14 @@ from __future__ import annotations
 
 
 def _register() -> None:
-    from . import dashboard, reviewer
+    from . import coach, dashboard, reviewer
 
     dashboard.register()
     reviewer.register()
+    # The coach's menu item is registered unconditionally; the off switches are
+    # read when it is opened, so turning the coach back on does not require a
+    # restart and a switch is never consulted before a profile exists.
+    coach.register()
 
 
 try:

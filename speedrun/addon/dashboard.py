@@ -38,6 +38,25 @@ DIALOG_NAME = "SpeedrunDashboard"
 GEOM_KEY = "speedrunDashboard"
 
 
+def _demo_marker(col: Any) -> Any:
+    """Whatever the collection says about its own review history being generated.
+
+    ``None`` on every normal collection, which is every collection a student
+    ever opens. Present only in a throwaway demo profile built by
+    ``speedrun/eval/demo/make_demo_history.py``, and the dashboard refuses to
+    print a number from such a profile without saying so.
+
+    Wrapped because a read that fails must not cost the page — but note the
+    asymmetry: failing to read the key means no banner, so this is the one place
+    where an error could hide a disclosure. It is a plain config read on an
+    already-open collection, with no network and no service behind it.
+    """
+    try:
+        return col.get_config(render.DEMO_CONFIG_KEY, default=None)
+    except Exception:  # noqa: BLE001 - a missing key is the normal case
+        return None
+
+
 def _gather(col: Any, conf: dict[str, Any]) -> Any:
     """Every backend read the page needs, done off the UI thread.
 
@@ -49,9 +68,15 @@ def _gather(col: Any, conf: dict[str, Any]) -> Any:
     hang for the length of its timeout, and no score on this page may wait on a
     service, or fail because one is missing. ``switches.read`` cannot raise, so
     the page cannot be lost to an absent agent either.
+
+    The demo marker is read *first*, and from the collection rather than from
+    add-on config: a profile whose review history was generated has to be able
+    to say so itself, and a warning that depended on a setting the viewer
+    controls would be a warning that can be switched off.
     """
     prefix = conf["tag_prefix"]
     show_topics = conf.get("show_topic_breakdown", True)
+    demo_marker = _demo_marker(col)
 
     sections = []
     for entry in conf["sections"]:
@@ -66,7 +91,7 @@ def _gather(col: Any, conf: dict[str, Any]) -> Any:
         sections.append((entry.get("name", code), scores, section_mastery))
 
     mastery = backend.collection_mastery(col, prefix)
-    return sections, mastery, switches.read(conf).status, show_topics
+    return sections, mastery, switches.read(conf).status, show_topics, demo_marker
 
 
 class SpeedrunDashboard(QDialog):
@@ -109,9 +134,11 @@ class SpeedrunDashboard(QDialog):
         conf = config.get()
 
         def on_success(result: Any) -> None:
-            sections, mastery, coach_status, show_topics = result
+            sections, mastery, coach_status, show_topics, demo_marker = result
             self._set_html(
-                render.render_dashboard(sections, mastery, coach_status, show_topics)
+                render.render_dashboard(
+                    sections, mastery, coach_status, show_topics, demo_marker
+                )
             )
 
         def on_failure(exc: Exception) -> None:

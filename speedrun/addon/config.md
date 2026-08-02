@@ -59,3 +59,20 @@ thing.
 
 It is never probed when `ai_enabled` is false: a switched-off feature does not
 open a socket.
+
+The coach loop reaches the same address with `/health` stripped off, so there is
+one address to keep right rather than two.
+
+### `coach_topic_id`
+
+Which AAMC content category the coach draws its cold question from, e.g. `1D`.
+One topic rather than a rotation because the corpus behind the Generation gate
+currently covers Bio/Biochem only, and a coach that silently asked about a topic
+with no sources would produce a run of dropped questions with no explanation.
+
+### `coach_seed`
+
+Where the coach starts choosing items from; it advances by one each question so
+a session does not repeat itself. Fixing it makes a session reproducible, which
+is what the ablation needs — the option order is derived from it too, so the
+same seed asks the same question with the same options in the same places.

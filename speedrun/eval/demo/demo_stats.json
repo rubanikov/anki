@@ -1,0 +1,271 @@
+{
+  "synthetic": true,
+  "warning": "DEMO DATA \u2014 NOT A MEASUREMENT. The review history in this collection was generated, not studied. The scores it produces illustrate the interface and measure nothing. Calibration evidence for the Memory model is in speedrun/eval/calibration/, measured on 2.3M real reviews.",
+  "seed": 20260802,
+  "generated_at": "2026-08-02T19:21:49Z",
+  "generator": "speedrun/eval/demo/make_demo_history.py",
+  "base": "C:\\Users\\rubas\\AppData\\Local\\Temp\\claude\\f--Users-rubas-Documents-Gauntlet-AI-Superbuilders-anki-v2\\83179915-c1ed-4490-bbdd-93d8f7b6c019\\scratchpad\\ankibase-demo",
+  "profile": "User 1",
+  "deck": "F:\\Users\\rubas\\Documents\\Gauntlet_AI\\Superbuilders\\anki_v2\\anki\\speedrun\\eval\\deck\\miledown.apkg",
+  "imported": true,
+  "crosswalk": "miledown-bb-v1",
+  "marker": {
+    "synthetic": true,
+    "seed": 20260802,
+    "generated_at": "2026-08-02T19:21:49Z",
+    "generated_at_ms": 1785698509915,
+    "generator": "speedrun/eval/demo/make_demo_history.py",
+    "section": "BB",
+    "purpose": "demo fixture: show what the dashboard looks like when a score exists",
+    "warning": "DEMO DATA \u2014 NOT A MEASUREMENT. The review history in this collection was generated, not studied. The scores it produces illustrate the interface and measure nothing. Calibration evidence for the Memory model is in speedrun/eval/calibration/, measured on 2.3M real reviews.",
+    "real_evidence": "speedrun/eval/calibration/ \u2014 0.80 predicted vs 79.2% observed on 2.3M real reviews"
+  },
+  "decks_labelled": 2,
+  "notes": 2885,
+  "cards": 2888,
+  "reviews_before": 0,
+  "bb_topics_found": 9,
+  "bb_cards_found": 1098,
+  "cards_reviewed": 132,
+  "reviews_written": 306,
+  "per_topic": {
+    "mcat::BB::1A": {
+      "cards_in_topic": 123,
+      "cards_reviewed": 15,
+      "reviews": 37
+    },
+    "mcat::BB::1B": {
+      "cards_in_topic": 107,
+      "cards_reviewed": 13,
+      "reviews": 36
+    },
+    "mcat::BB::1C": {
+      "cards_in_topic": 62,
+      "cards_reviewed": 7,
+      "reviews": 10
+    },
+    "mcat::BB::1D": {
+      "cards_in_topic": 232,
+      "cards_reviewed": 28,
+      "reviews": 68
+    },
+    "mcat::BB::2A": {
+      "cards_in_topic": 62,
+      "cards_reviewed": 7,
+      "reviews": 20
+    },
+    "mcat::BB::2B": {
+      "cards_in_topic": 19,
+      "cards_reviewed": 4,
+      "reviews": 12
+    },
+    "mcat::BB::2C": {
+      "cards_in_topic": 54,
+      "cards_reviewed": 6,
+      "reviews": 18
+    },
+    "mcat::BB::3A": {
+      "cards_in_topic": 129,
+      "cards_reviewed": 15,
+      "reviews": 29
+    },
+    "mcat::BB::3B": {
+      "cards_in_topic": 310,
+      "cards_reviewed": 37,
+      "reviews": 76
+    }
+  },
+  "reviews_total": 306,
+  "cards_with_memory_state": 132,
+  "backend_SYNTHETIC": {
+    "synthetic": true,
+    "sections": {
+      "CP": {
+        "graded_reviews": 0,
+        "cards_mapped": 0,
+        "cards_unmapped": 1790,
+        "cards_with_memory_state": 0,
+        "coverage_pct": 0.0,
+        "memory_available": false,
+        "memory_estimate_SYNTHETIC": 0.0,
+        "memory_range_SYNTHETIC": [
+          0.0,
+          0.0
+        ],
+        "memory_confidence": 0,
+        "memory_abstain_reason": "Only 0 graded reviews in CP. Need 200.",
+        "performance_abstain_reason": "Only 0 unhinted questions answered in CP. Need 20, across at least 4 topics.",
+        "readiness_abstain_reason": "No readiness for CP until memory is available: Only 0 graded reviews in CP. Need 200."
+      },
+      "BB": {
+        "graded_reviews": 306,
+        "cards_mapped": 1098,
+        "cards_unmapped": 1790,
+        "cards_with_memory_state": 132,
+        "coverage_pct": 100.0,
+        "memory_available": true,
+        "memory_estimate_SYNTHETIC": 0.7797,
+        "memory_range_SYNTHETIC": [
+          0.7205,
+          0.8389
+        ],
+        "memory_confidence": 1,
+        "memory_abstain_reason": "",
+        "performance_abstain_reason": "Only 0 unhinted questions answered in BB. Need 20, across at least 3 topics.",
+        "readiness_abstain_reason": "No readiness for BB until performance is available: Only 0 unhinted questions answered in BB. Need 20, across at least 3 topics.",
+        "topics_SYNTHETIC": [
+          {
+            "topic": "mcat::BB::1A",
+            "cards": 123,
+            "with_memory_state": 15,
+            "reviews": 37,
+            "mean_retrievability": 0.7599,
+            "range": [
+              0.6922,
+              0.8275
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::1B",
+            "cards": 107,
+            "with_memory_state": 13,
+            "reviews": 36,
+            "mean_retrievability": 0.7541,
+            "range": [
+              0.6659,
+              0.8424
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::1C",
+            "cards": 62,
+            "with_memory_state": 7,
+            "reviews": 10,
+            "mean_retrievability": 0.7279,
+            "range": [
+              0.6401,
+              0.8156
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::1D",
+            "cards": 232,
+            "with_memory_state": 28,
+            "reviews": 68,
+            "mean_retrievability": 0.771,
+            "range": [
+              0.7226,
+              0.8194
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::2A",
+            "cards": 62,
+            "with_memory_state": 7,
+            "reviews": 20,
+            "mean_retrievability": 0.8574,
+            "range": [
+              0.7681,
+              0.9467
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::2B",
+            "cards": 19,
+            "with_memory_state": 4,
+            "reviews": 12,
+            "mean_retrievability": 0.8463,
+            "range": [
+              0.7398,
+              0.9527
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::2C",
+            "cards": 54,
+            "with_memory_state": 6,
+            "reviews": 18,
+            "mean_retrievability": 0.8053,
+            "range": [
+              0.6859,
+              0.9247
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::3A",
+            "cards": 129,
+            "with_memory_state": 15,
+            "reviews": 29,
+            "mean_retrievability": 0.7813,
+            "range": [
+              0.7263,
+              0.8362
+            ],
+            "covered": true
+          },
+          {
+            "topic": "mcat::BB::3B",
+            "cards": 310,
+            "with_memory_state": 37,
+            "reviews": 76,
+            "mean_retrievability": 0.7864,
+            "range": [
+              0.7568,
+              0.8161
+            ],
+            "covered": true
+          }
+        ]
+      },
+      "PS": {
+        "graded_reviews": 0,
+        "cards_mapped": 0,
+        "cards_unmapped": 1790,
+        "cards_with_memory_state": 0,
+        "coverage_pct": 0.0,
+        "memory_available": false,
+        "memory_estimate_SYNTHETIC": 0.0,
+        "memory_range_SYNTHETIC": [
+          0.0,
+          0.0
+        ],
+        "memory_confidence": 0,
+        "memory_abstain_reason": "Only 0 graded reviews in PS. Need 200.",
+        "performance_abstain_reason": "Only 0 unhinted questions answered in PS. Need 20, across at least 4 topics.",
+        "readiness_abstain_reason": "No readiness for PS until memory is available: Only 0 graded reviews in PS. Need 200."
+      },
+      "CARS": {
+        "graded_reviews": 0,
+        "cards_mapped": 0,
+        "cards_unmapped": 0,
+        "cards_with_memory_state": 0,
+        "coverage_pct": 0.0,
+        "memory_available": false,
+        "memory_estimate_SYNTHETIC": 0.0,
+        "memory_range_SYNTHETIC": [
+          0.0,
+          0.0
+        ],
+        "memory_confidence": 0,
+        "memory_abstain_reason": "We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.",
+        "performance_abstain_reason": "We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage.",
+        "readiness_abstain_reason": "We don't model CARS knowledge, because the AAMC states there isn't any to model: everything needed to answer is in the passage."
+      }
+    },
+    "collection": {
+      "cards_mapped": 1098,
+      "cards_unmapped": 1790,
+      "cards_excluded": 0,
+      "topics_with_cards": 9
+    }
+  },
+  "ok": true,
+  "failures": []
+}

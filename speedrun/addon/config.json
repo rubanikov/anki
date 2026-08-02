@@ -10,5 +10,7 @@
     "show_topic_breakdown": true,
     "coach_enabled": true,
     "ai_enabled": true,
-    "agent_url": "http://127.0.0.1:8000/health"
+    "agent_url": "http://127.0.0.1:8000/health",
+    "coach_topic_id": "1D",
+    "coach_seed": 0
 }
