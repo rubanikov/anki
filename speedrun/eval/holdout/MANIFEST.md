@@ -51,7 +51,7 @@ lines. Rows in the block below are written by `freeze.py`; do not hand-edit them
 |---|---|---|---|---|---|---|
 | PROTOCOL | speedrun/eval/holdout/freeze.py | frozen | 0ca303002325d6d62ab0fc96fa4224d9601c518f870386e0d72df4469a02dbbe | 22957 | - | 2026-08-02T08:16:07Z |
 | H1 | speedrun/eval/holdout/h1_reviews.jsonl | frozen | 3563d7a6f385ac7e4277d749c943f61ef96e879a38bcaddc1f037a6f33e2e257 | 341240865 | 3781295 | 2026-08-02T16:16:28Z |
-| H2 | speedrun/eval/holdout/h2_pset.jsonl | pending | PENDING | - | - | - |
+| H2 | speedrun/eval/holdout/h2_pset.jsonl | open | 32b569f1f8fe219c38aece9515945b4dfa15336e0f1335e20df651dbe042bd5f | 31644 | 28 | 2026-08-02T19:25:07Z |
 | H3 | speedrun/eval/holdout/h3_gold.jsonl | pending | PENDING | - | - | - |
 | H4 | speedrun/eval/holdout/h4_rset.jsonl | pending | PENDING | - | - | - |
 <!-- FREEZE-RECORDS:END -->
@@ -175,6 +175,34 @@ hashed and may be added later.
 <!-- H2-LEDGER:BEGIN -->
 | item_id | sha256 | appended_at (UTC) | status |
 |---|---|---|---|
+| h2-1D-01 | c4aa6508df5dbfe2bd3d93f84c3ee76f20aebe46c3b869e6c4799340787214a2 | 2026-08-02T19:21:01Z | live |
+| h2-1A-01 | 9578556efc2df07ccafb02a3a0d323d186e9008f3bb26afefd270e3a3fb7850b | 2026-08-02T19:21:31Z | live |
+| h2-1A-02 | 2b3839723f688281cebe3aba76e95861583f548525c733c51b299572cfb04a08 | 2026-08-02T19:21:42Z | live |
+| h2-1A-03 | 626955fe278edfe5a961947556c91c1aba94e319f13e2b0cfb16cc5162218b8e | 2026-08-02T19:21:46Z | live |
+| h2-1B-01 | a84132575ec49861a2437d034e8d17fb2725d7bd32185040f65350e931a08760 | 2026-08-02T19:21:48Z | live |
+| h2-1B-02 | 3a7cd7fa4020f86e63dc6f51e5996dd130621c486ad93d4fe95fa858872391a1 | 2026-08-02T19:21:54Z | live |
+| h2-1B-03 | a638c7b9eb0df97229f30263b1bd0fd3c5506b83fdaf5db2d76731a4b0a8cb25 | 2026-08-02T19:22:04Z | live |
+| h2-1C-01 | ba9ba01c9774611af08dafcf1fa710f7c0b8ecb3b71683270c2e0925a9d4981a | 2026-08-02T19:22:07Z | live |
+| h2-1C-02 | 6ba7ace836ad8def75a4bc9416e6823e5fba24d46fa52fc349fbab9ce5d188b1 | 2026-08-02T19:22:24Z | live |
+| h2-1C-03 | 91cc4108c3ac5741dc6db230336dd6b94848414d37cea18aa5889fb62f4740fa | 2026-08-02T19:22:25Z | live |
+| h2-1C-04 | 5da7cb22c8d1d46001c73d39b4679d35c357151a5c7faf60ba869e077aabfe40 | 2026-08-02T19:22:31Z | live |
+| h2-1D-02 | 1dfb1d38c2f914485d06c1abe96e41571e4c9e057fbb3a70af1c7c1add29b682 | 2026-08-02T19:22:41Z | live |
+| h2-1D-03 | 349134cab224a15a4d404a836717e475c4bb3919b1e71d271d41a99d74e0a578 | 2026-08-02T19:22:43Z | live |
+| h2-2A-01 | 1183b53c64e527b2346149d46c8b35b28d4337eaf727e015a09ca50ef9a26c20 | 2026-08-02T19:23:03Z | live |
+| h2-2A-02 | e67858c35147882ce7e99f0b874b7903180228c9cf27f2b218f7f61d30e87901 | 2026-08-02T19:23:06Z | live |
+| h2-2A-03 | 1cc8078dc0a7318e7d7b6a51619cea7a2ea39f8225ade327044cc02e7341d28b | 2026-08-02T19:23:07Z | live |
+| h2-2B-01 | 8804b13747bd2e61e9662dfa0aebb71e93dc2a835d7c717454f12b8c5c1b915b | 2026-08-02T19:23:16Z | live |
+| h2-2B-02 | 72ef702ab8e027ef02a0e336c5bd3657c7964a069460e83ef4288de546e2d6b3 | 2026-08-02T19:23:28Z | live |
+| h2-2A-04 | 155eb69f6a1da33af427532dbcfc193f4cc4dd4d246629fda314045509067602 | 2026-08-02T19:23:36Z | live |
+| h2-2C-01 | ca96e6e7a392b7c77ce434fc2274e1af433b9f6e9d1470c879e6560f98a0f684 | 2026-08-02T19:23:42Z | live |
+| h2-2B-03 | 68b81358776eaee176cf8f2fcf975e192ef2e7981b7983d0745f46f685d8e6a2 | 2026-08-02T19:23:45Z | live |
+| h2-3A-01 | a4c1f1157322ca0e1cbf460157c3d4c6e960f672c05d4df75bca4775b690b59c | 2026-08-02T19:23:58Z | live |
+| h2-2C-02 | 39ced579c77fe627d9488490f64e166c5710a657920f55603da12860b833aa79 | 2026-08-02T19:24:05Z | live |
+| h2-2C-03 | 7bebb8b1f9ea7e290ec8fff80c3d9e071c923a8d03c750848f6d513f47d634f1 | 2026-08-02T19:24:05Z | live |
+| h2-3A-02 | ab81ba9ba9cd609ea0210704dcae14a07ad3267cb7b7737dff663a7cefe6b025 | 2026-08-02T19:24:10Z | live |
+| h2-3B-01 | 6a1a4bd2e1d3582a48785bab87696bdeeffcf01287174f2f194db45515804fe7 | 2026-08-02T19:24:20Z | live |
+| h2-3A-03 | 78933231d3048a752a922d0807b471b47166139e74f271fc83b0d7935a711db3 | 2026-08-02T19:24:27Z | live |
+| h2-3B-02 | d944d4c8fb6c69c5c62ca5ef266bf69fb3aee87dc9b86d4507b322eb3ff835f7 | 2026-08-02T19:24:32Z | live |
 <!-- H2-LEDGER:END -->
 
 *(Empty at freeze — as it should be. Rows are appended by `freeze.py`.)*
