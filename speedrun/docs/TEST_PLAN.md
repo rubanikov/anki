@@ -133,7 +133,9 @@ varies** ([ADR-0006](./adr/0006-retrieval-is-judged-by-yield-at-a-fixed-gate.md)
 ## 7. Crash and offline
 
 ```bash
-speedrun/evidence/crash/crash_desktop.pycrash_android.py    # 20 kills per app
+python speedrun/evidence/crash/crash_desktop.py   # 20 kills, desktop
+python speedrun/evidence/crash/crash_android.py   # 20 kills, Android
+python speedrun/evidence/crash/offline_desktop.py # offline degradation
 ```
 
 - Kill each app mid-review 20 times ⇒ **zero corrupted collections**, verified by `check database` each time.
