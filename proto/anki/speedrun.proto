@@ -51,6 +51,11 @@ message TopicMasteryResponse {
   // Speedrun's own attempt cards, deliberately excluded from measurement.
   // Exposed so the exclusion is visible and testable rather than implied.
   uint32 cards_excluded = 3;
+  // Cards in the collection that no topic could be resolved for. Reported so
+  // that every mastery figure has a stated denominator: a number computed over
+  // a third of a deck, with the other two thirds invisible, is the kind of
+  // measurement this service exists to replace.
+  uint32 cards_unmapped = 4;
 }
 
 message SectionScoresRequest {
@@ -88,6 +93,11 @@ message SectionScoresResponse {
   Score readiness = 4;
   float coverage_pct = 5;
   uint32 graded_reviews = 6;
+  // Held-out attempts in THIS section, and how many distinct topics they span.
+  // Both thresholds are per-section; a global count would let one section's work
+  // unlock another's score.
   uint32 holdout_attempts = 7;
   int64 computed_at_ms = 8;
+  uint32 topics_attempted = 9;
+  uint32 cards_unmapped = 10;
 }

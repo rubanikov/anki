@@ -12,6 +12,8 @@
 //! been earned, and an abstention always names the specific thing that would
 //! resolve it.
 
+use std::collections::HashSet;
+
 use anki_proto::speedrun::Confidence;
 use anki_proto::speedrun::Score;
 use anki_proto::speedrun::SectionScoresRequest;
@@ -19,8 +21,8 @@ use anki_proto::speedrun::SectionScoresResponse;
 use anki_proto::speedrun::TopicMasteryRequest;
 
 use crate::prelude::*;
-use crate::search::SortMode;
 use crate::speedrun::thresholds::*;
+use crate::speedrun::topic_from_tags;
 
 /// A score that refuses to be a number, and says what would change that.
 fn abstain(reason: impl Into<String>) -> Score {
@@ -72,6 +74,8 @@ impl Collection {
                 graded_reviews: 0,
                 holdout_attempts: 0,
                 computed_at_ms,
+                topics_attempted: 0,
+                cards_unmapped: 0,
             });
         }
 
@@ -90,8 +94,9 @@ impl Collection {
         };
 
         let memory = self.memory_score(&mastery, graded_reviews, distinct_cards, &section);
-        let holdout_attempts = self.speedrun_holdout_attempt_count()?;
-        let performance = performance_score(holdout_attempts, &section);
+        let (holdout_attempts, topics_attempted) =
+            self.speedrun_holdout_attempts(&section, &req.tag_prefix)?;
+        let performance = performance_score(holdout_attempts, topics_attempted, &section);
 
         // Readiness needs both of the scores beneath it plus enough of the
         // outline to be worth projecting from. Missing any one of those, it
@@ -138,6 +143,8 @@ impl Collection {
             graded_reviews,
             holdout_attempts,
             computed_at_ms,
+            topics_attempted,
+            cards_unmapped: mastery.cards_unmapped,
         })
     }
 
@@ -205,27 +212,63 @@ impl Collection {
         )
     }
 
-    /// Held-out attempts recorded so far. Only attempts tagged as held out
-    /// count — anything the coach explained, hinted at, or reused for teaching
-    /// is activity, not evidence.
-    pub(crate) fn speedrun_holdout_attempt_count(&mut self) -> Result<u32> {
-        let search = format!("\"note:{ATTEMPT_NOTETYPE}\" \"tag:{HOLDOUT_TAG}\"");
-        let guard = self.search_cards_into_table(search.as_str(), SortMode::NoOrder)?;
-        let count = guard.col.storage.all_searched_cards()?.len();
-        Ok(count as u32)
+    /// Held-out attempts in one section, and how many distinct topics they
+    /// covered.
+    ///
+    /// Only attempts tagged as held out count — anything the coach explained,
+    /// hinted at, or reused for teaching is activity, not evidence. The section
+    /// filter matters: without it every section is handed the same global count,
+    /// and answering twenty questions in Psych/Soc would unlock a performance
+    /// score for Bio/Biochem.
+    pub(crate) fn speedrun_holdout_attempts(
+        &mut self,
+        section: &str,
+        tag_prefix: &str,
+    ) -> Result<(u32, u32)> {
+        let prefix = if tag_prefix.is_empty() {
+            DEFAULT_TAG_PREFIX
+        } else {
+            tag_prefix
+        };
+        let topic_tag = if section.is_empty() {
+            format!("{prefix}::*")
+        } else {
+            format!("{prefix}::{section}::*")
+        };
+        let search =
+            format!("\"note:{ATTEMPT_NOTETYPE}\" \"tag:{HOLDOUT_TAG}\" \"tag:{topic_tag}\"");
+
+        let notes = {
+            let guard = self.search_notes_into_table(search.as_str())?;
+            guard.col.storage.all_searched_notes()?
+        };
+        let topics: HashSet<&str> = notes
+            .iter()
+            .filter_map(|note| topic_from_tags(&note.tags, prefix).map(|t| t.id))
+            .collect();
+
+        Ok((notes.len() as u32, topics.len() as u32))
     }
 }
 
-fn performance_score(holdout_attempts: u32, section: &str) -> Score {
+fn performance_score(holdout_attempts: u32, distinct_topics: u32, section: &str) -> Score {
+    let min_topics = min_distinct_topics_attempted(section);
+
     if holdout_attempts < MIN_HOLDOUT_ATTEMPTS {
         return abstain(format!(
             "Only {holdout_attempts} unhinted questions answered in {section}. Need \
-             {MIN_HOLDOUT_ATTEMPTS}, across at least {MIN_DISTINCT_TOPICS_ATTEMPTED} topics."
+             {MIN_HOLDOUT_ATTEMPTS}, across at least {min_topics} topics."
+        ));
+    }
+    if distinct_topics < min_topics {
+        return abstain(format!(
+            "{holdout_attempts} unhinted questions in {section}, but only across \
+             {distinct_topics} topics. Need {min_topics}."
         ));
     }
     abstain(format!(
-        "{holdout_attempts} held-out attempts recorded in {section}, but the performance model \
-         is not fitted yet."
+        "{holdout_attempts} held-out attempts across {distinct_topics} topics in {section}, but \
+         the performance model is not fitted yet."
     ))
 }
 
@@ -280,6 +323,26 @@ mod test {
         assert!(!readiness.available);
         assert!(readiness.abstain_reason.contains("AAMC"));
         assert_eq!(res.coverage_pct, 0.0);
+    }
+
+    #[test]
+    fn the_performance_threshold_is_stated_per_section() {
+        // The topic requirement is a fraction of the section, so the abstention
+        // message must not quote the same number to every section.
+        let (_, bb, _) = scores_for("BB");
+        let (_, ps, _) = scores_for("PS");
+        assert!(bb.abstain_reason.contains("at least 3 topics"));
+        assert!(ps.abstain_reason.contains("at least 4 topics"));
+    }
+
+    #[test]
+    fn holdout_attempts_are_counted_within_the_section_only() {
+        // An empty collection has none anywhere; the point of the assertion is
+        // that the count is asked for per section rather than globally, so one
+        // section's work can never unlock another's score.
+        let mut col = Collection::new();
+        let (attempts, topics) = col.speedrun_holdout_attempts("BB", "").unwrap();
+        assert_eq!((attempts, topics), (0, 0));
     }
 
     #[test]

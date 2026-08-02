@@ -166,11 +166,28 @@ impl Collection {
             .collect();
         out.sort_by(|a, b| a.topic_id.cmp(&b.topic_id));
 
+        let cards_unmapped = self.speedrun_unmapped_card_count(&prefix)?;
+
         Ok(TopicMasteryResponse {
             topics: out,
             cards_considered,
             cards_excluded,
+            cards_unmapped,
         })
+    }
+
+    /// Cards the crosswalk could not place under any topic.
+    ///
+    /// Deliberately collection-wide rather than per-section: "how much of your
+    /// deck can we not place?" is a question about the deck, and the answer must
+    /// not shrink when the caller narrows to one section. Without this number the
+    /// denominator is invisible — a deck where a third of the cards resolve would
+    /// report confident mastery and never mention the other two thirds.
+    pub(crate) fn speedrun_unmapped_card_count(&mut self, tag_prefix: &str) -> Result<u32> {
+        let search = format!("-\"note:{ATTEMPT_NOTETYPE}\" -\"tag:{tag_prefix}::*\"");
+        let guard = self.search_cards_into_table(search.as_str(), SortMode::NoOrder)?;
+        let count = guard.col.storage.all_searched_cards()?.len();
+        Ok(count as u32)
     }
 
     /// How many of Speedrun's own cards were kept out of the measurement.
@@ -211,5 +228,18 @@ mod test {
         assert!(res.topics.is_empty());
         assert_eq!(res.cards_considered, 0);
         assert_eq!(res.cards_excluded, 0);
+        assert_eq!(res.cards_unmapped, 0);
+    }
+
+    #[test]
+    fn cards_with_no_resolvable_topic_are_counted_not_dropped() {
+        let search = measurable_cards_search("", "mcat");
+        // The measured set is tag-scoped, so an untagged card can never appear
+        // in it. That is precisely why the unmapped count has to be asked for
+        // separately rather than inferred from what the search returned.
+        assert!(search.contains("\"tag:mcat::*\""));
+
+        let mut col = Collection::new();
+        assert_eq!(col.speedrun_unmapped_card_count("mcat").unwrap(), 0);
     }
 }

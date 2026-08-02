@@ -25,9 +25,40 @@ pub const UNMODELED_SECTION: &str = "CARS";
 
 pub const MIN_GRADED_REVIEWS: u32 = 200;
 pub const MIN_DISTINCT_CARDS: u32 = 30;
+
+/// Below twenty attempts the 95% interval around a 60% success rate is already
+/// ±21 points — wider than the quantity being measured. This is the floor at
+/// which a performance number still says something, not a convenient one.
 pub const MIN_HOLDOUT_ATTEMPTS: u32 = 20;
-pub const MIN_DISTINCT_TOPICS_ATTEMPTED: u32 = 8;
+
 pub const MIN_COVERAGE_PCT: f32 = 50.0;
+
+/// Content categories on the AAMC outline, per section.
+///
+/// A topic is one lettered content category (1A, 5C, ...). CARS has none: it is
+/// skills-based by the AAMC's own description, which is why we never model it.
+pub fn outline_topic_count(section: &str) -> u32 {
+    match section.to_ascii_uppercase().as_str() {
+        "BB" => 9,
+        "CP" => 10,
+        "PS" => 12,
+        _ => 0,
+    }
+}
+
+/// How many distinct topics must have been attempted before performance reports.
+///
+/// A fraction of the section rather than a flat count. The previous absolute 8
+/// demanded 89% of Bio/Biochem but only 67% of Psych/Soc, so the same rule meant
+/// something different in every section and performance would have abstained
+/// essentially forever.
+pub fn min_distinct_topics_attempted(section: &str) -> u32 {
+    let total = outline_topic_count(section);
+    if total == 0 {
+        return 0;
+    }
+    total.div_ceil(3)
+}
 
 /// The AAMC reports a standard error of roughly ±2 points on the scaled score,
 /// across 305,494 exams. We are measuring through their instrument, so we
@@ -48,6 +79,17 @@ pub fn widen_to_aamc_sem(estimate: f32, low: f32, high: f32) -> (f32, f32) {
 #[cfg(test)]
 mod test {
     use super::*;
+
+    #[test]
+    fn the_topic_requirement_scales_with_the_section() {
+        // Bio/Biochem has 9 content categories, Chem/Phys 10, Psych/Soc 12.
+        assert_eq!(min_distinct_topics_attempted("BB"), 3);
+        assert_eq!(min_distinct_topics_attempted("CP"), 4);
+        assert_eq!(min_distinct_topics_attempted("PS"), 4);
+        // A section we do not model cannot have a topic requirement.
+        assert_eq!(min_distinct_topics_attempted("CARS"), 0);
+        assert_eq!(min_distinct_topics_attempted(""), 0);
+    }
 
     #[test]
     fn tight_intervals_are_widened_to_the_aamc_sem() {
