@@ -1,3 +1,25 @@
+# Speedrun
+
+## Exam: MCAT (472–528)
+
+Three science sections modeled — Chem/Phys, Bio/Biochem, Psych/Soc.
+**CARS is deliberately not modeled**, because the AAMC states there is no content knowledge to model there. See [SpikyPOV 4](speedrun/docs/TRACEABILITY.md).
+
+A study app that reports **three separate scores, each with a range, never blended**: Memory (can you recall this fact?), Performance (can you answer a *new* exam-style question?), and Readiness (what would you score today?). It abstains rather than guess — a score appears only once it is earned.
+
+- **What it is and why:** [speedrun/docs/PRD.md](speedrun/docs/PRD.md)
+- **How it's built:** [speedrun/docs/ARCHITECTURE.md](speedrun/docs/ARCHITECTURE.md)
+- **Every feature traced to the claim that forced it:** [speedrun/docs/TRACEABILITY.md](speedrun/docs/TRACEABILITY.md)
+- **Companion app:** [rubanikov/Anki-Android](https://github.com/rubanikov/Anki-Android), sharing this engine
+
+### Credit and license
+
+This is a **fork of [Anki](https://github.com/ankitects/anki)** by Ankitects Pty Ltd — the spaced repetition program that does the actual scheduling work here. Speedrun adds measurement on top of it; FSRS, the scheduler, and the sync protocol are Anki's.
+
+Licensed **GNU AGPL, version 3 or later**, with portions contributed by Anki users under the BSD-3 license. See [LICENSE](./LICENSE) and [CONTRIBUTORS](./CONTRIBUTORS).
+
+---
+
 # Anki
 
 [![Build Status](https://github.com/ankitects/anki/actions/workflows/ci.yml/badge.svg)](https://github.com/ankitects/anki/actions/workflows/ci.yml)

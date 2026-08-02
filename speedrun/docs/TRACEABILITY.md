@@ -1,0 +1,31 @@
+# Speedrun — Traceability
+
+One row per SpikyPOV. Every row points at real code and a real number.
+**A feature not in this table is scope creep. A row with no code and no number is a book report.**
+
+| # | SpikyPOV (short) | What it forced us to build | Code | How we'll know it was wrong |
+|---|---|---|---|---|
+| 1 | If you measured it while helping the student, you didn't measure learning | A held-out item set that is never hinted, never explained mid-attempt, never reused for teaching. It is the **only** source of the performance score. Everything else is labelled "activity," not "progress." | `speedrun/eval/holdout/`, `rslib/src/speedrun/scores.rs` (performance reads only `Speedrun::Attempt` notes flagged `holdout=true`) | **Paraphrase test.** If recall on the card ≈ accuracy on the two rewordings, the performance model is just copying the memory model and this POV bought us nothing. Target: gap ≥ 15 points. Report the gap either way. |
+| 2 | Voice isn't convenience, it's the safety mechanism | No text input on any screen with a live question. Spoken explain-aloud loop, agent asks once then stays quiet. | `speedrun/addon/coach/` (webview, `MediaRecorder`, no `<input>` in the live-question template), `speedrun/agent/graph.py` | **Ablation.** Build 1 (loop on) vs build 2 (loop off) vs plain Anki, same items, same study time. Predicted: build 1 beats build 2 on held-out accuracy. If the interval spans zero, the loop did nothing. Honestly reported either way. Also fails if students refuse to talk — log speak-rate. |
+| 3 | A bad hint is worse than no hint | Generation gate: an item ships only if the correct answer's supporting span is retrieved and matched against the corpus. LLM self-verification banned. Ungrounded ⇒ abstain. | `speedrun/agent/gate.py`, `speedrun/corpus/`, `speedrun/eval/ai_card_check.py` | **Gold set of 50, cutoff fixed before looking.** Classify each generated item: correct-and-useful / wrong / correct-but-bad-teaching. If the gate's pass rate doesn't beat ungated generation on wrong-item rate, the gate is theatre. |
+| 4 | A quarter of the MCAT can't be studied with knowledge — and we should say so | Per-section scores, never one blended number. CARS **always** abstains and says why. Coverage computed per section against the AAMC outline. | `rslib/src/speedrun/scores.rs` (`SectionScores`, CARS hard-abstains), dashboard | Falsified if a knowledge-based model predicts held-out CARS items meaningfully better than chance from deck-derived features. If it does, we were wrong to abstain. |
+| 5 | Anki didn't fail you — it worked, on about a quarter of this exam. Don't corrupt the sensor. | Additive-only data: attempts as suspended `Speedrun::Attempt` notes, aggregates in `col config`, flags in `custom_data`. Every Rust query filters our notetype out. Replaces "mature cards" and "estimated total knowledge" with per-topic mastery. | `rslib/src/speedrun/mastery.rs` (`cards_excluded` in the response), `rslib/src/speedrun/thresholds.rs` | **Contamination test:** `cards_excluded` > 0 and mastery computed with vs without our notes must be identical. If our own data moves the number, the sensor is corrupted and the POV is violated by our own build. |
+| 6 | Being honest is an unoccupied market position | Give-up rule enforced in Rust, not the UI. Every score ships with range, coverage %, confidence, last-updated, reasons. No range narrower than AAMC's ±2. Every abstention names what would fix it. | `rslib/src/speedrun/thresholds.rs`, `Score.abstain_reason` | **Calibration.** Memory at 80% must be right ~80% of the time on held-back reviews. Brier / log loss reported. If calibration is bad, our claim to honesty is decoration. |
+| 7 | Shuffling topics doesn't fix memorizing — and in a spaced app it may do nothing | **Not** a shuffler. Two things instead: contrast pairs (step 4 — the two confusable things back-to-back, so spacing can't cancel the mechanism) and hiding the topic label in the reviewer. | `speedrun/addon/reviewer_hooks.py` (label hidden while question is up), coach step 4 | Falsified if held-out accuracy on contrast-paired concepts is no better than on singly-presented ones. Also: if hiding the label changes nothing, that half was free but useless — report it. |
+
+## The claim tested in Section 9
+
+**POV 2** — the spoken explain-aloud loop.
+
+**Stated in advance:** students who run the spoken loop will score higher on held-out, never-hinted items than the same app with the loop disabled, on the same items with the same study time. Main number: difference in held-out accuracy, reported with a range.
+
+**How we'd know it failed:** the interval spans zero, or build 2 matches build 1.
+
+**Known weakness, stated up front:** Bisra's meta-analysis contains **zero** studies where a computer did the prompting — all 64 used a human. And there is **no** study comparing spoken to typed explanations. This is untested, not merely unproven. With the time available the test will be underpowered; the honest outcome is likely "cannot distinguish," and that is reported as the result rather than dressed up.
+
+## What changed during the build
+
+*(§2 item 8 — filled in as it happens. A POV that got sharper by contact with the build is worth points.)*
+
+- **POV 5 reworded.** Was "never write to the deck." That stopped being true once our app *is* Anki and reviews write to the log by design. Now: *we never modify the student's notes, cards, or review history; our records are additive, namespaced, suspended, and excluded from every measurement.* Stronger, and actually true.
+- **RAG partially pulled back into scope.** The BrainLift listed "AI agent with RAG" as not feasible, meaning the full licensed-content-plus-video corpus. But POV 3's own gate — prove the right answer is in a real source — cannot be enforced without *some* corpus, and the spec independently requires beating a retrieval baseline. Resolved with one small bounded corpus (AAMC outline + OpenStax, CC BY 4.0). The ambitious version stays future work.
