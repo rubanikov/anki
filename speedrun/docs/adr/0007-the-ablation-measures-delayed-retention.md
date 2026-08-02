@@ -12,9 +12,17 @@ exists to attack.
 
 ## Consequences
 
-- The blocks have to run at roughly H+3, on whatever version of the app works
-  then, well before anything is polished. This is the entire cost of the
-  decision and the reason it has to be made in advance.
+- The blocks have to run on whatever version of the app works at the time, well
+  before anything is polished. This is the entire cost of the decision and the
+  reason it has to be made in advance.
+- **Timing, corrected during ticket planning:** the blocks were first planned for
+  H+3, but they cannot start before the corpus, the generation gate and a usable
+  P-set exist — realistically H+5 to H+6, putting the retention test near H+18
+  and the delay at roughly twelve hours rather than fifteen. The design survives;
+  twelve hours is still a delayed measure. But the schedule is now the binding
+  constraint, and below about eight hours the measure stops being meaningfully
+  delayed at all. Everything else should be sequenced around reaching the blocks
+  early.
 - The design is within-subject and counterbalanced across three conditions —
   full coach loop, coach off with scores only, and plain Anki — on matched
   topics, with the retention test drawn from held-out items seen in no block.
