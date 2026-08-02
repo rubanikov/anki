@@ -50,7 +50,7 @@ lines. Rows in the block below are written by `freeze.py`; do not hand-edit them
 | set | path | state | sha256 | bytes | records | frozen_at (UTC) |
 |---|---|---|---|---|---|---|
 | PROTOCOL | speedrun/eval/holdout/freeze.py | frozen | 0ca303002325d6d62ab0fc96fa4224d9601c518f870386e0d72df4469a02dbbe | 22957 | - | 2026-08-02T08:16:07Z |
-| H1 | speedrun/eval/holdout/h1_reviews.jsonl | pending | PENDING | - | - | - |
+| H1 | speedrun/eval/holdout/h1_reviews.jsonl | frozen | 3563d7a6f385ac7e4277d749c943f61ef96e879a38bcaddc1f037a6f33e2e257 | 341240865 | 3781295 | 2026-08-02T16:16:28Z |
 | H2 | speedrun/eval/holdout/h2_pset.jsonl | pending | PENDING | - | - | - |
 | H3 | speedrun/eval/holdout/h3_gold.jsonl | pending | PENDING | - | - | - |
 | H4 | speedrun/eval/holdout/h4_rset.jsonl | pending | PENDING | - | - | - |
@@ -95,17 +95,38 @@ calibration artifact must say so in its own text.
    a held-out block of one review, which is noise, not evidence).
 5. No sampling, no shuffling, no seed. The rule is deterministic.
 
-**Corpus revision — PENDING.** The exact Hugging Face dataset revision (commit
-SHA) must be recorded here at download time, together with the SHA-256 of each
-downloaded file. Without a pinned revision the split above is not reproducible.
-It is `PENDING` because the corpus has deliberately **not** been downloaded yet.
+**Corpus revision — recorded at download (T-05).** The exact Hugging Face
+dataset revision (commit SHA) is recorded here, together with the SHA-256 of
+each downloaded file. Without a pinned revision the split above is not
+reproducible.
 
 | field | value |
 |---|---|
-| dataset | `open-spaced-repetition/anki-revlogs-10k` |
-| revision (commit SHA) | `PENDING` — record at download |
-| downloaded file hashes | `PENDING` — record at download |
-| `h1_reviews.jsonl` sha256 | `PENDING` — see the record block |
+| dataset | `open-spaced-repetition/anki-revlogs-10k-raw` — see the note below |
+| revision (commit SHA) | `197633e5ec9f4a177f285447053329db40e2eb5e` |
+| downloaded file | `revlogs.7z`, 8 459 427 959 bytes, sha256 `2921e71e2d39156eef198c8516078ec7806d74443900c0a1005f3c4467389f95` |
+| bytes actually fetched | 1 107 379 967 — solid block 0 only |
+| per-collection file hashes | `speedrun/eval/calibration/corpus_slice.json` (300 rows: collection id, bytes, sha256) |
+| collections sampled | 300 of the 1315 in block 0, `random.Random(20260802).sample`, sorted ascending as strings |
+| `h1_reviews.jsonl` sha256 | see the record block above |
+
+**Which distribution, and why.** The processed distribution named above,
+`open-spaced-repetition/anki-revlogs-10k`, is **gated**: without a Hugging Face
+token its parquet files return HTTP 401, and no token exists on the machine that
+ran calibration. The same publisher hosts
+[`anki-revlogs-10k-raw`](https://huggingface.co/datasets/open-spaced-repetition/anki-revlogs-10k-raw),
+ungated, under the same `anki-revlogs-10k` licence, described by the publisher as
+"the original data of open-spaced-repetition/anki-revlogs-10k" — the same
+reviews from the same 10 000 collections, before the parquet conversion,
+exported by Anki's own `Collection::export_dataset`. That is what was downloaded.
+It is the same corpus, not a stand-in for it, and it is a closer fit to the split
+rule than the processed form: the raw records carry the review's epoch-millisecond
+`id`, its `review_kind` and its `ease_factor`, so "sort ascending by review
+timestamp" is the record's own timestamp rather than a reconstructed day offset.
+
+`review_th` in step 2 above does not exist as a field in the raw distribution; it
+is the review's 1-based rank within its collection under exactly the total order
+step 2 describes, and is written into each H1 row as `th`.
 
 **Licence.** Individual research use is permitted; public redistribution is not.
 `h1_reviews.jsonl` and every raw corpus file are therefore `.gitignore`d and must
@@ -283,4 +304,6 @@ section can be in.
 
 | when (UTC) | what changed | why |
 |---|---|---|
-| — | — | — |
+| 2026-08-02 | H1: the `PENDING` corpus-revision block filled in with the pinned revision, the archive's SHA-256, the sampling rule and the per-collection hash file. | The manifest said these were to be recorded at download time. T-05 downloaded the corpus. |
+| 2026-08-02 | H1: the recorded distribution is `anki-revlogs-10k-raw`, not `anki-revlogs-10k`. | The processed distribution is gated and returns HTTP 401 without a Hugging Face token. The raw distribution is the same corpus from the same publisher under the same licence, ungated. Stated rather than silently substituted; the split rule itself is unchanged. |
+| 2026-08-02 | H1: noted that `review_th` is not a field in the raw distribution and is computed as the rank under the total order step 2 already fixes. | The split rule was written against the processed distribution's column names. The order it describes is unchanged; only where the number comes from is. |

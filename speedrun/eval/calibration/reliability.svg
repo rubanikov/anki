@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="620" viewBox="0 0 720 620" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="720" height="620" fill="#ffffff"/>
+<text x="78" y="34" font-size="19" font-weight="600" fill="#1b1f24">Memory calibration: predicted recall vs observed recall</text>
+<text x="78" y="56" font-size="12.5" fill="#5b6672">300 collections from anki-revlogs-10k · 2,334,451 held-back reviews · FSRS-6 default parameters</text>
+<text x="78" y="74" font-size="12.5" fill="#5b6672">Brier 0.1071 · log loss 0.3559 · base-rate baseline Brier 0.1228 · log loss 0.4111</text>
+<line x1="78.0" y1="92" x2="78.0" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="430.0" x2="680" y2="430.0" stroke="#dfe3e8" stroke-width="1"/>
+<text x="78.0" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.0</text>
+<text x="68" y="434.0" font-size="11" fill="#5b6672" text-anchor="end">0.0</text>
+<line x1="138.2" y1="92" x2="138.2" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="396.2" x2="680" y2="396.2" stroke="#dfe3e8" stroke-width="1"/>
+<text x="138.2" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.1</text>
+<text x="68" y="400.2" font-size="11" fill="#5b6672" text-anchor="end">0.1</text>
+<line x1="198.4" y1="92" x2="198.4" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="362.4" x2="680" y2="362.4" stroke="#dfe3e8" stroke-width="1"/>
+<text x="198.4" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.2</text>
+<text x="68" y="366.4" font-size="11" fill="#5b6672" text-anchor="end">0.2</text>
+<line x1="258.6" y1="92" x2="258.6" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="328.6" x2="680" y2="328.6" stroke="#dfe3e8" stroke-width="1"/>
+<text x="258.6" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.3</text>
+<text x="68" y="332.6" font-size="11" fill="#5b6672" text-anchor="end">0.3</text>
+<line x1="318.8" y1="92" x2="318.8" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="294.8" x2="680" y2="294.8" stroke="#dfe3e8" stroke-width="1"/>
+<text x="318.8" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.4</text>
+<text x="68" y="298.8" font-size="11" fill="#5b6672" text-anchor="end">0.4</text>
+<line x1="379.0" y1="92" x2="379.0" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="261.0" x2="680" y2="261.0" stroke="#dfe3e8" stroke-width="1"/>
+<text x="379.0" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.5</text>
+<text x="68" y="265.0" font-size="11" fill="#5b6672" text-anchor="end">0.5</text>
+<line x1="439.2" y1="92" x2="439.2" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="227.2" x2="680" y2="227.2" stroke="#dfe3e8" stroke-width="1"/>
+<text x="439.2" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.6</text>
+<text x="68" y="231.2" font-size="11" fill="#5b6672" text-anchor="end">0.6</text>
+<line x1="499.4" y1="92" x2="499.4" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="193.4" x2="680" y2="193.4" stroke="#dfe3e8" stroke-width="1"/>
+<text x="499.4" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.7</text>
+<text x="68" y="197.4" font-size="11" fill="#5b6672" text-anchor="end">0.7</text>
+<line x1="559.6" y1="92" x2="559.6" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="159.6" x2="680" y2="159.6" stroke="#dfe3e8" stroke-width="1"/>
+<text x="559.6" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.8</text>
+<text x="68" y="163.6" font-size="11" fill="#5b6672" text-anchor="end">0.8</text>
+<line x1="619.8" y1="92" x2="619.8" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="125.8" x2="680" y2="125.8" stroke="#dfe3e8" stroke-width="1"/>
+<text x="619.8" y="448" font-size="11" fill="#5b6672" text-anchor="middle">0.9</text>
+<text x="68" y="129.8" font-size="11" fill="#5b6672" text-anchor="end">0.9</text>
+<line x1="680.0" y1="92" x2="680.0" y2="430" stroke="#dfe3e8" stroke-width="1"/>
+<line x1="78" y1="92.0" x2="680" y2="92.0" stroke="#dfe3e8" stroke-width="1"/>
+<text x="680.0" y="448" font-size="11" fill="#5b6672" text-anchor="middle">1.0</text>
+<text x="68" y="96.0" font-size="11" fill="#5b6672" text-anchor="end">1.0</text>
+<line x1="78" y1="430.0" x2="680" y2="92.0" stroke="#5b6672" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="451.2" y="234.0" font-size="11" fill="#5b6672" transform="rotate(-45 451.2 234.0)">perfect calibration</text>
+<path d="M183.6,353.2 L236.3,364.7 L292.6,332.5 L351.7,257.8 L412.2,241.3 L472.1,208.5 L534.7,175.8 L595.4,142.4 L648.6,111.9" fill="none" stroke="#0b6bcb" stroke-width="2.2"/>
+<circle cx="183.6" cy="353.2" r="3.1" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="236.3" cy="364.7" r="3.4" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="292.6" cy="332.5" r="4.0" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="351.7" cy="257.8" r="4.2" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="412.2" cy="241.3" r="4.6" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="472.1" cy="208.5" r="5.2" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="534.7" cy="175.8" r="6.2" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="595.4" cy="142.4" r="8.0" fill="#0b6bcb" fill-opacity="0.85"/>
+<circle cx="648.6" cy="111.9" r="10.0" fill="#0b6bcb" fill-opacity="0.85"/>
+<text x="379" y="472" font-size="12.5" fill="#1b1f24" text-anchor="middle">predicted recall (Memory score)</text>
+<text transform="translate(22 261) rotate(-90)" font-size="12.5" fill="#1b1f24" text-anchor="middle">observed recall</text>
+<text x="78" y="488" font-size="12" fill="#1b1f24">reviews per bin (log scale)</text>
+<rect x="80.0" y="570.0" width="56.2" height="0.0" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="108.1" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">0</text>
+<text x="108.1" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.0–0.1</text>
+<rect x="140.2" y="540.1" width="56.2" height="29.9" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="168.3" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">286</text>
+<text x="168.3" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.1–0.2</text>
+<rect x="200.4" y="526.1" width="56.2" height="43.9" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="228.5" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">4,040</text>
+<text x="228.5" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.2–0.3</text>
+<rect x="260.6" y="517.0" width="56.2" height="53.0" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="288.7" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">22,502</text>
+<text x="288.7" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.3–0.4</text>
+<rect x="320.8" y="514.7" width="56.2" height="55.3" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="348.9" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">34,968</text>
+<text x="348.9" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.4–0.5</text>
+<rect x="381.0" y="511.6" width="56.2" height="58.4" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="409.1" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">63,241</text>
+<text x="409.1" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.5–0.6</text>
+<rect x="441.2" y="508.0" width="56.2" height="62.0" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="469.3" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">123,682</text>
+<text x="469.3" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.6–0.7</text>
+<rect x="501.4" y="504.2" width="56.2" height="65.8" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="529.5" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">254,646</text>
+<text x="529.5" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.7–0.8</text>
+<rect x="561.6" y="499.5" width="56.2" height="70.5" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="589.7" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">626,595</text>
+<text x="589.7" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.8–0.9</text>
+<rect x="621.8" y="496.0" width="56.2" height="74.0" fill="#0b6bcb" fill-opacity="0.28"/>
+<text x="649.9" y="584.0" font-size="9.5" fill="#5b6672" text-anchor="middle">1,204,491</text>
+<text x="649.9" y="596.0" font-size="9" fill="#5b6672" text-anchor="middle">0.9–1.0</text>
+</svg>
