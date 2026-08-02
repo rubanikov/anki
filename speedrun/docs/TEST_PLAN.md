@@ -172,7 +172,25 @@ Three builds, same items, same study time:
 2. Same app, loop **off** (`speedrun.coach_enabled = false`)
 3. Plain unmodified Anki
 
-Main number — **stated in advance**: difference in held-out accuracy between builds 1 and 2, reported with a range.
+Main number — **stated in advance**: `Δ_loop`, the difference in **delayed**
+held-out accuracy between builds 1 and 2, reported with a range. Build 1 vs
+build 3 is a named secondary and is never reported alone — it cannot say *what*
+helped, only that something did.
+
+**Delayed, not same-session.** Blocks run early, the retention test roughly
+twelve hours later; measuring immediately would commit the "measured while the
+app was helping" error the product exists to attack. See
+[ADR-0007](./adr/0007-the-ablation-measures-delayed-retention.md).
+
+**This tests the loop, not voice.** Every arm that involves the loop involves
+speaking, so voice is on the same side of every comparison. SpikyPOV 2's claim —
+that voice is what makes copying impossible — would need a spoken-versus-typed
+arm, which no study anywhere has run and which we are not running. POV 2 is
+falsified instead by the no-text-input enforcement test and by speak-rate.
+
+The full design, falsifiers and analysis pre-commitments are in
+[`speedrun/eval/ablation/PREREGISTRATION.md`](../eval/ablation/PREREGISTRATION.md),
+written before any data existed.
 
 **Honest expectation:** with the participants available in the time we have, this will be underpowered. "n=4, cannot distinguish" is the likely and acceptable result. It is reported as the result, not dressed up. A POV put at risk and not confirmed beats one never tested.
 

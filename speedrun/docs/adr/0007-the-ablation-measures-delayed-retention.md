@@ -26,6 +26,17 @@ exists to attack.
 - The design is within-subject and counterbalanced across three conditions —
   full coach loop, coach off with scores only, and plain Anki — on matched
   topics, with the retention test drawn from held-out items seen in no block.
+- **The main number is Δ_loop = A − B**, coach on versus coach off, because it
+  changes exactly one thing. A − C compares the whole app against plain Anki and
+  could come out positive on the strength of the dashboard alone, attributing
+  nothing; it is reported as a named secondary, never on its own.
+- **This experiment does not test SpikyPOV 2.** That POV claims voice is what
+  makes copying physically impossible; every arm involving the loop involves
+  speaking, so voice sits on the same side of every comparison. Testing it would
+  need a spoken-versus-typed arm, which nobody has ever run and which we are not
+  running either — a fourth arm at n = 1–3 would make the result less
+  interpretable, not more. POV 2 is falsified instead by the no-text-input
+  enforcement test and by speak-rate, and the gap is stated in the write-up.
 - The main number, its predicted direction, and what would falsify it are
   written down and timestamped before the first block runs.
 - Immediate post-block accuracy is recorded as a manipulation check, with the
