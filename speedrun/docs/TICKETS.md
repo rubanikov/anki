@@ -76,7 +76,7 @@ thesis).
 **Delivers:** a decision, backed by counting rather than assumption.
 
 Download MileDown. Count how many of the 31 content categories resolve from
-`(deck path, tags)`. **Below ~15, switch to AnKing** and pay the signup cost.
+`(tags, deck path as tiebreak)`. **Below ~15, switch to AnKing** and pay the signup cost.
 
 - [ ] Resolvable-category count recorded as a number
 - [ ] Deck choice made and written down with that number as its justification
@@ -128,7 +128,7 @@ MCAT topic mastery, and the write-up must say so.
 **Blocked by:** [T-03](https://github.com/rubanikov/anki/issues/3), [T-12](https://github.com/rubanikov/anki/issues/5)
 **Delivers:** a real deck becoming measurable without touching the student's notes.
 
-Crosswalk keyed on `(deck path, tags)` in collection config, first-match-wins,
+Crosswalk keyed on `(tags, deck path as tiebreak)` in collection config, first-match-wins,
 consulted at read time. Demo section only — `[C3]`.
 
 - [ ] A collection whose cards carry no `mcat::` tags produces per-topic mastery

@@ -163,7 +163,7 @@ what makes the undo-intact and no-corruption proofs nearly free.
 
 A **Topic** is one AAMC content category — 31 in total, 9 in Bio/Biochem, 10 in
 Chem/Phys, 12 in Psych/Soc. Cards are attributed through a **Crosswalk** keyed on
-`(deck path, tags)`, stored in collection config and consulted at read time.
+`(tags, deck path as tiebreak)`, stored in collection config and consulted at read time.
 Notes are never written to. Where the deck genuinely cannot distinguish two
 categories, the affected cards become **Unmapped cards** and are counted, so
 every mastery figure carries a stated denominator.
