@@ -1,0 +1,287 @@
+# Agent service
+
+Grounded item generation, with attribution built into the structure rather than
+into anyone's discipline.
+
+A **held-out item** may be shown only if the supporting text for its correct
+answer was retrieved from a real source and matched against it. That is the
+**Generation gate**, and this service is the gate plus the smallest amount of
+machinery needed to run one either side of it. The generator behind the gate is
+replaceable; the gate is not.
+
+---
+
+## What runs
+
+```
+POST /item/generate?topic_id=1D&seed=0   → 200 {item, source_id, span, citation}
+                                         → 409 {item: null, rejected: {reason, detail}}
+GET  /health                             → what the add-on probes
+GET  /gate/yield                         → Yield, decomposed by rejection reason
+GET  /gate/rejections?limit=50           → the dropped attempts themselves
+```
+
+```bash
+cd speedrun/agent
+uv sync
+uv run speedrun-agent                    # 127.0.0.1:8000
+uv run speedrun-agent --attempt 1D --seed 0   # one attempt, printed, no server
+uv run pytest
+```
+
+The corpus must be built first — `python speedrun/corpus/build.py --build` — and
+`/health` reports what it found.
+
+**This environment is separate on purpose.** LangGraph's dependency tree does
+not belong inside Anki's bundled Python, and the phone could never run it.
+Nothing under `speedrun/addon/` imports anything from here; see *Degradation*
+below.
+
+---
+
+## The graph
+
+```
+                                    ┌──────────────┐
+  START ──▶ retrieve ──▶ generate ──▶│     gate     │──▶ ship ──▶ END
+              │            │        └──────┬───────┘      │
+              └────────────┴───────────────┴──────────────┴──▶ drop ──▶ END
+```
+
+Four things about this shape are load-bearing.
+
+**Generation sits between retrieval and the gate.** There is no path from a
+proposal to the wire that does not pass the assertion.
+
+**The gate is its own node.** A generator cannot skip a step it does not own.
+
+**Every node's output is a `Carried` — `{output, source_id, span}`.** The trail
+is the graph's only writable output channel and its reducer refuses anything
+else, so a node's output and its provenance move together or they do not move.
+There is no field to forget, because there is no other field.
+
+**`source_id` and `span` may be `None`, and that matters.** A generated claim
+genuinely has no citation; stamping the retrieved chunk's id onto it is exactly
+how an invented answer would acquire one. So the `generate` node emits an
+*unsourced* record, it travels as one, and `attribution.payload` — the single
+function that turns a record into JSON — returns `None` for it. **An output that
+reaches the boundary without a source is dropped, not displayed.** That is one
+function, not a convention.
+
+`Carried` also refuses to be half-attributed: a source without a span, or a span
+citing a different page, raises at construction. The shape that would satisfy a
+naive "does it have a `source_id`?" check while carrying nothing re-verifiable
+is not constructible.
+
+### The gate
+
+`gate.rule` asks one question of the retrieved characters:
+
+> Is the supporting text for this item's correct answer present in what
+> retrieval actually returned?
+
+It calls `corpus/spans.py`, which returns a span or `None` — never a nearest
+match, because a nearest match is how an unsupported claim acquires a citation.
+The span is then re-verified against the page it claims to come from, and the
+quote in the response is **the source's own characters**, copied out of the
+page, never the generator's string. Matching forgives whitespace, case and
+typography and nothing else: a paraphrase has not *found* supporting text, it
+has *written* some.
+
+**No model is ever asked whether an item is correct.** The fake-organ result
+settles why: a generator and a checker drawn from the same weights share a blind
+spot, so the model that will invent an answer will also certify it — and the
+pair reads as two independent confirmations while being one. An LLM
+"is this correct?" step here would not add a check; it would delete the only one
+there is. The gate is mechanical, and it is allowed to err in exactly one
+direction: it drops items whose support is real but paraphrased. That is the
+cheap error. Shipping an item whose answer is in no source is the expensive one,
+and it cannot make it.
+
+### Rejections
+
+Every attempt is recorded — shipped ones too, because a rate needs a
+denominator — with exactly one reason from a closed set:
+
+| Reason | What it means |
+| --- | --- |
+| `no_retrieval` | Retrieval returned nothing. The corpus, not the generator. |
+| `generator_empty` | The generator declined to propose. |
+| `malformed_item` | No stem, no answer, or fewer than two distractors. |
+| `answer_leaks_into_stem` | The stem contains its own answer verbatim. |
+| `answer_not_in_retrieved_text` | **The gate's own rejection.** |
+| `span_failed_reverification` | A span was found but did not survive re-checking. |
+| `unattributed_output` | Something reached the boundary with no source. |
+
+The set is closed because a free-text reason cannot be counted and a reason
+invented at a call site is a category nobody agreed to. ADR-0006 needs the
+decomposition, not the total: a retriever that fetches the wrong page and a
+generator that invents an answer both show up as lower Yield and are not the
+same problem.
+
+`/gate/yield` reports `yield_per_hundred: null` before any attempt rather than
+`0`. A rate over an empty denominator is an abstention.
+
+---
+
+## Numbers from a real run
+
+Stub generator, BM25 over the built OpenStax corpus, all nine Bio/Biochem
+categories at three requests each — ADR-0006's query set:
+
+```
+attempts 27   shipped 16   Yield 59.3 per hundred
+answer_not_in_retrieved_text  11      (every other reason: 0)
+```
+
+Per topic: `1B` and `2B` shipped 3/3; `1A`, `1D`, `2A`, `2C`, `3A` shipped 2/3;
+`1C` and `3B` shipped 0/3. `1A` being thin in the book (31 chunks) did not hurt
+it; `3B` is the widest category and the stub's answers for it are not phrased
+the way the book phrases them.
+
+A grounded claim and an ungrounded one, same topic, same generator:
+
+```
+$ uv run speedrun-agent --attempt 1D --seed 0
+HTTP 200
+  answer   "citric acid cycle"
+  quote    "citric acid cycle"          ← the source's characters
+  citation 58e9e038…[1350:1367] https://openstax.org/books/biology/pages/7-key-terms#fs-id1864534
+
+$ uv run speedrun-agent --attempt 1D --seed 2
+HTTP 409
+  item     null
+  reason   answer_not_in_retrieved_text
+  detail   no span supporting 'the peroxisome of prokaryotic cells' in 8 retrieved chunks (…)
+```
+
+The second claim is false. The gate did not notice that, and does not try to —
+it noticed that no real source says it, which is the only thing it can check
+honestly and the only thing that has to be true before an item is shown.
+
+### The query set, and a finding about it
+
+ADR-0006 fixes the query set before the first run: the 31 content categories.
+The first implementation used each category's Outline **title** as the query and
+yielded almost nothing — AAMC titles are abstract ("Principles of bioenergetics
+and fuel molecule metabolism") while the book is concrete ("citric acid cycle",
+"pyruvate"), so BM25 retrieved the chapter's throat-clearing and the gate then
+dropped items that were perfectly groundable. The query is now the title plus
+the category's itemised topic list: still AAMC's own words, from the same file,
+still fixed before the run. It is recorded here rather than quietly fixed
+because it is a property of the query set that #16 will measure.
+
+---
+
+## Tracing
+
+**LangSmith if a key exists; otherwise a local JSONL tracer emitting the same
+record shape.** No `LANGSMITH_API_KEY` was available, so every run so far has
+gone to `out/trace.jsonl` in LangSmith's own run shape — `id`, `trace_id`,
+`parent_run_id`, `name`, `run_type`, `start_time`, `end_time`, `inputs`,
+`outputs`, `error`, `extra`. Matching the shape is the point: when a key
+appears, `LangSmithTracer` takes over, nothing that reads traces learns a second
+format, and the local runs can be posted after the fact rather than thrown away.
+
+What is traced is the attribution triple. Each node's span carries the
+`{output, source_id, span}` it produced, so a trace is not "the graph ran" — it
+is a re-checkable record of which characters in which page licensed the item
+that shipped. `generate`'s entry carries `source_id: null`, which is the record
+the boundary acts on. Rejections are traced with their reason.
+
+`LangSmithTracer` is wired and **untested** — it has never posted a run.
+
+---
+
+## Degradation
+
+The desktop app must start, score **Memory** and show **coverage** with this
+service dead. That is a claim about a dependency that must not exist, so it is
+asserted structurally rather than by turning the service off once:
+
+- `tests/test_degradation.py` reads every file under `speedrun/addon/` and fails
+  if any of them names `speedrun_agent`, `langgraph`, `fastapi`, `anthropic` or
+  `langsmith`. No import, no dependency; the two never share an interpreter.
+- It loads the add-on's `switches.py` on its own — it is stdlib-only, which is
+  itself part of the proof — and runs the degraded path: an unreachable service
+  yields `ai_enabled = false`, a probe that raises still yields a decision, and
+  `Switches` exposes nothing a measurement could be routed through.
+
+Memory and coverage come from the Rust engine, which never consults this
+service. Killing this process removes generation and the coach loop and nothing
+else.
+
+---
+
+## What is stubbed
+
+**No `ANTHROPIC_API_KEY` was available.** `AnthropicGenerator` is written and
+wired — it prompts for an answer copied verbatim from the retrieved text, and is
+never asked to check its own item — but it has **never issued a request**. It
+activates only when a key is present; without one, `default_generator()` returns
+the stub.
+
+`RememberedAnswerGenerator` is the stub, and its shape is the interesting part.
+A stub that lifted a phrase straight out of the retrieved chunk would pass the
+gate every time and prove nothing. A model does not work that way: it answers
+from what it absorbed in training, and the retrieved passage is context it may
+or may not lean on. That gap is the entire reason for the gate, so the stub
+reproduces it exactly — it answers from a fixed table and never reads the
+retrieved text. Whether a claim ships is then decided by the corpus and the
+gate, not by whoever wrote the table. The claims are hand-written stand-ins for
+model output, not vetted MCAT content, and one is deliberately false.
+
+`FixedClaimGenerator` puts one caller-supplied claim through the pipeline. It
+ships in the package rather than living in a test file because ADR-0006's
+ungated control arm needs the same capability, and the arm that carries the
+project's actual claim should run the same code path as the arm that does not.
+
+Not built here: `POST /coach/turn` and the checkpointer are T-14's; the
+retrieval arms and the yield table are T-17's, and read `/gate/yield`.
+
+---
+
+## Testing
+
+Every assertion is against an HTTP status code and a JSON body. Nothing imports
+a node, calls one, or knows how many there are — SPEC §Seam 2 is explicit that
+node-level tests would freeze the graph's current shape while proving nothing
+about the only place the rule matters.
+
+The test that carries the ticket holds the generator constant and swaps the
+corpus:
+
+- `SUPPORTING` states the answer in the corpus's own words → 200, with a span.
+- `SILENT` is the same page with that sentence replaced by prose about the same
+  topic → **409, `item: null`, `answer_not_in_retrieved_text`**, and the
+  rejection is on the record with the chunks that *were* retrieved (so the test
+  cannot pass on a service that merely failed to retrieve).
+
+`test_unsourced_output_never_crosses_the_boundary` sabotages the gate into
+approving an item with no source, over a corpus that *does* support the claim,
+and asserts the service ships nothing anyway.
+
+26 tests, all passing.
+
+---
+
+## Files
+
+| | |
+| --- | --- |
+| `attribution.py` | `Carried`, the reducer, and `payload` — the boundary |
+| `gate.py` | The assertion, and the closed set of rulings |
+| `graph.py` | retrieve → generate → gate → ship/drop |
+| `generators.py` | The stub, the fixed-claim control, and the Anthropic path |
+| `corpus_gateway.py` | The one place that knows where `speedrun/corpus/` is |
+| `rejections.py` | The ledger Yield is computed from |
+| `tracing.py` | LangSmith, or the same shape locally |
+| `topics.py` | The fixed query set, taken from the Outline |
+| `app.py` | The HTTP boundary |
+
+## Not committed
+
+`out/` holds the rejection ledger and the trace log — local runtime evidence,
+regenerated by running the service. `.venv/` is this service's own environment.
+Both need `.gitignore` entries; `uv.lock` **is** committed, because a
+reproducible environment is the point of having a separate one.
