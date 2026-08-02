@@ -378,7 +378,7 @@ def _dashboard(path: str, conf: dict) -> str:
                 section=code, tag_prefix=TAG_PREFIX, outline_topic_count=outline
             )
             mastery = col._backend.topic_mastery(section=code, tag_prefix=TAG_PREFIX)
-            sections.append((name, scores, list(mastery.topics)))
+            sections.append((name, scores, mastery))
         collection_mastery = col._backend.topic_mastery(
             section="", tag_prefix=TAG_PREFIX
         )
@@ -416,7 +416,8 @@ def test_the_dashboard_still_measures_with_ai_off_and_the_service_unreachable(
 
     # Coverage, its denominator, and the evidence counts are all on screen.
     assert "Coverage" in html
-    assert html.count("Unmapped cards") == len(SECTIONS)
+    assert html.count('<span class="k">Unmapped cards</span>') == len(SECTIONS)
+    assert html.count("cards Unmapped</span>") == len(SECTIONS) + 1
     assert "Cards unmapped" in html
     assert "Cards considered" in html
 

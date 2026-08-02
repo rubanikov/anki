@@ -59,13 +59,14 @@ def _gather(col: Any, conf: dict[str, Any]) -> Any:
         scores = backend.section_scores(
             col, code, prefix, int(entry.get("outline_topic_count", 0))
         )
-        topics = (
-            backend.section_mastery(col, code, prefix).topics if show_topics else ()
-        )
-        sections.append((entry.get("name", code), scores, list(topics)))
+        # Fetched whether or not the per-Topic table is shown: it carries the
+        # count of cards mapped *into* this section, which is printed beside the
+        # unmapped count at the top of the panel and is not optional.
+        section_mastery = backend.section_mastery(col, code, prefix)
+        sections.append((entry.get("name", code), scores, section_mastery))
 
     mastery = backend.collection_mastery(col, prefix)
-    return sections, mastery, switches.read(conf).status
+    return sections, mastery, switches.read(conf).status, show_topics
 
 
 class SpeedrunDashboard(QDialog):
@@ -108,8 +109,10 @@ class SpeedrunDashboard(QDialog):
         conf = config.get()
 
         def on_success(result: Any) -> None:
-            sections, mastery, coach_status = result
-            self._set_html(render.render_dashboard(sections, mastery, coach_status))
+            sections, mastery, coach_status, show_topics = result
+            self._set_html(
+                render.render_dashboard(sections, mastery, coach_status, show_topics)
+            )
 
         def on_failure(exc: Exception) -> None:
             self._set_html(render.render_error(str(exc)))

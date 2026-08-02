@@ -19,6 +19,19 @@ every section, whether or not it is zero. A mastery figure whose denominator is
 hidden is the exact thing this product exists to replace, so the denominator is
 never behind a disclosure triangle.
 
+That last point is why the unmapped count is not only *present* but *first*. On
+the real deck this was built against, 1,790 of 2,888 cards are Unmapped and
+1,098 are mapped — so a reader who saw "Bio/Biochem" and a number, with the
+count tucked into a footer, would have read a figure about 38% of their
+collection as though it were a figure about their collection. The counts are
+therefore printed above the scores, at a size you cannot skim past, in every
+section and in the collection panel.
+
+The only string work that touches a number is the thousands separator, which is
+typography rather than arithmetic: 1790 and 1,790 are the same value, and a
+four-digit count that has to be read at a glance is the entire reason it is up
+there.
+
 Everything here duck-types the protobuf messages, so the renderer can be tested
 against plain stand-ins without an open collection.
 """
@@ -38,6 +51,14 @@ SCORE_BLURBS = {
 }
 
 ABSTAINING = "Abstaining"
+
+#: Printed under every unmapped count, so the number is never a bare figure
+#: whose meaning the reader has to guess at.
+UNMAPPED_NOTE = (
+    "In your collection, and in none of the scores here. Speedrun could not "
+    "place these cards under an Outline topic, and counts them rather than "
+    "dropping them."
+)
 
 STYLE = """
 <style>
@@ -78,6 +99,20 @@ STYLE = """
 .speedrun .foot { font-size: .75rem; opacity: .6; line-height: 1.55; margin-top: 1.5rem; }
 .speedrun .empty { font-size: .8rem; opacity: .6; margin-top: .75rem; }
 .speedrun .coach-status { font-size: .8rem; opacity: .7; margin: 0 0 1.25rem; line-height: 1.5; }
+.speedrun .denominator {
+    border-left: 3px solid var(--fg-subtle, #8a8a8a);
+    background: var(--canvas-inset, rgba(128, 128, 128, .09));
+    border-radius: var(--border-radius, 6px);
+    padding: .6rem .85rem; margin: 0 0 .95rem;
+}
+.speedrun .denominator .figures { margin: 0; display: flex; flex-wrap: wrap;
+    gap: .2rem 1.5rem; align-items: baseline; }
+.speedrun .denominator .figures .unmapped { font-size: 1.2rem; font-weight: 700;
+    font-variant-numeric: tabular-nums; line-height: 1.25; }
+.speedrun .denominator .figures .mapped { font-size: .9rem; opacity: .75;
+    font-variant-numeric: tabular-nums; }
+.speedrun .denominator .note { margin: .35rem 0 0; font-size: .75rem; opacity: .7;
+    line-height: 1.45; }
 </style>
 """
 
@@ -89,6 +124,15 @@ def _esc(value: Any) -> str:
 def _num(value: float) -> str:
     """A backend float, printed. Two decimals, no rescaling of any kind."""
     return f"{value:.2f}"
+
+
+def _count(value: Any) -> str:
+    """A backend integer, grouped for reading. Not a computation — 1790 and
+    1,790 are the same number, and this one has to survive being skimmed."""
+    try:
+        return f"{int(value):,}"
+    except (TypeError, ValueError):
+        return _esc(value)
 
 
 def _score_html(name: str, score: Any) -> str:
@@ -134,6 +178,28 @@ def _evidence_item(key: str, value: Any) -> str:
     )
 
 
+def _denominator(unmapped: Any, mapped: Any, mapped_label: str) -> str:
+    """The unmapped count, printed where it cannot be missed.
+
+    Both figures come from the backend — ``cards_unmapped`` off the score
+    response, ``cards_considered`` off the mastery response — and neither is
+    combined with the other here. They sit side by side because the comparison
+    is the point, and doing the comparison for the reader would mean this file
+    computing a ratio.
+    """
+    figures = [f'<span class="unmapped">{_count(unmapped)} cards Unmapped</span>']
+    if mapped is not None:
+        figures.append(
+            f'<span class="mapped">{_count(mapped)} mapped to {_esc(mapped_label)}</span>'
+        )
+    return (
+        '<div class="denominator">'
+        f'<p class="figures">{"".join(figures)}</p>'
+        f'<p class="note">{_esc(UNMAPPED_NOTE)}</p>'
+        "</div>"
+    )
+
+
 def _topic_rows(topics: Any) -> str:
     rows = []
     for topic in topics:
@@ -158,8 +224,20 @@ def _topic_rows(topics: Any) -> str:
     )
 
 
-def render_section(name: str, scores: Any, topics: Any = ()) -> str:
-    """One exam section: three scores, its evidence, and its denominator."""
+def render_section(
+    name: str, scores: Any, mastery: Any = None, show_topics: bool = True
+) -> str:
+    """One exam section: its denominator, three scores, and its evidence.
+
+    ``mastery`` is the section's ``TopicMasteryResponse``. It supplies the count
+    of cards actually mapped into this section and the per-Topic rows; without
+    one, the section still prints its unmapped count, because that number comes
+    off the score response and is never optional.
+    """
+    mapped = getattr(mastery, "cards_considered", None) if mastery is not None else None
+    topics = (
+        getattr(mastery, "topics", ()) if (mastery is not None and show_topics) else ()
+    )
     boxes = "".join(
         [
             _score_html("Memory", scores.memory),
@@ -175,15 +253,18 @@ def render_section(name: str, scores: Any, topics: Any = ()) -> str:
             _evidence_item("Graded reviews", scores.graded_reviews),
             _evidence_item("Held-out attempts", scores.holdout_attempts),
             _evidence_item("Topics attempted", scores.topics_attempted),
-            # Always shown, including when it is zero. The count is the stated
-            # denominator of every mastery figure above it.
-            _evidence_item("Unmapped cards", scores.cards_unmapped),
+            # Repeated from the banner at the top of the panel, and repeated on
+            # purpose: the evidence row is the list of everything the scores
+            # were taken over, and the number they were *not* taken over belongs
+            # in it. Always shown, including when it is zero.
+            _evidence_item("Unmapped cards", _count(scores.cards_unmapped)),
         ]
     )
     return (
         '<div class="panel">'
         f"<h2>{_esc(name)}</h2>"
         f'<p class="sub">Section {_esc(scores.section)}</p>'
+        f"{_denominator(scores.cards_unmapped, mapped, name)}"
         f'<div class="scores">{boxes}</div>'
         f'<div class="evidence">{evidence}</div>'
         f"{_topic_rows(topics)}"
@@ -195,10 +276,17 @@ def _collection_panel(mastery: Any) -> str:
     """What the whole collection looks like before any section is scored."""
     evidence = "".join(
         [
-            _evidence_item("Cards considered", mastery.cards_considered),
-            _evidence_item("Cards unmapped", mastery.cards_unmapped),
-            _evidence_item("Speedrun's own cards excluded", mastery.cards_excluded),
-            _evidence_item("Topics with history", len(mastery.topics)),
+            _evidence_item("Cards considered", _count(mastery.cards_considered)),
+            _evidence_item("Cards unmapped", _count(mastery.cards_unmapped)),
+            _evidence_item(
+                "Speedrun's own cards excluded", _count(mastery.cards_excluded)
+            ),
+            # "with cards", not "with history". The backend returns a topic as
+            # soon as a card is attributed to it, reviewed or not — and on a
+            # freshly imported deck that is all nine of them, every one with a
+            # review count of zero. Labelling that "with history" would put a
+            # claim about study on screen that the numbers beside it deny.
+            _evidence_item("Topics with cards", _count(len(mastery.topics))),
         ]
     )
     return (
@@ -206,7 +294,10 @@ def _collection_panel(mastery: Any) -> str:
         "<h2>Your collection</h2>"
         '<p class="sub">Read, never written to. These are the denominators every '
         "score below is taken over.</p>"
-        f'<div class="evidence">{evidence}</div>'
+        + _denominator(
+            mastery.cards_unmapped, mastery.cards_considered, "an Outline topic"
+        )
+        + f'<div class="evidence">{evidence}</div>'
         "</div>"
     )
 
@@ -232,13 +323,16 @@ def _coach_status_html(status: str) -> str:
 
 
 def render_dashboard(
-    sections: list[tuple[str, Any, Any]], mastery: Any, coach_status: str = ""
+    sections: list[tuple[str, Any, Any]],
+    mastery: Any,
+    coach_status: str = "",
+    show_topics: bool = True,
 ) -> str:
     """The whole page.
 
-    ``sections`` is ``[(display name, SectionScoresResponse, [TopicMastery])]``
-    in the order they should appear. ``mastery`` is a collection-wide
-    ``TopicMasteryResponse``.
+    ``sections`` is ``[(display name, SectionScoresResponse,
+    TopicMasteryResponse)]`` in the order they should appear. ``mastery`` is a
+    collection-wide ``TopicMasteryResponse``.
 
     ``coach_status`` is one sentence from ``switches.Switches.status``. It is the
     *only* thing on this page an off switch can change: every score, range,
@@ -246,7 +340,8 @@ def render_dashboard(
     never told what the switches say.
     """
     panels = "".join(
-        render_section(name, scores, topics) for name, scores, topics in sections
+        render_section(name, scores, section_mastery, show_topics)
+        for name, scores, section_mastery in sections
     )
     stamps = [
         s.computed_at_ms for _, s, _ in sections if getattr(s, "computed_at_ms", 0)

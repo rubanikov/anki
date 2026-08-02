@@ -34,7 +34,12 @@ the product failing.
 The count of Unmapped cards appears in every section and in the collection-wide
 panel, including when it is zero. A mastery figure whose denominator is hidden
 is the exact number this project exists to distrust, so the denominator is not
-behind a disclosure triangle.
+behind a disclosure triangle — it is printed *above* the scores, beside the
+count of cards that were mapped, before the reader reaches the figure it
+qualifies. On MileDown's deck those two numbers are 1,790 and 1,098, and a
+Bio/Biochem score read without them is a claim about 38% of a collection wearing
+the collection's name. See
+[`../evidence/dashboard/`](../evidence/dashboard/README.md).
 
 ## How it loads
 
@@ -149,16 +154,31 @@ place.
 PYTHONPATH=out/pylib out/pyenv/Scripts/python.exe -m pytest speedrun/addon/tests -q
 ```
 
-(`out/pyenv/bin/python` on macOS and Linux.) Thirty-one tests, in two files.
+(`out/pyenv/bin/python` on macOS and Linux.) Forty-one tests, in two files.
 
-`test_dashboard.py` — fourteen. Two of them open a real empty collection, call
-the real backend and assert the sentence a student would actually read — that
-all twelve scores abstain, that each names its own shortfall, and that the
-unmapped count is on screen once per section. The rest cover the renderer
-against stand-ins: that an estimate is printed as the backend produced it and
-not rescaled, that an abstention never renders as an empty box or as an error,
-that backend text is escaped, and that a longer Topic tag is not left
-half-redacted on the question side.
+`test_dashboard.py` — twenty-four. Two open a real empty collection, call the
+real backend and assert the sentence a student would actually read — that all
+twelve scores abstain, that each names its own shortfall, and that the unmapped
+count is on screen once per section.
+
+Six more build a collection labelled the way MileDown's deck is labelled,
+install the **shipped crosswalk file verbatim** into collection config, and read
+what comes back: that the deck's own tags resolve to Outline topics without a
+note being touched, that a label the crosswalk *refused* is counted as unmapped
+rather than dropped, that narrowing to a section cannot shrink the unmapped
+count, that both counts are printed above the scores rather than below them, and
+that a crosswalked-but-never-reviewed deck still abstains everywhere and says
+why — which is the state the real 2,888-card deck is in today. A deck carrying
+none of Speedrun's own tags is the normal case, so a dashboard only ever
+exercised against `mcat::`-tagged notes had never been run in its own working
+conditions.
+
+The rest cover the renderer against stand-ins: that an estimate is printed as
+the backend produced it and not rescaled, that four-figure counts are grouped
+for reading but never combined into a ratio, that a section still prints its
+unmapped count when the mastery read is missing, that an abstention never
+renders as an empty box or as an error, that backend text is escaped, and that a
+longer Topic tag is not left half-redacted on the question side.
 
 `test_off_switches.py` — seventeen, covering all three off switches. The heavy
 one builds a collection with review history, copies it, and drives the same fixed
@@ -170,7 +190,7 @@ compare is written down in
 [`../eval/offswitch/OFF_SWITCHES.md`](../eval/offswitch/OFF_SWITCHES.md).
 
 `PYTHONPATH=out/pylib` is what makes the generated Python bindings importable;
-without it the two backend-driven tests skip and the other twelve still run.
+without it the backend-driven tests skip and the renderer tests still run.
 
 ### Playwright does not apply
 
