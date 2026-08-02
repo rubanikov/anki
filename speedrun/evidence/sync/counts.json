@@ -1,0 +1,277 @@
+[
+  {
+    "label": "1-baseline-phone",
+    "revlog_total": 0,
+    "revlog_distinct_ids": 0,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 0,
+      "SyncTest::Phone": 0,
+      "SyncTest::Conflict": 0
+    },
+    "cards": 21,
+    "notes": 21,
+    "cards_with_reps": 0,
+    "sum_card_reps": 0,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785685662,
+      "type": 0,
+      "queue": 0,
+      "due": 21,
+      "ivl": 0,
+      "factor": 0,
+      "reps": 0,
+      "lapses": 0,
+      "revlog": []
+    }
+  },
+  {
+    "label": "1-baseline-server",
+    "revlog_total": 0,
+    "revlog_distinct_ids": 0,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 0,
+      "SyncTest::Phone": 0,
+      "SyncTest::Conflict": 0
+    },
+    "cards": 21,
+    "notes": 21,
+    "cards_with_reps": 0,
+    "sum_card_reps": 0,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785685662,
+      "type": 0,
+      "queue": 0,
+      "due": 21,
+      "ivl": 0,
+      "factor": 0,
+      "reps": 0,
+      "lapses": 0,
+      "revlog": []
+    }
+  },
+  {
+    "label": "2-offline-phone-after-10-reviews",
+    "revlog_total": 10,
+    "revlog_distinct_ids": 10,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 0,
+      "SyncTest::Phone": 10,
+      "SyncTest::Conflict": 0
+    },
+    "cards": 21,
+    "notes": 21,
+    "cards_with_reps": 10,
+    "sum_card_reps": 10,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785685662,
+      "type": 0,
+      "queue": 0,
+      "due": 21,
+      "ivl": 0,
+      "factor": 0,
+      "reps": 0,
+      "lapses": 0,
+      "revlog": []
+    }
+  },
+  {
+    "label": "3-after-both-synced-phone",
+    "revlog_total": 20,
+    "revlog_distinct_ids": 20,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 10,
+      "SyncTest::Phone": 10,
+      "SyncTest::Conflict": 0
+    },
+    "cards": 21,
+    "notes": 21,
+    "cards_with_reps": 20,
+    "sum_card_reps": 20,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785685662,
+      "type": 0,
+      "queue": 0,
+      "due": 21,
+      "ivl": 0,
+      "factor": 0,
+      "reps": 0,
+      "lapses": 0,
+      "revlog": []
+    }
+  },
+  {
+    "label": "4-offline-phone-after-conflict-grade",
+    "revlog_total": 21,
+    "revlog_distinct_ids": 21,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 10,
+      "SyncTest::Phone": 10,
+      "SyncTest::Conflict": 1
+    },
+    "cards": 21,
+    "notes": 21,
+    "cards_with_reps": 21,
+    "sum_card_reps": 21,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785687120,
+      "type": 2,
+      "queue": 2,
+      "due": 4,
+      "ivl": 4,
+      "factor": 2500,
+      "reps": 1,
+      "lapses": 0,
+      "revlog": [
+        {
+          "id": 1785687120741,
+          "ease": 4,
+          "ivl": 4,
+          "lastIvl": 0,
+          "factor": 2500,
+          "time": 8087,
+          "type": 0
+        }
+      ]
+    }
+  },
+  {
+    "label": "5-final-desktop",
+    "revlog_total": 22,
+    "revlog_distinct_ids": 22,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 10,
+      "SyncTest::Phone": 10,
+      "SyncTest::Conflict": 2
+    },
+    "cards": 24,
+    "notes": 24,
+    "cards_with_reps": 21,
+    "sum_card_reps": 21,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785687120,
+      "type": 2,
+      "queue": 2,
+      "due": 4,
+      "ivl": 4,
+      "factor": 2500,
+      "reps": 1,
+      "lapses": 0,
+      "revlog": [
+        {
+          "id": 1785687034860,
+          "ease": 1,
+          "ivl": -60,
+          "lastIvl": 0,
+          "factor": 0,
+          "time": 0,
+          "type": 0
+        },
+        {
+          "id": 1785687120741,
+          "ease": 4,
+          "ivl": 4,
+          "lastIvl": 0,
+          "factor": 2500,
+          "time": 8087,
+          "type": 0
+        }
+      ]
+    }
+  },
+  {
+    "label": "5-final-phone",
+    "revlog_total": 22,
+    "revlog_distinct_ids": 22,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 10,
+      "SyncTest::Phone": 10,
+      "SyncTest::Conflict": 2
+    },
+    "cards": 24,
+    "notes": 24,
+    "cards_with_reps": 21,
+    "sum_card_reps": 21,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785687120,
+      "type": 2,
+      "queue": 2,
+      "due": 4,
+      "ivl": 4,
+      "factor": 2500,
+      "reps": 1,
+      "lapses": 0,
+      "revlog": [
+        {
+          "id": 1785687034860,
+          "ease": 1,
+          "ivl": -60,
+          "lastIvl": 0,
+          "factor": 0,
+          "time": 0,
+          "type": 0
+        },
+        {
+          "id": 1785687120741,
+          "ease": 4,
+          "ivl": 4,
+          "lastIvl": 0,
+          "factor": 2500,
+          "time": 8087,
+          "type": 0
+        }
+      ]
+    }
+  },
+  {
+    "label": "5-final-server",
+    "revlog_total": 22,
+    "revlog_distinct_ids": 22,
+    "revlog_by_deck": {
+      "SyncTest::Desktop": 10,
+      "SyncTest::Phone": 10,
+      "SyncTest::Conflict": 2
+    },
+    "cards": 24,
+    "notes": 24,
+    "cards_with_reps": 21,
+    "sum_card_reps": 21,
+    "conflict_card": {
+      "id": 1785685662723,
+      "mod": 1785687120,
+      "type": 2,
+      "queue": 2,
+      "due": 4,
+      "ivl": 4,
+      "factor": 2500,
+      "reps": 1,
+      "lapses": 0,
+      "revlog": [
+        {
+          "id": 1785687034860,
+          "ease": 1,
+          "ivl": -60,
+          "lastIvl": 0,
+          "factor": 0,
+          "time": 0,
+          "type": 0
+        },
+        {
+          "id": 1785687120741,
+          "ease": 4,
+          "ivl": 4,
+          "lastIvl": 0,
+          "factor": 2500,
+          "time": 8087,
+          "type": 0
+        }
+      ]
+    }
+  }
+]
