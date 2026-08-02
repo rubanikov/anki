@@ -1,0 +1,856 @@
+{
+  "run_at": "2026-08-02T20:46:41Z",
+  "seconds": 332.5,
+  "query_set": {
+    "categories": [
+      "1A",
+      "1B",
+      "1C",
+      "1D",
+      "2A",
+      "2B",
+      "2C",
+      "3A",
+      "3B"
+    ],
+    "requests_per_category": 2,
+    "queries": 18,
+    "queries_detail": [
+      {
+        "topic": "1A",
+        "index": 0,
+        "concept": "3° structure of proteins; role of proline, cystine, hydrophobic bonding",
+        "question_type": "an identification question - name the structure, molecule or term the passage describes"
+      },
+      {
+        "topic": "1A",
+        "index": 1,
+        "concept": "Mechanism of catalysis: cofactors; coenzymes; water-soluble vitamins",
+        "question_type": "a function question - what the named thing does, or what it is for"
+      },
+      {
+        "topic": "1B",
+        "index": 0,
+        "concept": "Central Dogma: DNA → RNA → protein",
+        "question_type": "a mechanism question - what happens at a specific step, or what causes what"
+      },
+      {
+        "topic": "1B",
+        "index": 1,
+        "concept": "Regulation of chromatin structure",
+        "question_type": "a discrimination question - which of two similar things the described case is"
+      },
+      {
+        "topic": "1C",
+        "index": 0,
+        "concept": "Hybridization: viability",
+        "question_type": "an identification question - name the structure, molecule or term the passage describes"
+      },
+      {
+        "topic": "1C",
+        "index": 1,
+        "concept": "Biometry: statistical methods",
+        "question_type": "a function question - what the named thing does, or what it is for"
+      },
+      {
+        "topic": "1D",
+        "index": 0,
+        "concept": "Epimers and anomers",
+        "question_type": "a mechanism question - what happens at a specific step, or what causes what"
+      },
+      {
+        "topic": "1D",
+        "index": 1,
+        "concept": "Non-template synthesis: biosynthesis of lipids and polysaccharides (BIO)",
+        "question_type": "a discrimination question - which of two similar things the described case is"
+      },
+      {
+        "topic": "2A",
+        "index": 0,
+        "concept": "Membrane receptors",
+        "question_type": "an identification question - name the structure, molecule or term the passage describes"
+      },
+      {
+        "topic": "2A",
+        "index": 1,
+        "concept": "Microtubules: composition and role in support and transport",
+        "question_type": "a function question - what the named thing does, or what it is for"
+      },
+      {
+        "topic": "2B",
+        "index": 0,
+        "concept": "Presence of cell wall in bacteria",
+        "question_type": "a mechanism question - what happens at a specific step, or what causes what"
+      },
+      {
+        "topic": "2B",
+        "index": 1,
+        "concept": "Genomic content — RNA or DNA",
+        "question_type": "a discrimination question - which of two similar things the described case is"
+      },
+      {
+        "topic": "2C",
+        "index": 0,
+        "concept": "Loss of cell cycle controls in cancer cells",
+        "question_type": "an identification question - name the structure, molecule or term the passage describes"
+      },
+      {
+        "topic": "2C",
+        "index": 1,
+        "concept": "Cell migration",
+        "question_type": "a function question - what the named thing does, or what it is for"
+      },
+      {
+        "topic": "3A",
+        "index": 0,
+        "concept": "Axon: structure and function",
+        "question_type": "a mechanism question - what happens at a specific step, or what causes what"
+      },
+      {
+        "topic": "3A",
+        "index": 1,
+        "concept": "Major endocrine glands: names, locations, products",
+        "question_type": "a discrimination question - which of two similar things the described case is"
+      },
+      {
+        "topic": "3B",
+        "index": 0,
+        "concept": "Carbon dioxide transport and level in blood",
+        "question_type": "an identification question - name the structure, molecule or term the passage describes"
+      },
+      {
+        "topic": "3B",
+        "index": 1,
+        "concept": "Nervous control",
+        "question_type": "a function question - what the named thing does, or what it is for"
+      }
+    ]
+  },
+  "fixed": {
+    "gate": "speedrun_agent.gate.rule (unmodified)",
+    "generator_model": "gpt-5",
+    "max_output_tokens": 8000,
+    "chunks_retrieved": 8,
+    "chunks_shown_to_model": 4,
+    "embedding_model": "text-embedding-3-small",
+    "fusion": "RRF k=60, depth=20 per ranking"
+  },
+  "arms": [
+    {
+      "arm": "bm25",
+      "attempts": 18,
+      "shipped": 11,
+      "distinct_shipped": 11,
+      "yield_per_hundred": 61.1,
+      "yield_ci95": [
+        38.6,
+        79.7
+      ],
+      "by_reason": {
+        "generator_empty": 7
+      },
+      "usage": {
+        "calls": 18,
+        "input_tokens": 24249,
+        "output_tokens": 33655,
+        "usd": 0.3669
+      },
+      "models": [
+        "gpt-5-2025-08-07"
+      ]
+    },
+    {
+      "arm": "embedding",
+      "attempts": 18,
+      "shipped": 14,
+      "distinct_shipped": 14,
+      "yield_per_hundred": 77.8,
+      "yield_ci95": [
+        54.8,
+        91.0
+      ],
+      "by_reason": {
+        "generator_empty": 4
+      },
+      "usage": {
+        "calls": 18,
+        "input_tokens": 22859,
+        "output_tokens": 31536,
+        "usd": 0.3439
+      },
+      "models": [
+        "gpt-5-2025-08-07"
+      ]
+    },
+    {
+      "arm": "hybrid",
+      "attempts": 18,
+      "shipped": 14,
+      "distinct_shipped": 14,
+      "yield_per_hundred": 77.8,
+      "yield_ci95": [
+        54.8,
+        91.0
+      ],
+      "by_reason": {
+        "generator_empty": 4
+      },
+      "usage": {
+        "calls": 18,
+        "input_tokens": 22580,
+        "output_tokens": 38665,
+        "usd": 0.4149
+      },
+      "models": [
+        "gpt-5-2025-08-07"
+      ]
+    }
+  ],
+  "control": {
+    "arm": "hybrid, gate off (control)",
+    "derived_from": [
+      "hybrid"
+    ],
+    "attempts": 18,
+    "ungated_shipped": 14,
+    "ungated_yield_per_hundred": 77.8,
+    "unsupported_in_retrieved": 0,
+    "unsupported_rate_of_shipped": 0.0,
+    "absent_from_corpus": 0,
+    "absent_rate_of_shipped": 0.0,
+    "absent_rate_ci95": [
+      0.0,
+      21.5
+    ],
+    "cases": []
+  },
+  "control_pooled": {
+    "arm": "all arms, gate off (pooled)",
+    "derived_from": [
+      "bm25",
+      "embedding",
+      "hybrid"
+    ],
+    "attempts": 54,
+    "ungated_shipped": 39,
+    "ungated_yield_per_hundred": 72.2,
+    "unsupported_in_retrieved": 0,
+    "unsupported_rate_of_shipped": 0.0,
+    "absent_from_corpus": 0,
+    "absent_rate_of_shipped": 0.0,
+    "absent_rate_ci95": [
+      0.0,
+      9.0
+    ],
+    "cases": []
+  },
+  "remembered": {
+    "note": "generator answers from a fixed table and never reads retrieval",
+    "requests_per_category": 3,
+    "arms": [
+      {
+        "arm": "stub-bm25",
+        "attempts": 27,
+        "shipped": 16,
+        "distinct_shipped": 16,
+        "yield_per_hundred": 59.3,
+        "yield_ci95": [
+          40.7,
+          75.5
+        ],
+        "by_reason": {
+          "answer_not_in_retrieved_text": 11
+        },
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "usd": 0.0
+        },
+        "models": []
+      },
+      {
+        "arm": "stub-embedding",
+        "attempts": 27,
+        "shipped": 14,
+        "distinct_shipped": 14,
+        "yield_per_hundred": 51.9,
+        "yield_ci95": [
+          34.0,
+          69.3
+        ],
+        "by_reason": {
+          "answer_not_in_retrieved_text": 13
+        },
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "usd": 0.0
+        },
+        "models": []
+      },
+      {
+        "arm": "stub-hybrid",
+        "attempts": 27,
+        "shipped": 14,
+        "distinct_shipped": 14,
+        "yield_per_hundred": 51.9,
+        "yield_ci95": [
+          34.0,
+          69.3
+        ],
+        "by_reason": {
+          "answer_not_in_retrieved_text": 13
+        },
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "usd": 0.0
+        },
+        "models": []
+      }
+    ],
+    "control": {
+      "arm": "stub + hybrid, gate off",
+      "derived_from": [
+        "stub-hybrid"
+      ],
+      "attempts": 27,
+      "ungated_shipped": 27,
+      "ungated_yield_per_hundred": 100.0,
+      "unsupported_in_retrieved": 13,
+      "unsupported_rate_of_shipped": 48.1,
+      "absent_from_corpus": 3,
+      "absent_rate_of_shipped": 11.1,
+      "absent_rate_ci95": [
+        3.9,
+        28.1
+      ],
+      "cases": [
+        {
+          "arm": "stub-hybrid",
+          "topic": "1A",
+          "attempt_index": 0,
+          "concept": "Peptide linkage: polypeptides and proteins",
+          "stem": "An inhibitor binds the enzyme's active site and its effect is overcome by adding more substrate. What is this called?",
+          "answer": "competitive inhibition",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "3270ba1a-e262-481e-9902-61ef811251d5"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1A",
+          "attempt_index": 2,
+          "concept": "Control of Enzyme Activity (BIO, BC)",
+          "stem": "Which bond links one amino acid to the next in a polypeptide?",
+          "answer": "phosphodiester linkage",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "cb178029-ce17-4c82-aa11-94a2acf4accf"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1C",
+          "attempt_index": 0,
+          "concept": "Complete dominance",
+          "stem": "The two identical copies of a replicated chromosome, joined at the centromere, are known as what?",
+          "answer": "sister chromatids",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "4caf480f-6848-4231-9fe3-345bd87cae80"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1C",
+          "attempt_index": 1,
+          "concept": "Sex determination",
+          "stem": "What is the exchange of segments between homologous chromosomes during meiosis called?",
+          "answer": "crossover",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "198652dc-30cf-4065-9bbf-80fe4e1f123b"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1C",
+          "attempt_index": 2,
+          "concept": "Selection by differential reproduction",
+          "stem": "DNA replication in which each daughter molecule keeps one parent strand is described as what?",
+          "answer": "hemimethylated replication",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1D",
+          "attempt_index": 2,
+          "concept": "Net (maximum) molecular and energetic results of respiration processes",
+          "stem": "In prokaryotic cells, which organelle houses the Krebs cycle?",
+          "answer": "the peroxisome of prokaryotic cells",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "2A",
+          "attempt_index": 1,
+          "concept": "Lysosomes: membrane-bound vesicles containing hydrolytic enzymes",
+          "stem": "Which model describes membrane proteins moving within a lipid bilayer?",
+          "answer": "fluid mosaic",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "40e1947a-5a8b-4314-a9e7-bae3cedb885d"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "2C",
+          "attempt_index": 2,
+          "concept": "Gene regulation in development",
+          "stem": "A cell that can give rise to any cell type in the body is described as what?",
+          "answer": "totipotent",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3A",
+          "attempt_index": 0,
+          "concept": "Integration with endocrine system: feedback control",
+          "stem": "What insulating layer speeds conduction along a vertebrate axon?",
+          "answer": "myelin sheath",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "73d8f8a7-46a3-4a3a-9afa-970f2f03deb3"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3A",
+          "attempt_index": 2,
+          "concept": "Endocrine System: Mechanisms of Hormone Action (BIO)",
+          "stem": "What is the gap between two communicating neurons called?",
+          "answer": "synapse",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "1f8a0ca4-24a2-44fd-9706-f43ac0a5904e"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3B",
+          "attempt_index": 0,
+          "concept": "Pulmonary and systemic circulation",
+          "stem": "Which organ is the principal site of nutrient absorption?",
+          "answer": "the small intestine",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "73b3ac54-811c-4bce-a9dd-e83f8c0dda77"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3B",
+          "attempt_index": 1,
+          "concept": "Muscular control",
+          "stem": "Where does gas exchange occur in the human lung?",
+          "answer": "alveoli",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "f8b7e159-1112-46ea-be19-5f492747a7b5"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3B",
+          "attempt_index": 2,
+          "concept": "Sarcomeres: \"I\" and \"A\" bands, \"M\" and \"Z\" lines, \"H\" zone",
+          "stem": "Which structure filters blood in the kidney?",
+          "answer": "nephron",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "a7a48cd6-4931-4e0c-8499-9bb42411f0c5"
+        }
+      ]
+    },
+    "control_pooled": {
+      "arm": "stub + all arms, gate off (pooled)",
+      "derived_from": [
+        "stub-bm25",
+        "stub-embedding",
+        "stub-hybrid"
+      ],
+      "attempts": 81,
+      "ungated_shipped": 81,
+      "ungated_yield_per_hundred": 100.0,
+      "unsupported_in_retrieved": 37,
+      "unsupported_rate_of_shipped": 45.7,
+      "absent_from_corpus": 9,
+      "absent_rate_of_shipped": 11.1,
+      "absent_rate_ci95": [
+        6.0,
+        19.8
+      ],
+      "cases": [
+        {
+          "arm": "stub-bm25",
+          "topic": "1A",
+          "attempt_index": 2,
+          "concept": "Control of Enzyme Activity (BIO, BC)",
+          "stem": "Which bond links one amino acid to the next in a polypeptide?",
+          "answer": "phosphodiester linkage",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "cb178029-ce17-4c82-aa11-94a2acf4accf"
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "1C",
+          "attempt_index": 0,
+          "concept": "Complete dominance",
+          "stem": "The two identical copies of a replicated chromosome, joined at the centromere, are known as what?",
+          "answer": "sister chromatids",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "4caf480f-6848-4231-9fe3-345bd87cae80"
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "1C",
+          "attempt_index": 1,
+          "concept": "Sex determination",
+          "stem": "What is the exchange of segments between homologous chromosomes during meiosis called?",
+          "answer": "crossover",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "198652dc-30cf-4065-9bbf-80fe4e1f123b"
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "1C",
+          "attempt_index": 2,
+          "concept": "Selection by differential reproduction",
+          "stem": "DNA replication in which each daughter molecule keeps one parent strand is described as what?",
+          "answer": "hemimethylated replication",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "1D",
+          "attempt_index": 2,
+          "concept": "Net (maximum) molecular and energetic results of respiration processes",
+          "stem": "In prokaryotic cells, which organelle houses the Krebs cycle?",
+          "answer": "the peroxisome of prokaryotic cells",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "2A",
+          "attempt_index": 1,
+          "concept": "Lysosomes: membrane-bound vesicles containing hydrolytic enzymes",
+          "stem": "Which model describes membrane proteins moving within a lipid bilayer?",
+          "answer": "fluid mosaic",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "40e1947a-5a8b-4314-a9e7-bae3cedb885d"
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "2C",
+          "attempt_index": 2,
+          "concept": "Gene regulation in development",
+          "stem": "A cell that can give rise to any cell type in the body is described as what?",
+          "answer": "totipotent",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "3A",
+          "attempt_index": 2,
+          "concept": "Endocrine System: Mechanisms of Hormone Action (BIO)",
+          "stem": "What is the gap between two communicating neurons called?",
+          "answer": "synapse",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "1f8a0ca4-24a2-44fd-9706-f43ac0a5904e"
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "3B",
+          "attempt_index": 0,
+          "concept": "Pulmonary and systemic circulation",
+          "stem": "Which organ is the principal site of nutrient absorption?",
+          "answer": "the small intestine",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "73b3ac54-811c-4bce-a9dd-e83f8c0dda77"
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "3B",
+          "attempt_index": 1,
+          "concept": "Muscular control",
+          "stem": "Where does gas exchange occur in the human lung?",
+          "answer": "alveoli",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "f8b7e159-1112-46ea-be19-5f492747a7b5"
+        },
+        {
+          "arm": "stub-bm25",
+          "topic": "3B",
+          "attempt_index": 2,
+          "concept": "Sarcomeres: \"I\" and \"A\" bands, \"M\" and \"Z\" lines, \"H\" zone",
+          "stem": "Which structure filters blood in the kidney?",
+          "answer": "nephron",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "a7a48cd6-4931-4e0c-8499-9bb42411f0c5"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "1A",
+          "attempt_index": 0,
+          "concept": "Peptide linkage: polypeptides and proteins",
+          "stem": "An inhibitor binds the enzyme's active site and its effect is overcome by adding more substrate. What is this called?",
+          "answer": "competitive inhibition",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "3270ba1a-e262-481e-9902-61ef811251d5"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "1A",
+          "attempt_index": 2,
+          "concept": "Control of Enzyme Activity (BIO, BC)",
+          "stem": "Which bond links one amino acid to the next in a polypeptide?",
+          "answer": "phosphodiester linkage",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "cb178029-ce17-4c82-aa11-94a2acf4accf"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "1C",
+          "attempt_index": 0,
+          "concept": "Complete dominance",
+          "stem": "The two identical copies of a replicated chromosome, joined at the centromere, are known as what?",
+          "answer": "sister chromatids",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "4caf480f-6848-4231-9fe3-345bd87cae80"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "1C",
+          "attempt_index": 1,
+          "concept": "Sex determination",
+          "stem": "What is the exchange of segments between homologous chromosomes during meiosis called?",
+          "answer": "crossover",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "198652dc-30cf-4065-9bbf-80fe4e1f123b"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "1C",
+          "attempt_index": 2,
+          "concept": "Selection by differential reproduction",
+          "stem": "DNA replication in which each daughter molecule keeps one parent strand is described as what?",
+          "answer": "hemimethylated replication",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "1D",
+          "attempt_index": 2,
+          "concept": "Net (maximum) molecular and energetic results of respiration processes",
+          "stem": "In prokaryotic cells, which organelle houses the Krebs cycle?",
+          "answer": "the peroxisome of prokaryotic cells",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "2B",
+          "attempt_index": 1,
+          "concept": "Parasitic and symbiotic",
+          "stem": "By what process do bacteria transfer plasmid DNA through a pilus?",
+          "answer": "conjugation",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "a4ea5574-8c29-4a6d-a9af-3301ed2fdaa0"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "2C",
+          "attempt_index": 2,
+          "concept": "Gene regulation in development",
+          "stem": "A cell that can give rise to any cell type in the body is described as what?",
+          "answer": "totipotent",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "3A",
+          "attempt_index": 0,
+          "concept": "Integration with endocrine system: feedback control",
+          "stem": "What insulating layer speeds conduction along a vertebrate axon?",
+          "answer": "myelin sheath",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "73d8f8a7-46a3-4a3a-9afa-970f2f03deb3"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "3A",
+          "attempt_index": 2,
+          "concept": "Endocrine System: Mechanisms of Hormone Action (BIO)",
+          "stem": "What is the gap between two communicating neurons called?",
+          "answer": "synapse",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "1f8a0ca4-24a2-44fd-9706-f43ac0a5904e"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "3B",
+          "attempt_index": 0,
+          "concept": "Pulmonary and systemic circulation",
+          "stem": "Which organ is the principal site of nutrient absorption?",
+          "answer": "the small intestine",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "73b3ac54-811c-4bce-a9dd-e83f8c0dda77"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "3B",
+          "attempt_index": 1,
+          "concept": "Muscular control",
+          "stem": "Where does gas exchange occur in the human lung?",
+          "answer": "alveoli",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "f8b7e159-1112-46ea-be19-5f492747a7b5"
+        },
+        {
+          "arm": "stub-embedding",
+          "topic": "3B",
+          "attempt_index": 2,
+          "concept": "Sarcomeres: \"I\" and \"A\" bands, \"M\" and \"Z\" lines, \"H\" zone",
+          "stem": "Which structure filters blood in the kidney?",
+          "answer": "nephron",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "a7a48cd6-4931-4e0c-8499-9bb42411f0c5"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1A",
+          "attempt_index": 0,
+          "concept": "Peptide linkage: polypeptides and proteins",
+          "stem": "An inhibitor binds the enzyme's active site and its effect is overcome by adding more substrate. What is this called?",
+          "answer": "competitive inhibition",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "3270ba1a-e262-481e-9902-61ef811251d5"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1A",
+          "attempt_index": 2,
+          "concept": "Control of Enzyme Activity (BIO, BC)",
+          "stem": "Which bond links one amino acid to the next in a polypeptide?",
+          "answer": "phosphodiester linkage",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "cb178029-ce17-4c82-aa11-94a2acf4accf"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1C",
+          "attempt_index": 0,
+          "concept": "Complete dominance",
+          "stem": "The two identical copies of a replicated chromosome, joined at the centromere, are known as what?",
+          "answer": "sister chromatids",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "4caf480f-6848-4231-9fe3-345bd87cae80"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1C",
+          "attempt_index": 1,
+          "concept": "Sex determination",
+          "stem": "What is the exchange of segments between homologous chromosomes during meiosis called?",
+          "answer": "crossover",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "198652dc-30cf-4065-9bbf-80fe4e1f123b"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1C",
+          "attempt_index": 2,
+          "concept": "Selection by differential reproduction",
+          "stem": "DNA replication in which each daughter molecule keeps one parent strand is described as what?",
+          "answer": "hemimethylated replication",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "1D",
+          "attempt_index": 2,
+          "concept": "Net (maximum) molecular and energetic results of respiration processes",
+          "stem": "In prokaryotic cells, which organelle houses the Krebs cycle?",
+          "answer": "the peroxisome of prokaryotic cells",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "2A",
+          "attempt_index": 1,
+          "concept": "Lysosomes: membrane-bound vesicles containing hydrolytic enzymes",
+          "stem": "Which model describes membrane proteins moving within a lipid bilayer?",
+          "answer": "fluid mosaic",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "40e1947a-5a8b-4314-a9e7-bae3cedb885d"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "2C",
+          "attempt_index": 2,
+          "concept": "Gene regulation in development",
+          "stem": "A cell that can give rise to any cell type in the body is described as what?",
+          "answer": "totipotent",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": null
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3A",
+          "attempt_index": 0,
+          "concept": "Integration with endocrine system: feedback control",
+          "stem": "What insulating layer speeds conduction along a vertebrate axon?",
+          "answer": "myelin sheath",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "73d8f8a7-46a3-4a3a-9afa-970f2f03deb3"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3A",
+          "attempt_index": 2,
+          "concept": "Endocrine System: Mechanisms of Hormone Action (BIO)",
+          "stem": "What is the gap between two communicating neurons called?",
+          "answer": "synapse",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "1f8a0ca4-24a2-44fd-9706-f43ac0a5904e"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3B",
+          "attempt_index": 0,
+          "concept": "Pulmonary and systemic circulation",
+          "stem": "Which organ is the principal site of nutrient absorption?",
+          "answer": "the small intestine",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "73b3ac54-811c-4bce-a9dd-e83f8c0dda77"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3B",
+          "attempt_index": 1,
+          "concept": "Muscular control",
+          "stem": "Where does gas exchange occur in the human lung?",
+          "answer": "alveoli",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "f8b7e159-1112-46ea-be19-5f492747a7b5"
+        },
+        {
+          "arm": "stub-hybrid",
+          "topic": "3B",
+          "attempt_index": 2,
+          "concept": "Sarcomeres: \"I\" and \"A\" bands, \"M\" and \"Z\" lines, \"H\" zone",
+          "stem": "Which structure filters blood in the kidney?",
+          "answer": "nephron",
+          "gate_reason": "answer_not_in_retrieved_text",
+          "elsewhere_in_corpus": "a7a48cd6-4931-4e0c-8499-9bb42411f0c5"
+        }
+      ]
+    }
+  }
+}

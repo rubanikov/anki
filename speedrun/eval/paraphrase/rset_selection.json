@@ -1,0 +1,327 @@
+{
+ "what": "The 30 cards of the R-set (H4), drawn by MANIFEST.md's frozen rule.",
+ "rule": {
+  "source": "speedrun/eval/holdout/MANIFEST.md, section H4, selection rule",
+  "seed": 20260802,
+  "draw": 30,
+  "min_graded_reviews": 3,
+  "sort": "card id ascending, then random.Random(seed).sample"
+ },
+ "collection": {
+  "path": "speedrun\\eval\\deck\\miledown.apkg",
+  "sha256": "7bee1879210a529e8f2002b65e8f892c6690a9824704c4f1474f8f753b7b58e4",
+  "cards": 2888,
+  "crosswalk_mapped": 1098,
+  "mapped_with_3_or_more_graded_reviews": 0
+ },
+ "crosswalk": "speedrun/crosswalk/miledown-bb-v1.json",
+ "deviation": {
+  "clause": "step 1, '>= 3 graded reviews at selection time'",
+  "applied": false,
+  "why": "The collection has no study history at all (revlog empty, every card reps=0), so the clause removes every card and the rule yields no set. It is named here rather than deleted. The first of the paraphrase test's three numbers - recall on the student's own card - is undefined for an unstudied card, so this set is usable only after a participant studies the deck, which is the same participant the test is waiting on.",
+  "how_to_remove": "Re-run select_rset.py --draw --collection <a studied collection>. The filter then applies and --no-study-history is refused."
+ },
+ "no_card_text": "Only card ids, note ids, topics and hashes are recorded here. The deck's card text is the author's and is never committed; the harness reads it from rset_cards.local.json, which is .gitignore'd.",
+ "cards": [
+  {
+   "card_id": 1555788789633,
+   "note_id": 1555788674291,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "130c56be61b1e0be59ff1e3a9a3d496a54e29678def6665841969193908997c6",
+   "answer_sha256": "90581b0a2ee6d43f2c1f897aa6dc25e20f121a68fb40fdddd87fefae62793cc9",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554010329168,
+   "note_id": 1554010294771,
+   "ordinal": 0,
+   "topic": "2C",
+   "graded_reviews": 0,
+   "front_sha256": "e16e002cefb75cbb4f0677167859f286b034da4d1e0c7ddc4bf2b742c81f8979",
+   "answer_sha256": "887f4ef5f8972fd4165d8dac28576b6ea8e43f76d6468973057eb7bd347be69e",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555166538991,
+   "note_id": 1555166502060,
+   "ordinal": 0,
+   "topic": "3A",
+   "graded_reviews": 0,
+   "front_sha256": "75661d98d6b3f3de5b6acc3c6374c4df42485fcdc401cc5fb73db2389aab7472",
+   "answer_sha256": "c6f8b00631581c45fbf7616df6fe946082150cd08cfeb981854f63515f1f4fe8",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555192262825,
+   "note_id": 1555191875690,
+   "ordinal": 0,
+   "topic": "3A",
+   "graded_reviews": 0,
+   "front_sha256": "509c2dc01acb5dd22073448356919d5daab6fbd0b37ed409b2b57c5b6d678ecc",
+   "answer_sha256": "faae7a0219bed982c18f35b96d854b639521e9c73ff420f9df5652f29deae9a9",
+   "text_usable": true
+  },
+  {
+   "card_id": 1556477369216,
+   "note_id": 1556477146218,
+   "ordinal": 0,
+   "topic": "2A",
+   "graded_reviews": 0,
+   "front_sha256": "1c8a3bbdd927f0e04fcd5f86eb2bda0467f86cfd10f87b668ac9968ba9d869e5",
+   "answer_sha256": "dae205c4d575d23e7157083960661e0353792fa23fc4d37c33bf8f69326ac37c",
+   "text_usable": true
+  },
+  {
+   "card_id": 1559604730260,
+   "note_id": 1559604435479,
+   "ordinal": 0,
+   "topic": "1C",
+   "graded_reviews": 0,
+   "front_sha256": "7cedd2c0665e18b5eb0fbc4789fd509180326032ccc7de164754f873ba240ada",
+   "answer_sha256": "4b7e172afd07683e8e12fd8bea360920535010006a497822d67568dbd26bc043",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555815157469,
+   "note_id": 1555814062005,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "ea571972d9ed37f3542bc5cd7463fed45bd3cbe3234994943d7c19a60a4837df",
+   "answer_sha256": "6c1ff09db3a73dc4a854f695d20d174a848d55f2d743bab2ee1f8fc75be454f3",
+   "text_usable": true
+  },
+  {
+   "card_id": 1556204309513,
+   "note_id": 1556204292437,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "739346c59ad8fe109bb65c7e95df37080098e718914a78ce4514e7bacf0339b3",
+   "answer_sha256": "65daf638a7c4f6b29001375234ba04fc3305c68571b7b824f9037fac2b6008aa",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554127871326,
+   "note_id": 1554127727203,
+   "ordinal": 0,
+   "topic": "2C",
+   "graded_reviews": 0,
+   "front_sha256": "a752e3a77d1db3f7a80b184c15f4ee899987b7351e04bc6ed47bce54f0e363e1",
+   "answer_sha256": "c994deb95202946b5eac7bfa562e449c54323e1fac42eb4b8d44cec239164cdb",
+   "text_usable": true
+  },
+  {
+   "card_id": 1556481341103,
+   "note_id": 1556481172105,
+   "ordinal": 0,
+   "topic": "2A",
+   "graded_reviews": 0,
+   "front_sha256": "917137be383aa86f137a0d0d6b246797ffe9c118f83808a6d448345639ff8803",
+   "answer_sha256": "8de5b4559b4cb5ee865a7b1af5f636e452fff912a23ba7a0ccf5c7bfd139daf3",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555121920729,
+   "note_id": 1555121880412,
+   "ordinal": 0,
+   "topic": "3A",
+   "graded_reviews": 0,
+   "front_sha256": "3c3db87a603b96c48a844d404092cbb5f92a4758d40f448d00498874f9c0e9db",
+   "answer_sha256": "3ba8d02b16fd2a01c1a8ba1a1f036d7ce386ed953696fa57331c2ac48a80b255",
+   "text_usable": true
+  },
+  {
+   "card_id": 1556661931837,
+   "note_id": 1556661893912,
+   "ordinal": 0,
+   "topic": "1D",
+   "graded_reviews": 0,
+   "front_sha256": "c69415d806e6f0c2449cdb33eb902b72d6449fbaf67e5484bb3425e16c605601",
+   "answer_sha256": "c02e559f25ad8a364b06362b6edec87b701dc00f057e9a1b2f91663dbbea4659",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554126467829,
+   "note_id": 1554126079011,
+   "ordinal": 0,
+   "topic": "1A",
+   "graded_reviews": 0,
+   "front_sha256": "6f67d4b9a41d5eead5e414d2ba32d3ae7027d6a9352d2e55b88ea321f47daabb",
+   "answer_sha256": "cd90cee446ec9cd29f7c53d34bb0ef6bdabd6d9a2bbd79269f2774e44a2c4a31",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555200366636,
+   "note_id": 1555200233003,
+   "ordinal": 0,
+   "topic": "3A",
+   "graded_reviews": 0,
+   "front_sha256": "0d5336fa9fa5b372be2f5f4a2fe6ff6546fbdb937a443b408c3db33531298728",
+   "answer_sha256": "054ccfadb416e25a9c6af08722375dde49297eee51ce7f705219b2c5be81e9dc",
+   "text_usable": true
+  },
+  {
+   "card_id": 1560050320738,
+   "note_id": 1560047969980,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "e1c64f1e7850b04c0897027065230766486df749d998909d60fbd1c02849dd5c",
+   "answer_sha256": "16eea273fd53c6b38c9e14bc47395355487f8f936de5c891f2a430a99684c65a",
+   "text_usable": true
+  },
+  {
+   "card_id": 1558578478643,
+   "note_id": 1558578269115,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "b6da8f80d7dbcf22d14950db7acb12452c56ed365f3cdeac305a4d0cf1777649",
+   "answer_sha256": "fa9a11e89d02165ce6258386bbd10f960aefaa37128920d4f606d186357da4f5",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554057652298,
+   "note_id": 1554057640901,
+   "ordinal": 0,
+   "topic": "2C",
+   "graded_reviews": 0,
+   "front_sha256": "e6325da02488367b5612b50520a4853c4b2f04b5e80a0fba73d5177666a86efc",
+   "answer_sha256": "5cf3396ec1b950e55ae888aff229c080da756f1c5f3a4f6676d044864a370ada",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555083517974,
+   "note_id": 1555083517363,
+   "ordinal": 0,
+   "topic": "3A",
+   "graded_reviews": 0,
+   "front_sha256": "cc6f3027433ced6f1a648d35615adcb8e9f96c53e39a2a562cbac91cbae2157b",
+   "answer_sha256": "d15690f08a575024650b01ffac892cfd2b93e6c57c140f1b6d9e47753cabd579",
+   "text_usable": true
+  },
+  {
+   "card_id": 1559604395058,
+   "note_id": 1559604336790,
+   "ordinal": 0,
+   "topic": "1C",
+   "graded_reviews": 0,
+   "front_sha256": "adf551df31ec74395d639ec2ea2ae7311a1728665bc2b81542b21973fe35b787",
+   "answer_sha256": "3597ef1f9fe253fbdc51eccebbe00c4361ea501cc47da4005f89e076e13da524",
+   "text_usable": true
+  },
+  {
+   "card_id": 1556905815915,
+   "note_id": 1556905543441,
+   "ordinal": 0,
+   "topic": "1D",
+   "graded_reviews": 0,
+   "front_sha256": "e305fcc247478324de82c3824b456ce5fc59af1782901e9fb536a29e7db6bb27",
+   "answer_sha256": "dfb46d7138d5eaf4c6bc32073466ccbeee97df46a18835990b810231214927d9",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554093780617,
+   "note_id": 1554093396253,
+   "ordinal": 0,
+   "topic": "1A",
+   "graded_reviews": 0,
+   "front_sha256": "846f44a3dd21a39964bc6101d81d8095fc8c7a098c091feebbc11027dc9bc326",
+   "answer_sha256": "ce217bed5aeebc6bc4e0de7b26bcbc9bc3e3bbce51b42cfd4e4e5553c18b84cf",
+   "text_usable": true
+  },
+  {
+   "card_id": 1559489248201,
+   "note_id": 1559488983062,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "fe232fb73d96f31fa926d41ac61fa2b875c5704c73c88d0ee4d9101a82300479",
+   "answer_sha256": "2bf0576de2112f858ef985b3e29d747a0aa257a62da9adf3acfc1e792efec81b",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555803656630,
+   "note_id": 1555803519781,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "2927104325c78eae5b08e9759b852344dbf00865411d226567fee06789234aa3",
+   "answer_sha256": "7e2e936a9cdaf2421544c280907263c1f2ffcc7d657ac19159796828389c0345",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554559742290,
+   "note_id": 1554559721653,
+   "ordinal": 0,
+   "topic": "1B",
+   "graded_reviews": 0,
+   "front_sha256": "fb5a0c99a254920faf4f85badf6ab51027cd15afec06887e22d2d56db1c66dfc",
+   "answer_sha256": "2560cc02274022d07bb04202d1388d0831da9dfd3c65bb9757e3668c3ede49f9",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555811692711,
+   "note_id": 1555810947046,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "81240cc65919e18fd81944303dc753b393c5579ebb7a9b3b5e79d1a46d11dfb3",
+   "answer_sha256": "87e6040fd43deaf9d1205a876dfa3f9bf6242a468366e45dc883b66bbe2556d0",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554063729183,
+   "note_id": 1554063674164,
+   "ordinal": 0,
+   "topic": "2C",
+   "graded_reviews": 0,
+   "front_sha256": "710bfe2244cbffdd35b3580d036da87717a7617cbb4d7b9121d094059503a214",
+   "answer_sha256": "8b33ac9cfffc5cc8a55981c8b4ac4d300ae21e7ecfeca2593bc9d71a1111b07b",
+   "text_usable": true
+  },
+  {
+   "card_id": 1556662098960,
+   "note_id": 1556662098201,
+   "ordinal": 0,
+   "topic": "1D",
+   "graded_reviews": 0,
+   "front_sha256": "c69415d806e6f0c2449cdb33eb902b72d6449fbaf67e5484bb3425e16c605601",
+   "answer_sha256": "498b7ad919e61a8d46eb4129043a209c4a409d224c48f4a34eeda59b753377b3",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554354313035,
+   "note_id": 1554354190476,
+   "ordinal": 0,
+   "topic": "1B",
+   "graded_reviews": 0,
+   "front_sha256": "636acef6b85c9ace4016217c8ff9608a3ab06e4e3e25a1d96529dfe5ac8c7614",
+   "answer_sha256": "d58ae5f188fb92d9c7b7efea40733fc655608a11a83bcfa493fa2273328570c2",
+   "text_usable": true
+  },
+  {
+   "card_id": 1554354528746,
+   "note_id": 1554354520435,
+   "ordinal": 0,
+   "topic": "1B",
+   "graded_reviews": 0,
+   "front_sha256": "6a1e92b77bb02daedf14b622f7c8c17143696f390e3bb142fcd6314c856b0367",
+   "answer_sha256": "be74f7200a9161833036f4948647b7f71ab60a6a01fb9fe26e30c303de8eab95",
+   "text_usable": true
+  },
+  {
+   "card_id": 1555802687356,
+   "note_id": 1555801443821,
+   "ordinal": 0,
+   "topic": "3B",
+   "graded_reviews": 0,
+   "front_sha256": "b3fdfc34244fdd42158bd8dcaa4e744c4e2c2390a338c7060a9a3e8da6a3b7e0",
+   "answer_sha256": "5e8b8d42e857365bb6eb7a49b965bf60582d81a7248c389c8df745c4949a3613",
+   "text_usable": true
+  }
+ ]
+}

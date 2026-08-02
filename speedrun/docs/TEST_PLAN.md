@@ -77,7 +77,7 @@ Every topic on the official AAMC outline marked covered / not covered, percentag
 30 cards, 2 reworded exam-style questions each. Compare recall on the card to accuracy on the rewordings.
 
 ```bash
-python speedrun/eval/paraphrase_test.py
+python speedrun/eval/paraphrase/run_paraphrase.py   # needs a participant
 ```
 
 **If the numbers match, the performance model is copying the memory model.** This is the DOK 1 vs DOK 2 test run directly. Report the gap whichever way it comes out. Target stated in advance: gap ≥ 15 points.
