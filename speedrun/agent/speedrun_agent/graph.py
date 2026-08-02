@@ -83,6 +83,17 @@ def _retrieved(trail: Sequence[Carried]) -> list[RetrievedChunk]:
     return [carried.output for carried in all_from(trail, RETRIEVE)]
 
 
+def _model_id(trail: Sequence[Carried]) -> str:
+    """The resolved model id off the proposal, if generation got that far.
+
+    Read from the candidate rather than from the generator object, so an item
+    always names the model that actually produced *it* — the two can differ the
+    moment anything is reconfigured mid-process.
+    """
+    proposal = latest(trail, GENERATE)
+    return getattr(proposal.output, "model", "") if proposal is not None else ""
+
+
 def build_graph(
     *,
     corpus: Corpus,
@@ -222,6 +233,7 @@ def build_graph(
                     topic_id=request.topic_id,
                     seed=request.seed,
                     generator=getattr(generator, "name", "unknown"),
+                    model=_model_id(state["trail"]),
                     outcome=SHIPPED,
                     source_id=item.source_id,
                     citation=item.span.citation,
@@ -242,6 +254,7 @@ def build_graph(
                     topic_id=request.topic_id,
                     seed=request.seed,
                     generator=getattr(generator, "name", "unknown"),
+                    model=_model_id(state.get("trail", [])),
                     outcome=str(ruling.reason),
                     detail=ruling.detail,
                     retrieved=tuple(

@@ -35,7 +35,7 @@ from . import topics
 from .attribution import latest, payload
 from .corpus_gateway import Bm25Corpus, Corpus
 from .gate import GateRule
-from .generators import Generator, default_generator, model_key
+from .generators import Generator, available_provider, default_generator
 from .graph import GATE, Request, build_graph
 from .rejections import AttemptLog
 from .tracing import Tracer, default_tracer, langsmith_key
@@ -84,12 +84,17 @@ def create_app(
         `switches.probe` treats anything but a 2xx/3xx as unreachable, and an
         unreachable service *is* `ai_enabled = false` — so this endpoint's only
         job is to answer, and its body is for humans.
+
+        Keys appear here only as booleans and provider names. No endpoint of
+        this service can emit a key, because no code path holds one after the
+        SDK client is constructed.
         """
         return {
             "status": "ok",
             "corpus": corpus.stats(),
             "generator": getattr(generator, "name", "unknown"),
-            "model_key_present": model_key() is not None,
+            "model": getattr(generator, "model", ""),
+            "provider_key_present": available_provider(),
             "tracing": getattr(tracer, "name", "unknown"),
             "langsmith_key_present": langsmith_key() is not None,
         }

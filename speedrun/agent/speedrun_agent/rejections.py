@@ -72,6 +72,10 @@ class Attempt:
     seed: int
     generator: str
     outcome: str  #: SHIPPED, or a Reason value
+    #: The provider's *resolved* model id — `gpt-5-2025-08-07`, not `gpt-5`.
+    #: A Yield figure attributed to a moving alias is not a measurement anyone
+    #: can repeat, and this ledger is what #16 reads.
+    model: str = ""
     detail: str = ""
     source_id: str | None = None
     citation: str | None = None
@@ -122,6 +126,9 @@ class AttemptLog:
         `yield_per_hundred` is reported as `None` rather than 0 when nothing has
         been attempted: a rate over an empty denominator is an abstention, and
         this project does not print numbers it cannot support.
+
+        `models` lists every resolved model id that contributed, so a tally can
+        never be read as belonging to a model it was not produced by.
         """
         with self._lock:
             attempts = list(self._attempts)
@@ -131,6 +138,8 @@ class AttemptLog:
             "attempts": len(attempts),
             "shipped": shipped,
             "rejected": len(attempts) - shipped,
+            "generators": sorted({a.generator for a in attempts}),
+            "models": sorted({a.model for a in attempts if a.model}),
             "yield_per_hundred": (
                 round(100.0 * shipped / len(attempts), 1) if attempts else None
             ),

@@ -23,11 +23,15 @@ GET  /gate/rejections?limit=50           → the dropped attempts themselves
 
 ```bash
 cd speedrun/agent
-uv sync
+uv sync                       # the gate, the graph, the stub — no provider SDK
+uv sync --extra openai        # add the real generator (or --extra anthropic)
 uv run speedrun-agent                    # 127.0.0.1:8000
 uv run speedrun-agent --attempt 1D --seed 0   # one attempt, printed, no server
-uv run pytest
+uv run pytest                 # 35 tests; the two needing a key skip without one
 ```
+
+Provider SDKs are **extras** rather than dependencies: the gate is the graded
+part, and it must install and run on a machine that has neither key nor SDK.
 
 The corpus must be built first — `python speedrun/corpus/build.py --build` — and
 `/health` reports what it found.
@@ -124,20 +128,64 @@ same problem.
 
 ---
 
-## Numbers from a real run
+## Numbers from real runs
 
-Stub generator, BM25 over the built OpenStax corpus, all nine Bio/Biochem
-categories at three requests each — ADR-0006's query set:
+ADR-0006's query set, run once per generator: BM25 over the built OpenStax
+corpus, all nine Bio/Biochem categories at three requests each.
 
-```
-attempts 27   shipped 16   Yield 59.3 per hundred
-answer_not_in_retrieved_text  11      (every other reason: 0)
-```
+| Generator | Model | Attempts | Shipped | **Yield /100** |
+| --- | --- | ---: | ---: | ---: |
+| `gpt-5`, given the retrieved text | `gpt-5-2025-08-07` | 27 | 27 | **100.0** |
+| `stub-remembered`, never reads the retrieved text | — | 27 | 16 | **59.3** |
 
-Per topic: `1B` and `2B` shipped 3/3; `1A`, `1D`, `2A`, `2C`, `3A` shipped 2/3;
-`1C` and `3B` shipped 0/3. `1A` being thin in the book (31 chunks) did not hurt
-it; `3B` is the widest category and the stub's answers for it are not phrased
-the way the book phrases them.
+Rejection decomposition:
+
+| Reason | gpt-5 | stub |
+| --- | ---: | ---: |
+| `answer_not_in_retrieved_text` | **0** | 11 |
+| every other reason | 0 | 0 |
+
+**gpt-5 handed the sources cleared the gate on every attempt.** That is the
+result; it was not tuned for. It is worth saying plainly what it does and does
+not show.
+
+It does **not** show the gate is pointless. It shows the gate is *easy to
+satisfy when the generator is given the source*, which is the expected outcome
+and the reason ADR-0006 has an ungated control arm at all. The number that
+carries the project's claim is not the margin between retrievers — it is how
+often an ungated pipeline would ship an item whose answer is in no real source.
+The stub is the stand-in for exactly that condition (a generator answering from
+memory rather than from the passage), and **11 of its 27 attempts — 41% — would
+have shipped ungrounded with the gate switched off.** The stub is not a model,
+so that is a bound on the failure mode's shape, not a measurement of any model's
+ungrounded rate. Measuring the real thing means running a model *without* the
+passages, which is #16's arm to run, not this ticket's.
+
+Three caveats a reader of the 100.0 should have:
+
+- **The three requests per category are not three different requests.** `seed`
+  selects among the stub's canned claims; it is not passed to the model, so
+  gpt-5 saw an identical prompt three times per topic and often returned the
+  same answer. The 27 attempts contain **20 distinct citations**, all of which
+  shipped — so 20/20 rather than 27/27, and the figure does not move. Making the
+  three requests genuinely distinct belongs to #16, which owns the arms.
+- **The gate checks grounding, not item quality.** Two of the 27 "answers" are
+  whole sentences lifted verbatim from the page (`2B` seed 0, `3B` seed 1) —
+  perfectly grounded and useless as multiple-choice answers. Nothing here claims
+  otherwise; item quality against a cutoff is T-18's number.
+- **One run, one retriever.** These are BM25 figures. Varying the retriever with
+  the gate held constant is the comparison, and it is #16's.
+
+Per topic, the stub: `1B` and `2B` shipped 3/3; `1A`, `1D`, `2A`, `2C`, `3A`
+shipped 2/3; `1C` and `3B` shipped 0/3. `1A` being thin in the book (31 chunks)
+did not hurt it; `3B` is the widest category and the stub's phrasing for it is
+not the book's.
+
+A small thing the gate got right on the real run: gpt-5 answered `1A` with
+*"the enzyme's active site"* using a straight apostrophe; OpenStax writes it
+with a curly one. The span matched — typography is folded before matching — and
+the quote returned is **the page's characters**, curly apostrophe included, not
+the model's.
 
 A grounded claim and an ungrounded one, same topic, same generator:
 
@@ -213,28 +261,65 @@ else.
 
 ---
 
-## What is stubbed
+## Keys
 
-**No `ANTHROPIC_API_KEY` was available.** `AnthropicGenerator` is written and
-wired — it prompts for an answer copied verbatim from the retrieved text, and is
-never asked to check its own item — but it has **never issued a request**. It
-activates only when a key is present; without one, `default_generator()` returns
-the stub.
+A key is read from the process environment. If it is not there, **one `.env`
+outside the repository** may be consulted — `SPEEDRUN_AGENT_ENV_FILE` if set,
+otherwise a short list of conventional locations. The value goes into
+`os.environ` and nowhere else: not a config file, not a trace, not a rejection
+record, not an artifact. `/health` reports a provider *name* and a boolean.
+
+**A `.env` inside the repository is refused with an exception.** That check is
+in code rather than in this README because the failure is silent and permanent —
+a key committed once is leaked forever — and because somebody will eventually
+copy the file in "just to test". Refusing loudly is what stops that copy from
+appearing to work.
+
+`tests/test_environment.py` covers all of it without a key or a network: the
+in-repo refusal, the configurable path, an exported key outranking the file, the
+allowlist that stops a shared dotfile setting arbitrary variables here, and a
+scan of `speedrun/` for key-shaped strings (plus, when a key is present, for
+that exact value).
+
+## Which generator runs
+
+Whichever key exists decides; with none, the stub runs and the service still
+works. That fallback is load-bearing — the gate is the graded part and has to be
+demonstrable, and testable, on a machine with no key at all.
+
+| Key present | Generator | Status |
+| --- | --- | --- |
+| `OPENAI_API_KEY` | `OpenAIGenerator` (`gpt-5`) | **Run.** 27 attempts, numbers above. |
+| `ANTHROPIC_API_KEY` | `AnthropicGenerator` (`claude-opus-5`) | Wired, **never issued a request**. |
+| neither | `RememberedAnswerGenerator` | The stub. |
+
+Both real generators are handed the retrieved passages and prompted for an
+answer copied verbatim from them, with the **same prompt** — a per-provider
+prompt would turn a retrieval finding into a prompt-engineering one. Reasoning
+effort is left at the provider default, because a knob turned here is a knob
+that has to be reported next to the Yield number, and an unturned one cannot be
+accused of having been adjusted until the number looked good.
+
+Every item records the provider's **resolved** model id — `gpt-5-2025-08-07`,
+not `gpt-5` — on the candidate, in the trace, in the ledger and in the HTTP
+response. An alias moves; a Yield figure attributed to one is not repeatable.
+
+## What is stubbed
 
 `RememberedAnswerGenerator` is the stub, and its shape is the interesting part.
 A stub that lifted a phrase straight out of the retrieved chunk would pass the
-gate every time and prove nothing. A model does not work that way: it answers
-from what it absorbed in training, and the retrieved passage is context it may
-or may not lean on. That gap is the entire reason for the gate, so the stub
-reproduces it exactly — it answers from a fixed table and never reads the
-retrieved text. Whether a claim ships is then decided by the corpus and the
-gate, not by whoever wrote the table. The claims are hand-written stand-ins for
-model output, not vetted MCAT content, and one is deliberately false.
+gate every time and prove nothing. **It stays deliberately unlike the real
+generators: it never reads the retrieved text.** That is what keeps a
+key-less suite able to prove the gate can fire at all, and it is the stand-in
+for the condition ADR-0006's ungated control measures — a generator answering
+from memory rather than from the passage in front of it. Whether a claim ships
+is decided by the corpus and the gate, not by whoever wrote the table. The
+claims are hand-written stand-ins for model output, not vetted MCAT content, and
+one is deliberately false.
 
 `FixedClaimGenerator` puts one caller-supplied claim through the pipeline. It
 ships in the package rather than living in a test file because ADR-0006's
-ungated control arm needs the same capability, and the arm that carries the
-project's actual claim should run the same code path as the arm that does not.
+ungated control arm needs the same capability.
 
 Not built here: `POST /coach/turn` and the checkpointer are T-14's; the
 retrieval arms and the yield table are T-17's, and read `/gate/yield`.
@@ -261,7 +346,7 @@ corpus:
 approving an item with no source, over a corpus that *does* support the claim,
 and asserts the service ships nothing anyway.
 
-26 tests, all passing.
+35 tests. Two need a key and skip cleanly without one.
 
 ---
 
@@ -272,7 +357,8 @@ and asserts the service ships nothing anyway.
 | `attribution.py` | `Carried`, the reducer, and `payload` — the boundary |
 | `gate.py` | The assertion, and the closed set of rulings |
 | `graph.py` | retrieve → generate → gate → ship/drop |
-| `generators.py` | The stub, the fixed-claim control, and the Anthropic path |
+| `generators.py` | The stub, the fixed-claim control, and the OpenAI / Anthropic paths |
+| `environment.py` | Key lookup, and the refusal to read one from inside the repo |
 | `corpus_gateway.py` | The one place that knows where `speedrun/corpus/` is |
 | `rejections.py` | The ledger Yield is computed from |
 | `tracing.py` | LangSmith, or the same shape locally |

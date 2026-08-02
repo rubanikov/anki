@@ -24,21 +24,37 @@ content, and one of them is deliberately false. The gate does not check whether
 a claim is true; it checks whether a real source says it. A false claim is
 dropped because nothing supports it, which is the behaviour being demonstrated.
 
-`AnthropicGenerator` is the real path and activates only when a key is present.
-It is prompted to answer using a phrase copied verbatim from the retrieved text
-— but nothing downstream trusts that it obeyed, because the gate checks the
-characters either way.
+**The real generators are handed the retrieved text; the stub is not.** That is
+not an inconsistency, it is the division of labour. Giving a model the sources
+is the honest way to do grounded generation and it raises Yield a great deal —
+but it does not make the gate ornamental, because the gate re-derives the
+citation from the retrieved characters rather than taking the model's word that
+it copied them. A model that drifts one word past what it was shown is caught by
+exactly the same check as a model that had no source at all. The stub keeps the
+no-source behaviour precisely so the suite can still prove the gate fires.
+
+Two real paths, `OpenAIGenerator` and `AnthropicGenerator`, chosen by whichever
+key exists; with neither, the stub runs and the service still works. Both are
+prompted to answer with a phrase copied verbatim from the retrieved text, and
+nothing downstream trusts that they obeyed.
+
+Every proposal records the **resolved** model id — `gpt-5-2025-08-07`, not
+`gpt-5` — because "we used GPT-5" is not a fact anyone can re-run.
 """
 
 from __future__ import annotations
 
 import dataclasses
-import os
+import json
 from typing import Any, Protocol
 
 from .corpus_gateway import RetrievedChunk
+from .environment import has_key, key
 
-MODEL = "claude-opus-5"
+#: Aliases, deliberately. The alias is what a caller asks for; the snapshot the
+#: provider resolves it to is what gets recorded on every item it produces.
+OPENAI_MODEL = "gpt-5"
+ANTHROPIC_MODEL = "claude-opus-5"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -54,6 +70,11 @@ class Candidate:
     distractors: tuple[str, ...]
     topic_id: str
     generator: str
+    #: The provider's *resolved* model id, as reported by the response. Empty
+    #: for the stub, which is not a model. Carried on the candidate rather than
+    #: read off the generator afterwards, so the id travels with the item it
+    #: actually produced — into the trace, the ledger and the response.
+    model: str = ""
 
     @property
     def well_formed(self) -> bool:
@@ -269,6 +290,8 @@ class RememberedAnswerGenerator:
     """
 
     name = "stub-remembered"
+    #: Not a model. An empty id is the honest report, not "unknown".
+    model = ""
 
     def propose(
         self, *, topic_id: str, retrieved: list[RetrievedChunk], seed: int
@@ -297,6 +320,7 @@ class FixedClaimGenerator:
     """
 
     name = "fixed-claim"
+    model = ""
 
     def __init__(self, candidate: Candidate | None) -> None:
         self._candidate = candidate
@@ -309,51 +333,151 @@ class FixedClaimGenerator:
         return dataclasses.replace(self._candidate, topic_id=topic_id)
 
 
-# --- the real one ---------------------------------------------------------
+# --- the real ones --------------------------------------------------------
 
-
-def model_key() -> str | None:
-    return os.environ.get("ANTHROPIC_API_KEY") or None
-
-
-_PROMPT = """\
+#: One prompt, both providers. Keeping it identical is what makes a Yield
+#: comparison between them mean anything; a per-provider prompt would turn a
+#: retrieval finding into a prompt-engineering finding.
+PROMPT = """\
 You are drafting one exam-style multiple-choice item for MCAT content category \
 {topic_id}, using only the passages below.
 
-The correct answer MUST be a phrase copied verbatim — character for character — \
+The correct answer MUST be a phrase copied verbatim - character for character - \
 from one of the passages. Do not paraphrase it, do not correct its spelling, and \
-do not summarise it. If no passage supports a question worth asking, return \
-{{"skip": true}}.
+do not summarise it. If no passage supports a question worth asking, set "skip" \
+to true.
 
-The stem must not contain the correct answer.
+The stem must not contain the correct answer. Give three plausible distractors.
 
 Passages:
 {passages}
-
-Return only JSON: {{"stem": "...", "answer": "...", "distractors": ["...", "...", "..."]}}\
 """
+
+#: Both SDKs take the same JSON Schema. `skip` is required rather than optional
+#: because a model that cannot ground an answer should be able to say so, and a
+#: schema that lets it omit the field invites it to invent one instead.
+SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "stem": {"type": "string"},
+        "answer": {"type": "string"},
+        "distractors": {"type": "array", "items": {"type": "string"}},
+        "skip": {"type": "boolean"},
+    },
+    "required": ["stem", "answer", "distractors", "skip"],
+    "additionalProperties": False,
+}
+
+
+def passages_for(retrieved: list[RetrievedChunk], limit: int) -> str:
+    """The retrieved text, labelled by chunk, exactly as retrieval returned it.
+
+    Handing the model the sources is the honest way to do grounded generation.
+    It is also why the gate matters more here rather than less: with the text in
+    front of it a model will usually copy correctly, so the residual failures
+    are the interesting ones — the places it drifted a word past what it was
+    shown, which is precisely what a span match catches and a plausibility
+    judgement does not.
+    """
+    return "\n\n".join(f"[{chunk.chunk_id}] {chunk.text}" for chunk in retrieved[:limit])
+
+
+def _candidate_from(
+    drafted: dict[str, Any], *, topic_id: str, generator: str, model: str
+) -> Candidate | None:
+    if drafted.get("skip"):
+        return None
+    return Candidate(
+        stem=drafted.get("stem", ""),
+        answer=drafted.get("answer", ""),
+        distractors=tuple(drafted.get("distractors", ())),
+        topic_id=topic_id,
+        generator=generator,
+        model=model,
+    )
+
+
+class OpenAIGenerator:
+    """Drafts items with GPT-5. Never asked whether its own item is correct.
+
+    Uses the Responses API with a strict JSON schema, and records the model id
+    the API *resolved* — `gpt-5` is an alias that moves, `gpt-5-2025-08-07` is a
+    fact. Reasoning effort is left at the provider default on purpose: every
+    knob turned here is a knob that has to be reported alongside the Yield
+    number, and an unturned one cannot be accused of having been adjusted until
+    the number looked good.
+
+    The key is read from the environment (see `environment.py`) and handed
+    straight to the SDK. It is not stored on this object, and nothing this class
+    returns can contain it.
+    """
+
+    name = "openai"
+
+    def __init__(
+        self,
+        model: str = OPENAI_MODEL,
+        max_chunks: int = 4,
+        max_output_tokens: int = 4000,
+    ) -> None:
+        from openai import OpenAI  # noqa: PLC0415  (extra; absent without a key)
+
+        self._client = OpenAI(api_key=key("OPENAI_API_KEY"))
+        #: Public: `/health` reports it, and it is the alias, not the snapshot.
+        self.model = model
+        self._max_chunks = max_chunks
+        self._max_output_tokens = max_output_tokens
+
+    def propose(
+        self, *, topic_id: str, retrieved: list[RetrievedChunk], seed: int
+    ) -> Candidate | None:
+        if not retrieved:
+            return None
+        response = self._client.responses.create(
+            model=self.model,
+            max_output_tokens=self._max_output_tokens,
+            input=PROMPT.format(
+                topic_id=topic_id,
+                passages=passages_for(retrieved, self._max_chunks),
+            ),
+            text={
+                "format": {
+                    "type": "json_schema",
+                    "name": "held_out_item",
+                    "schema": SCHEMA,
+                    "strict": True,
+                }
+            },
+        )
+        # An incomplete response is a truncated one, and a truncated item is not
+        # a worse item — it is not an item. Returning None counts it as
+        # `generator_empty`, which is a different finding from a gate rejection.
+        if response.status != "completed" or not response.output_text:
+            return None
+        return _candidate_from(
+            json.loads(response.output_text),
+            topic_id=topic_id,
+            generator=self.name,
+            model=response.model,
+        )
 
 
 class AnthropicGenerator:
     """Drafts items with Claude. Never asked whether its own item is correct.
 
-    The prompt asks for a verbatim phrase because that raises Yield, not because
-    it is trusted: the gate re-checks the characters, and an answer the model
-    paraphrased is dropped with a reason like any other. There is no step
-    anywhere in this file, or downstream of it, that asks a model to grade
-    model output.
-
-    **Untested.** No `ANTHROPIC_API_KEY` was available while this was written,
-    so this class has never issued a request. It is wired, not verified.
+    **Untested.** No `ANTHROPIC_API_KEY` was available, so this class has never
+    issued a request. It is wired, not verified — unlike `OpenAIGenerator`,
+    whose numbers are in the README because it was actually run.
     """
 
     name = "anthropic"
 
-    def __init__(self, model: str = MODEL, max_chunks: int = 4) -> None:
-        import anthropic  # noqa: PLC0415  (optional extra; absent without a key)
+    def __init__(self, model: str = ANTHROPIC_MODEL, max_chunks: int = 4) -> None:
+        import anthropic  # noqa: PLC0415  (extra; absent without a key)
 
-        self._client = anthropic.Anthropic()
-        self._model = model
+        self._client = anthropic.Anthropic(api_key=key("ANTHROPIC_API_KEY"))
+        #: Public: `/health` reports it, and it is the alias, not the snapshot.
+        self.model = model
         self._max_chunks = max_chunks
 
     def propose(
@@ -361,68 +485,65 @@ class AnthropicGenerator:
     ) -> Candidate | None:
         if not retrieved:
             return None
-        passages = "\n\n".join(
-            f"[{chunk.chunk_id}] {chunk.text}" for chunk in retrieved[: self._max_chunks]
-        )
         response = self._client.messages.create(
-            model=self._model,
-            max_tokens=2000,
+            model=self.model,
+            max_tokens=4000,
             thinking={"type": "adaptive"},
-            output_config={
-                "effort": "medium",
-                "format": {
-                    "type": "json_schema",
-                    "schema": {
-                        "type": "object",
-                        "properties": {
-                            "stem": {"type": "string"},
-                            "answer": {"type": "string"},
-                            "distractors": {
-                                "type": "array",
-                                "items": {"type": "string"},
-                            },
-                            "skip": {"type": "boolean"},
-                        },
-                        "required": ["stem", "answer", "distractors", "skip"],
-                        "additionalProperties": False,
-                    },
-                },
-            },
+            output_config={"format": {"type": "json_schema", "schema": SCHEMA}},
             messages=[
                 {
                     "role": "user",
-                    "content": _PROMPT.format(topic_id=topic_id, passages=passages),
+                    "content": PROMPT.format(
+                        topic_id=topic_id,
+                        passages=passages_for(retrieved, self._max_chunks),
+                    ),
                 }
             ],
         )
         if response.stop_reason == "refusal":
             return None
-        import json  # noqa: PLC0415
-
         text = next((b.text for b in response.content if b.type == "text"), "")
         if not text:
             return None
-        drafted = json.loads(text)
-        if drafted.get("skip"):
-            return None
-        return Candidate(
-            stem=drafted.get("stem", ""),
-            answer=drafted.get("answer", ""),
-            distractors=tuple(drafted.get("distractors", ())),
+        return _candidate_from(
+            json.loads(text),
             topic_id=topic_id,
             generator=self.name,
+            model=response.model,
         )
 
 
-def default_generator() -> Generator:
-    """The real model when a key exists, the stub when it does not.
+#: Which key selects which generator, in order. OpenAI first because that is the
+#: key this service has actually been measured with.
+PROVIDERS: tuple[tuple[str, str], ...] = (
+    ("OPENAI_API_KEY", "openai"),
+    ("ANTHROPIC_API_KEY", "anthropic"),
+)
 
-    Falling back rather than failing is deliberate: the gate is what this
-    service is for, and it must be demonstrable on a machine with no key.
+
+def available_provider() -> str | None:
+    """The provider a key exists for, by name only. Never returns a key."""
+    for env_name, provider in PROVIDERS:
+        if has_key(env_name):
+            return provider
+    return None
+
+
+def default_generator() -> Generator:
+    """A real model when a key exists, the stub when none does.
+
+    Falling back rather than failing is deliberate and load-bearing: the gate is
+    what this service is for, and it has to be demonstrable — and testable — on
+    a machine with no key at all.
     """
-    if model_key() is None:
-        return RememberedAnswerGenerator()
-    try:
-        return AnthropicGenerator()
-    except Exception:  # noqa: BLE001 - a missing extra is not a reason to be down
-        return RememberedAnswerGenerator()
+    provider = available_provider()
+    builders: dict[str, Any] = {
+        "openai": OpenAIGenerator,
+        "anthropic": AnthropicGenerator,
+    }
+    if provider in builders:
+        try:
+            return builders[provider]()
+        except Exception:  # noqa: BLE001 - a missing extra is not a reason to be down
+            pass
+    return RememberedAnswerGenerator()
