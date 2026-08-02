@@ -24,3 +24,29 @@ ts/.svelte-kit
 docs/_build/
 docs/autoapi/
 .complexipy_cache
+
+# --- Speedrun held-out data (T-01) — see speedrun/eval/holdout/MANIFEST.md ---
+# The anki-revlogs-10k corpus is licensed for individual research use and its
+# licence forbids public redistribution. No part of it may enter this public
+# fork, in any form, and the leakage check has to be able to demonstrate that.
+speedrun/**/anki-revlogs-10k/
+speedrun/eval/corpus/
+speedrun/eval/.hf_cache/
+# h1_reviews.jsonl is a derivative of that corpus (real reviews), so the same
+# licence applies. Its SHA-256 is recorded in MANIFEST.md; the data stays local.
+speedrun/eval/holdout/h1_reviews.jsonl
+speedrun/eval/holdout/raw/
+# Raw review data and collection files never commit: review history is the
+# student's own study data, and Speedrun treats the collection as a sensor it
+# reads and never republishes. Only hashes and derived numbers commit.
+speedrun/eval/holdout/*.parquet
+speedrun/eval/holdout/*.anki2
+speedrun/eval/holdout/*.colpkg
+# The student's deck is the sensor, not our content. We read it and never
+# republish it (ADR-0005), so no deck file enters this fork in any format —
+# quite apart from the 238 MB one being larger than GitHub accepts. Only the
+# derived label inventory and the granularity report commit.
+speedrun/eval/deck/*.apkg
+speedrun/eval/deck/*.colpkg
+speedrun/eval/deck/*.anki2
+speedrun/eval/deck/media*
