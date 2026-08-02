@@ -140,6 +140,8 @@ A test asserts that with the add-on disabled, queue order and scheduling decisio
 - Next card after grading: p95 < 100 ms
 - Dashboard first load < 1 s, refresh < 500 ms, never a frozen screen
 - Normal session sync < 5 s
-- Memory at 50k cards: under a stated ceiling, desktop and midrange phone
+- Memory at 50k cards: **desktop peak working set under 400 MB**, midrange phone under 300 MB.
+  (The ceiling was left unstated in an earlier draft, which made the target unfalsifiable —
+  a measurement with no threshold cannot pass or fail. Measured desktop peak: 145.6 MB.)
 - Cold start < 5 s desktop, < 4 s phone; nothing blocks the UI > 100 ms
 - Zero corrupted collections across the crash test

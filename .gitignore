@@ -71,3 +71,11 @@ speedrun/corpus/out/
 # of truth for what the gate actually did.
 speedrun/agent/out/
 speedrun/agent/.venv/
+# --- Speedrun bench (T-22) — see speedrun/eval/bench/BENCH.md ---
+# The 50k synthetic deck is 41 MB and rebuilds from the recorded seed, so it is
+# regenerated rather than stored. Only the numbers commit.
+speedrun/eval/bench/*.anki2
+speedrun/eval/bench/*.anki2-*
+speedrun/eval/bench/*.colpkg
+speedrun/eval/bench/media*
+speedrun/eval/bench/bench/
