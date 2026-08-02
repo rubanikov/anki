@@ -366,3 +366,42 @@ measurement.
 | `results.json` | the run this file reports, every individual sample included |
 | `results-contended.json` | an earlier run of the same bench on a loaded machine, kept as evidence of how much machine load moves these numbers |
 | `BENCH.md` | this file |
+
+---
+
+## Re-run: release build, double scan removed
+
+The two entries above were recorded as `MISSED (debug)` because a debug number
+cannot decide a release target. Both causes have since been addressed, so the
+verdict is now real.
+
+**Two things changed.** The Rust bridge was rebuilt in release — the harness no
+longer takes the profile on trust, it hashes the loaded extension against the
+built artifacts and reports `detected: true`. And the dashboard stopped asking
+the backend for each section's mastery after `SectionScores` had already
+computed it, which was four extra full-collection scans per load.
+
+**A third thing was wrong and is worth recording.** This script used to hold its
+own transcription of the dashboard's read sequence. When the dashboard changed,
+the transcription did not — so the first release re-run timed a code path that no
+longer existed, and timed it *slower* than reality. The reads now live in
+`speedrun/addon/backend.py::dashboard_reads`, called by both, so they cannot
+drift apart again. The 2.3 s figure that intermediate run produced is discarded.
+
+| measurement | debug, old path | release, current path | change | target | verdict |
+|---|---:|---:|---:|---:|:--|
+| Dashboard first load p50 | 6664 ms | **1190 ms** | 5.6× faster | < 1000 ms | **MISS**, by 19% |
+| Dashboard first load p95 | 8145 ms | 1299 ms | | | |
+| Dashboard refresh p50 | 6268 ms | **1075 ms** | 5.8× faster | < 500 ms | **MISS**, by 2.2× |
+| Dashboard refresh p95 | 6418 ms | 1144 ms | | | |
+| Peak working set | 145.6 MB | **130.9 MB** | | < 400 MB | **PASS** |
+
+**Both dashboard targets are still missed, and that is the finding.** First load
+is close enough that it is a tuning problem; refresh is not — at 50,000 cards the
+remaining cost is five full scans of the collection, one per section plus the
+collection-wide read, and no amount of build optimisation removes them. Meeting
+500 ms needs the scans themselves to go: either `SectionScores` returning its
+topic rows so the collection-wide read becomes unnecessary, or the backend
+caching mastery against the collection's modification time.
+
+Neither was attempted before the deadline. The number is reported as it stands.

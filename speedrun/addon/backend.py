@@ -48,6 +48,29 @@ class SectionView:
         self.cards_considered = sum(t.card_count for t in topics)
 
 
+def dashboard_reads(col: Any, sections: list[dict[str, Any]], tag_prefix: str) -> Any:
+    """Every backend read the dashboard performs, in order.
+
+    Lives here, free of any Qt import, so that the benchmark measures the reads
+    the dashboard actually makes rather than a copy of them. The benchmark used
+    to hold its own transcription of this sequence, and when the dashboard
+    stopped fetching per-section mastery the copy did not — so the report was
+    measuring a code path that no longer existed, in the direction that made the
+    page look slower than it was.
+
+    Returns ``(collection_mastery, [(entry, scores, section_view), ...])``.
+    """
+    mastery = collection_mastery(col, tag_prefix)
+    rows = []
+    for entry in sections:
+        code = entry["code"]
+        scores = section_scores(
+            col, code, tag_prefix, int(entry.get("outline_topic_count", 0))
+        )
+        rows.append((entry, scores, section_view(mastery, code)))
+    return mastery, rows
+
+
 def section_view(mastery: Any, section: str) -> SectionView:
     """Narrow a collection-wide mastery response to one section.
 

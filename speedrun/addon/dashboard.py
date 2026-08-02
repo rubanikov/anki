@@ -78,24 +78,15 @@ def _gather(col: Any, conf: dict[str, Any]) -> Any:
     show_topics = conf.get("show_topic_breakdown", True)
     demo_marker = _demo_marker(col)
 
-    # Read once, up front. Every topic carries its section, so this one response
-    # contains every per-section view as a subset. Asking the backend again for
-    # each section made it rescan the whole collection four more times, which
-    # measured as roughly half the page's cost on a 50k-card deck.
-    mastery = backend.collection_mastery(col, prefix)
-
-    sections = []
-    for entry in conf["sections"]:
-        code = entry["code"]
-        scores = backend.section_scores(
-            col, code, prefix, int(entry.get("outline_topic_count", 0))
-        )
-        # Derived, not fetched. Carries the count of cards mapped *into* this
-        # section, printed beside the unmapped count at the top of the panel,
-        # and so not optional even when the per-Topic table is hidden.
-        sections.append(
-            (entry.get("name", code), scores, backend.section_view(mastery, code))
-        )
+    # The reads live in backend.dashboard_reads so the benchmark can time this
+    # exact sequence instead of its own copy of it. Collection-wide mastery is
+    # read once and narrowed per section: every topic carries its section, so
+    # asking the backend again per section made it rescan the whole collection
+    # four more times.
+    mastery, rows = backend.dashboard_reads(col, conf["sections"], prefix)
+    sections = [
+        (entry.get("name", entry["code"]), scores, view) for entry, scores, view in rows
+    ]
     return sections, mastery, switches.read(conf).status, show_topics, demo_marker
 
 

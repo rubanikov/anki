@@ -139,20 +139,19 @@ def timed(fn, reps: int, warmup: int) -> list[float]:
 
 
 def gather(col, conf: dict, addon_backend) -> None:
-    """The dashboard's backend reads, in the order `dashboard._gather` does them.
+    """The dashboard's backend reads — the real ones, not a copy of them.
+
+    This used to hold its own transcription of the sequence, and when the
+    dashboard stopped fetching per-section mastery the transcription did not.
+    The report was then timing a code path that no longer existed, and timing it
+    slower than the real one. Calling `backend.dashboard_reads` means the two
+    cannot drift apart again.
 
     Off-switch probing is deliberately not included: it is a network call to the
     agent service, it is done last precisely so no score waits on it, and timing
     it here would attribute an HTTP timeout to the measurement layer.
     """
-    prefix = conf["tag_prefix"]
-    for entry in conf["sections"]:
-        code = entry["code"]
-        addon_backend.section_scores(
-            col, code, prefix, int(entry.get("outline_topic_count", 0))
-        )
-        addon_backend.section_mastery(col, code, prefix)
-    addon_backend.collection_mastery(col, prefix)
+    addon_backend.dashboard_reads(col, conf["sections"], conf["tag_prefix"])
 
 
 def set_crosswalk(col, enabled: bool) -> str:
@@ -354,6 +353,55 @@ def measure_grading(col_path: Path, args, scratch: Path) -> dict:
     return out
 
 
+def detect_build_profile(declared: str) -> dict:
+    """Work out which Rust build is actually loaded, rather than trusting a flag.
+
+    The build profile is the single most load-bearing caveat in this report: a
+    debug number that misses a target says nothing about whether a release build
+    misses it. Leaving that label to a command-line argument means the report can
+    be wrong in the direction that flatters us, so the loaded extension is hashed
+    and compared against both built artifacts.
+
+    Falls back to the declared value when neither matches — a stale or
+    hand-copied bridge is possible — but says so, so the uncertainty is visible.
+    """
+    import hashlib
+
+    root = Path(__file__).resolve().parents[3]
+    loaded = root / "out" / "pylib" / "anki" / "_rsbridge.pyd"
+    if not loaded.exists():
+        loaded = loaded.with_suffix(".so")
+
+    def digest(path: Path) -> str | None:
+        try:
+            return hashlib.sha256(path.read_bytes()).hexdigest()
+        except OSError:
+            return None
+
+    loaded_hash = digest(loaded)
+    matches = {
+        profile: digest(root / "out" / "rust" / profile / name)
+        for profile in ("release", "debug")
+        for name in ("rsbridge.dll", "librsbridge.so", "librsbridge.dylib")
+        if (root / "out" / "rust" / profile / name).exists()
+    }
+    detected = next((p for p, h in matches.items() if h and h == loaded_hash), None)
+
+    return {
+        "profile": detected or declared,
+        "detected": detected is not None,
+        "declared": declared,
+        "loaded_extension": str(loaded),
+        "loaded_sha256": loaded_hash,
+        "note": (
+            "Detected by hashing the loaded extension against the built artifacts."
+            if detected
+            else "NOT detected — no built artifact matched the loaded extension, so "
+            "the declared value is reported and may be wrong."
+        ),
+    }
+
+
 def machine() -> dict:
     info = {
         "platform": platform.platform(),
@@ -421,7 +469,8 @@ def main() -> int:
 
     report = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-        "build_profile": args.build_profile,
+        "build_profile": detect_build_profile(args.build_profile)["profile"],
+        "build": detect_build_profile(args.build_profile),
         "machine": machine(),
         "collection": {
             "path": str(col_path),
